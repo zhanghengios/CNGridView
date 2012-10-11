@@ -58,12 +58,12 @@ __unused static NSString *kCNDefaultItemIdentifier;
 /**
  ...
  */
-@property (strong) IBOutlet NSImage *gridViewItemImage;
+@property (strong) IBOutlet NSImage *itemImage;
 
 /**
  ...
  */
-@property (strong) IBOutlet NSString *gridViewItemTitle;
+@property (strong) IBOutlet NSString *itemTitle;
 
 
 
@@ -114,6 +114,11 @@ __unused static NSString *kCNDefaultItemIdentifier;
  ...
  */
 @property (nonatomic, strong) NSColor *selectionRingColor;
+
+/**
+ ...
+ */
+@property (nonatomic, strong) NSColor *selectionRingLineWidth;
 
 /**
  ...

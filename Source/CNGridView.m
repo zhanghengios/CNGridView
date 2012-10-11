@@ -29,9 +29,12 @@
  */
 
 #import "CNGridView.h"
+#import "NSColor+CNGridViewPalette.h"
 
 
+static NSColor *kDefaultBackgroundColor;
 static NSSize kDefaultGridViewItemSize;
+
 
 @interface CNGridView ()
 @property (nonatomic, strong) NSMutableArray *visibleItems;
@@ -84,27 +87,12 @@ static NSSize kDefaultGridViewItemSize;
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect gridViewContent:(NSMutableArray *)gridViewContent title:(NSString *)gridViewTitle
-{
-    self = [self initWithFrame:frameRect];
-    if (self) {
-        [self initPropertiesAndBehavior];
-        _delegate = nil;
-        _dataSource = nil;
-        _gridViewContent = gridViewContent;
-        _gridViewTitle = gridViewTitle;
-    }
-    return self;
-}
-
 - (void)initPropertiesAndBehavior
 {
     /// private propteries
     _visibleItems = [[NSMutableArray alloc] init];
 
     /// public properties
-    _maxNumberOfItemsAllowedInGridView = NSUIntegerMax;
-    _gridViewContent = [[NSMutableArray alloc] init];
     _gridViewTitle = nil;
 
     _allowsSelection = YES;

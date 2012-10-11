@@ -44,21 +44,10 @@
 
 
 
-__unused static NSColor *kDefaultBackgroundColor;
-
-
-
 @interface CNGridView : NSView
 
 #pragma mark - Initializing a CNGridView Object
 /** @name Initializing a CNGridView Object */
-
-/**
- Creates and returns an initialized `CNGridView` object with the given frame and grid view content array.
- 
- This is the designated initializer.
- */
-- (id)initWithFrame:(NSRect)frameRect gridViewContent:(NSMutableArray *)gridViewContent title:(NSString *)gridViewTitle;
 
 
 #pragma mark - Managing the Delegate and the Data Source

@@ -29,13 +29,14 @@
  */
 
 #import "CNGridViewItem.h"
+#import "NSColor+CNGridViewPalette.h"
 
 
-static NSColor *kDefaultSelectionRingColor, *kDefaultBackgroundColor, *kDefaultBackgroundColorHover;
+static NSColor *kDefaultSelectionRingColor, *kDefaultBackgroundColor, *kDefaultBackgroundColorHover, *kDefaultBackgroundColorSelection;
 static CGFloat kDefaultSelectionRingLineWidth;
 static CGFloat kDefaultSelectionRingRadius;
 static CGFloat kDefaultContentInset;
-static NSSize kDefaultItemSize;
+static CGSize kDefaultItemSize;
 
 
 @interface CNGridViewItem ()
@@ -49,14 +50,15 @@ static NSSize kDefaultItemSize;
 
 + (void)initialize
 {
-    kCNDefaultItemIdentifier        = @"CNGridViewItem";
-    kDefaultBackgroundColor         = [NSColor colorWithCalibratedWhite:0.0 alpha:0.05];
-    kDefaultBackgroundColorHover    = [NSColor colorWithCalibratedWhite:0.0 alpha:0.1];
-    kDefaultSelectionRingColor      = [NSColor colorWithCalibratedRed:0.346 green:0.531 blue:0.792 alpha:1.000];
-    kDefaultSelectionRingLineWidth  = 4.0;
-    kDefaultSelectionRingRadius     = 6.0;
-    kDefaultContentInset            = 3.0;
-    kDefaultItemSize                = NSMakeSize(64.0, 64.0);
+    kCNDefaultItemIdentifier            = @"CNGridViewItem";
+    kDefaultBackgroundColor             = [NSColor itemBackgroundColor];
+    kDefaultBackgroundColorHover        = [NSColor itemBackgroundHoverColor];
+    kDefaultBackgroundColorSelection    = [NSColor itemBackgroundSelectionColor];
+    kDefaultSelectionRingColor          = [NSColor itemSelectionRingColor];
+    kDefaultSelectionRingLineWidth      = 4.0;
+    kDefaultSelectionRingRadius         = 6.0;
+    kDefaultContentInset                = 3.0;
+    kDefaultItemSize                    = NSMakeSize(64.0, 64.0);
 }
 
 + (NSImage*)placeHolderImage
@@ -144,7 +146,7 @@ static NSSize kDefaultItemSize;
 - (void)initProperties
 {
     _currentContentView = self;
-    _gridViewItemImage = [[self class] placeHolderImage];
+    _itemImage = [[self class] placeHolderImage];
 }
 
 
