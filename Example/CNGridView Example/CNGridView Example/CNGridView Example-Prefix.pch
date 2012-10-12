@@ -1,0 +1,19 @@
+//
+// Prefix header for all source files of the 'CNGridView Example' target in the 'CNGridView Example' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+
+#if DEBUG
+    #define CNLog(parameter, ...) NSLog((parameter), ##__VA_ARGS__)
+    #define CNLogForRect(aRect) ([NSString stringWithFormat:@"NSRect with origin x: %f, origin y: %f, width: %f, height: %f", \
+                                                            aRect.origin.x, aRect.origin.y, aRect.size.width, aRect.size.height])
+
+#else
+    #define CNLog(parameter, ...)
+    #define CNLogForRect(aRect)
+#endif
+

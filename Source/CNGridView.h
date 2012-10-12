@@ -76,22 +76,32 @@
 /**
  ...
  */
-@property (nonatomic, strong) NSView *headerView;
+@property (nonatomic, strong) NSColor *backgroundColor;
 
 /**
  ...
  */
-@property (nonatomic, strong) NSView *footerView;
+@property (nonatomic, assign) BOOL elasticity;
 
 /**
  ...
  */
-@property (nonatomic, strong) NSView *backgroundView;
+@property (nonatomic, assign) NSSize itemSize;
 
 /**
  ...
  */
 - (NSUInteger)numberOfVisibleItems;
+
+
+
+#pragma mark - Creating GridView Items
+/** @name Creating GridView Items */
+
+/**
+ ...
+ */
+- (id)dequeueReusableItemWithIdentifier:(NSString *)identifier;
 
 
 

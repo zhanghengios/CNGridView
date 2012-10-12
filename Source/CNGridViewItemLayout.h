@@ -1,7 +1,7 @@
 //
-//  NSColor+CNGridViewPalette.h
+//  CNGridViewItemLayout.h
 //
-//  Created by cocoa:naut on 11.10.12.
+//  Created by cocoa:naut on 12.10.12.
 //  Copyright (c) 2012 cocoa:naut. All rights reserved.
 //
 
@@ -29,39 +29,17 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import "NSColor+CNGridViewPalette.h"
 
 /**
- This is the standard `CNGridView` color palette. All colors can be overwritten by using the related properties of `CNGridView`
- or `CNGridViewItem`.
+ `CNGridViewLayout` is a wrapper class containing all neccessary layout properties a `CNGridView` can adopt.
  */
 
-
-@interface NSColor (CNGridViewPalette)
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - GridView Item Colors
-
-/** @name GridView Colors */
-
-/** Returns the standard `CNGridViewItem` background color */
-+ (NSColor *)gridViewBackgroundColor;
-
-
-
-/** @name GridView Item Colors */
-
-/** Returns the standard `CNGridViewItem` background color */
-+ (NSColor *)itemBackgroundColor;
-
-/** Returns the standard `CNGridViewItem` background color when the item is in mouse over state (property must be enabled) */
-+ (NSColor *)itemBackgroundHoverColor;
-
-/** Returns the standard `CNGridViewItem` background color when the item is selected */
-+ (NSColor *)itemBackgroundSelectionColor;
-
-/** Returns the standard `CNGridViewItem` selection ring color when the item is selected */
-+ (NSColor *)itemSelectionRingColor;
-
+@interface CNGridViewItemLayout : NSObject
+@property (nonatomic, strong) NSColor *backgroundColor;
+@property (nonatomic, strong) NSColor *selectionRingColor;
+@property (nonatomic, strong) NSColor *selectionRingLineWidth;
+@property (nonatomic, assign) NSUInteger contentInset;
+@property (nonatomic, assign) NSUInteger itemBorderRadius;
 @end

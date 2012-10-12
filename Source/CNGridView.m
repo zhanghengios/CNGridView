@@ -28,19 +28,27 @@
  THE SOFTWARE.
  */
 
-#import "CNGridView.h"
 #import "NSColor+CNGridViewPalette.h"
+#import "CNGridView.h"
+#import "CNGridViewItem.h"
 
 
-static NSColor *kDefaultBackgroundColor;
-static NSSize kDefaultGridViewItemSize;
 
+@interface CNGridView () {
+    NSMutableArray *_visibleItems;
+    NSMutableArray *_reuseableItems;
+    NSMutableArray *_selectedItems;
+}
 
-@interface CNGridView ()
-@property (nonatomic, strong) NSMutableArray *visibleItems;
-
-- (void)initPropertiesAndBehavior;
-- (void)drawItemsInRect:(NSRect)visibleRect;
+- (void)setupDefaults;
+- (void)refreshLayout;
+- (void)updateVisibleItemsForRect:(CGRect)visibleRect;
+- (void)drawVisibleItems;
+- (void)removeUnvisibleItems;
+- (NSRange)rangeForVisibleRect:(CGRect)visibleRect;
+- (NSRect)rectForItemAtIndex:(NSUInteger)index;
+- (NSUInteger)columnsInGridViewForRect:(NSRect)gridViewRect;
+- (NSUInteger)rowsInGridViewForRect:(NSRect)gridViewRect;
 @end
 
 
@@ -49,17 +57,11 @@ static NSSize kDefaultGridViewItemSize;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Initialization
 
-+ (void)initialize
-{
-    kDefaultBackgroundColor = [NSColor controlColor];
-    kDefaultGridViewItemSize = NSMakeSize(64.0, 64.0);
-}
-
 - (id)init
 {
     self = [super init];
     if (self) {
-        [self initPropertiesAndBehavior];
+        [self setupDefaults];
         _delegate = nil;
         _dataSource = nil;
     }
@@ -70,7 +72,7 @@ static NSSize kDefaultGridViewItemSize;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initPropertiesAndBehavior];
+        [self setupDefaults];
         _delegate = nil;
         _dataSource = nil;
     }
@@ -82,32 +84,72 @@ static NSSize kDefaultGridViewItemSize;
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self initPropertiesAndBehavior];
+        [self setupDefaults];
     }
     return self;
 }
 
-- (void)initPropertiesAndBehavior
+- (void)setupDefaults
 {
-    /// private propteries
-    _visibleItems = [[NSMutableArray alloc] init];
+    /// private properties
+    _visibleItems   = [[NSMutableArray alloc] init];
+    _reuseableItems = [[NSMutableArray alloc] init];
+    _selectedItems  = [[NSMutableArray alloc] init];
 
     /// public properties
-    _gridViewTitle = nil;
+    _gridViewTitle  = nil;
 
-    _allowsSelection = YES;
-    _allowsMultipleSelection = NO;
+    _backgroundColor    = [NSColor gridViewBackgroundColor];
+    _elasticity         = YES;
+    _itemSize           = [CNGridViewItem defaultItemSize];
+
+    _allowsSelection            = YES;
+    _allowsMultipleSelection    = NO;
+
+//    [self setPostsBoundsChangedNotifications:YES];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLayout) name:NSViewBoundsDidChangeNotification object:nil];
+
+
+    CNLog(@"Result is: %f", floor((0/163) % 163));
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - ViewDrawing
+#pragma mark - Accessors
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void)setBackgroundColor:(NSColor *)backgroundColor
 {
+    CNLog(@"setBackgroundColor");
+    _backgroundColor = backgroundColor;
+//    [self refreshLayout];
+}
 
-    [self drawItemsInRect:dirtyRect];
+- (void)setItemSize:(NSSize)itemSize
+{
+    CNLog(@"setItemSize");
+    _itemSize = itemSize;
+    [self refreshLayout];
+}
+
+//- (void)setNeedsLayout:(BOOL)flag
+//{
+//    CNLog(@"setNeedsLayout");
+//    [super setNeedsLayout:flag];
+//    [self refreshLayout];
+//}
+
+- (void)setElasticity:(BOOL)elasticity
+{
+    _elasticity = elasticity;
+    NSScrollView *scrollView = [self enclosingScrollView];
+    if (_elasticity) {
+        [scrollView setHorizontalScrollElasticity:NSScrollElasticityAllowed];
+        [scrollView setVerticalScrollElasticity:NSScrollElasticityAllowed];
+    } else {
+        [scrollView setHorizontalScrollElasticity:NSScrollElasticityNone];
+        [scrollView setVerticalScrollElasticity:NSScrollElasticityNone];
+    }
 }
 
 
@@ -115,11 +157,111 @@ static NSSize kDefaultGridViewItemSize;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
 
-- (void)drawItemsInRect:(NSRect)visibleRect
+- (void)refreshLayout
 {
+    CNLog(@"refreshLayout");
+    CGRect visibleRect = [self visibleRect];
 
+    [self updateVisibleItemsForRect:visibleRect];
+    [self drawVisibleItems];
+//    NSUInteger numberOfItems = [self gridView:self numberOfItemsInSection:0];
+//    for (NSUInteger idx = 0; idx < numberOfItems; idx++) {
+//        NSRect itemRect = [self rectForItemAtVisibleIndex:idx];
+//        CNGridViewItem *currentItem = [self gridView:self itemAtIndex:idx inSection:0];
+//        currentItem.frame = itemRect;
+//        [self addSubview:currentItem];
+//        [currentItem setNeedsDisplay:YES];
+//    }
 }
 
+- (void)updateVisibleItemsForRect:(CGRect)visibleRect
+{
+    NSRange rangeForVisibleRect = [self rangeForVisibleRect:visibleRect];
+    for (NSUInteger idx = rangeForVisibleRect.location; idx < rangeForVisibleRect.length; idx++) {
+        CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];
+        item.index = idx;
+        [_visibleItems addObject:item];
+        [_reuseableItems addObject:item];
+    }
+}
+
+- (void)drawVisibleItems
+{
+    CNLog(@"drawVisibleItems");
+    [_visibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CNGridViewItem *currentItem = (CNGridViewItem *)obj;
+        currentItem.frame = [self rectForItemAtIndex:idx];
+        [self addSubview:currentItem];
+    }];
+}
+
+- (void)removeUnvisibleItems
+{
+}
+
+- (NSRange)rangeForVisibleRect:(CGRect)visibleRect
+{
+    NSUInteger columns = [self columnsInGridViewForRect:visibleRect];
+    NSUInteger rows = [self rowsInGridViewForRect:visibleRect];
+
+    NSUInteger rangeStart, rangeLength;
+
+    if (visibleRect.origin.y > _itemSize.height) {
+        rangeStart = (floor(fmod((visibleRect.origin.y / _itemSize.height), _itemSize.height)) -1) * columns + 1;
+        rangeLength = (rangeStart * rows) - rangeStart;
+    } else {
+        rangeStart = 0;
+        rangeLength = (columns * rows);
+    }
+    return NSMakeRange(rangeStart, rangeLength);
+}
+
+- (NSRect)rectForItemAtIndex:(NSUInteger)index
+{
+    NSRect visibleRect = [self visibleRect];
+    NSUInteger columns = [self columnsInGridViewForRect:visibleRect];
+    NSUInteger rowForIndex = floor(fmod((visibleRect.origin.y / _itemSize.height), _itemSize.height));
+
+    NSRect itemRect = NSMakeRect((index % columns) * _itemSize.width,
+                                 ceil(index / columns) * _itemSize.height,
+                                 _itemSize.width,
+                                 _itemSize.height);
+    CNLogForRect(itemRect);
+    return itemRect;
+}
+
+- (NSUInteger)columnsInGridViewForRect:(NSRect)gridViewRect
+{
+    return ceil(NSWidth(gridViewRect) / _itemSize.width);
+}
+
+- (NSUInteger)rowsInGridViewForRect:(NSRect)gridViewRect
+{
+    return ceil(NSHeight(gridViewRect) / _itemSize.height);
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSView Methods
+
+- (BOOL)isFlipped
+{
+    return YES;
+}
+
+//- (void)drawRect:(NSRect)dirtyRect
+//{
+//    [_backgroundColor setFill];
+//    NSRectFill(dirtyRect);
+//}
+
+- (void)viewDidEndLiveResize
+{
+    CNLog(@"viewDidEndLiveResize");
+    [self refreshLayout];
+    [self drawVisibleItems];
+}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,66 +269,17 @@ static NSSize kDefaultGridViewItemSize;
 
 - (NSUInteger)numberOfVisibleItems
 {
-    return self.visibleItems.count;
+    return _visibleItems.count;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Managing Selections
+#pragma mark - Creating GridView Items
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Inserting, Deleting, and Moving GridView Items
-
-- (void)addItem:(CNGridViewItem *)newItem
+- (id)dequeueReusableItemWithIdentifier:(NSString *)identifier
 {
-    
-}
-
-- (void)addItems:(NSArray *)newItems
-{
-
-}
-
-- (void)insertItem:(CNGridViewItem *)itemToInsert atIndexPath:(NSIndexPath *)indexPath
-{
-
-}
-
-- (void)insertItems:(NSArray *)newItems atIndexPath:(NSIndexPath *)indexPath
-{
-
-}
-
-- (void)removeItem:(CNGridViewItem *)itemToRemove
-{
-
-}
-
-- (void)removeItems:(NSArray *)itemsToRemove
-{
-
-}
-
-- (void)removeItemAtIndexPath:(NSIndexPath *)indexPath
-{
-
-}
-
-- (void)removeItemsInRange:(NSRange *)range
-{
-
-}
-
-- (void)moveItemFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-
-}
-
-- (void)moveItem:(CNGridViewItem *)gridViewItem toIndexPath:(NSIndexPath *)toIndexPath
-{
-
+    CNGridViewItem *item = [[CNGridViewItem alloc] init];
+    return item;
 }
 
 
@@ -196,7 +289,7 @@ static NSSize kDefaultGridViewItemSize;
 
 - (void)reloadData
 {
-    
+    [self refreshLayout];
 }
 
 

@@ -41,6 +41,7 @@ static CGSize kDefaultItemSize;
 
 @interface CNGridViewItem ()
 @property (nonatomic, strong) NSView *currentContentView;
+@property (strong) NSImageView *itemImageView;
 @end
 
 @implementation CNGridViewItem
@@ -58,47 +59,12 @@ static CGSize kDefaultItemSize;
     kDefaultSelectionRingLineWidth      = 4.0;
     kDefaultSelectionRingRadius         = 6.0;
     kDefaultContentInset                = 3.0;
-    kDefaultItemSize                    = NSMakeSize(64.0, 64.0);
+    kDefaultItemSize                    = [[self class] defaultItemSize];
 }
 
-+ (NSImage*)placeHolderImage
++ (CGSize)defaultItemSize
 {
-    static NSImage *placeHolderImage = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-        NSSize size = kDefaultItemSize;
-
-        placeHolderImage = [[NSImage alloc] initWithSize:size];
-        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
-                                 initWithBitmapDataPlanes:NULL
-                                 pixelsWide:size.width pixelsHigh:size.height
-                                 bitsPerSample:8 samplesPerPixel:4
-                                 hasAlpha:YES isPlanar:NO
-                                 colorSpaceName:NSCalibratedRGBColorSpace
-                                 bytesPerRow:0 bitsPerPixel:0];
-
-        [placeHolderImage addRepresentation:rep];
-        [placeHolderImage lockFocus];
-
-        [[NSColor clearColor] setFill];
-        NSRectFill(NSMakeRect(0,0,size.width,size.height));
-
-        /// begin: image content drawing
-        NSBezierPath *borderPath = [NSBezierPath bezierPathWithRoundedRect:NSMakeRect(5, 5, size.width-10, size.height-10)
-                                                                   xRadius:7.0
-                                                                   yRadius:7.0];
-        CGFloat borderDash[2];
-        borderDash[0] = 10.0;
-        borderDash[1] = 6.0;
-        [borderPath setLineDash:borderDash count:2 phase:0.0];
-        [borderPath setLineWidth:3.0];
-        [[NSColor lightGrayColor] setStroke];
-        [borderPath stroke];
-        /// end: image content drawing
-
-        [placeHolderImage unlockFocus];
-	});
-    return placeHolderImage;
+    return NSMakeSize(136, 163);
 }
 
 - (id)init
@@ -107,16 +73,6 @@ static CGSize kDefaultItemSize;
     if (self) {
         [self initProperties];
     }
-    return self;
-}
-
-- (id)initWithFrame:(NSRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self initProperties];
-    }
-
     return self;
 }
 
@@ -129,12 +85,7 @@ static CGSize kDefaultItemSize;
     return self;
 }
 
-- (id)initWithImage:(NSImage*)itemImage title:(NSString*)itemTitle
-{
-    return [self init];
-}
-
-- (id)initWithContentView:(NSView*)contentView
+- (id)initWithLayout:(CNGridViewItemLayout *)layout reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [self init];
     if (self) {
@@ -146,7 +97,26 @@ static CGSize kDefaultItemSize;
 - (void)initProperties
 {
     _currentContentView = self;
-    _itemImage = [[self class] placeHolderImage];
+
+    _itemImage = nil;
+    _itemTitle = @"";
+    
+    _backgroundColor = kDefaultBackgroundColor;
+    _hoverBackgroundColor = kDefaultBackgroundColorHover;
+    _selectionBackgroundColor = kDefaultBackgroundColorSelection;
+
+    _index = CNItemIndexNoIndex;
+    self.identifier = kCNDefaultItemIdentifier;
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Reusing Grid View Items
+
+- (void)prepareForReuse
+{
+    
 }
 
 
@@ -156,7 +126,22 @@ static CGSize kDefaultItemSize;
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    // Drawing code here.
+//    [[[NSColor grayColor] colorWithAlphaComponent:0.2] setFill];
+//    NSRectFill(dirtyRect);
+
+//    if (self.itemTitle == nil || [self.itemTitle isEqualToString:@""]) {
+        NSRect imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
+                                      (NSHeight(dirtyRect) - self.itemImage.size.height) / 2,
+                                      self.itemImage.size.width,
+                                      self.itemImage.size.height);
+        NSImageView *itemImageView = [[NSImageView alloc] initWithFrame:imageRect];
+        itemImageView.image = self.itemImage;
+        itemImageView.imageScaling = NSImageScaleProportionallyUpOrDown;
+        [self addSubview:itemImageView];
+        [itemImageView setNeedsDisplay];
+//    } else {
+//
+//    }
 }
 
 @end

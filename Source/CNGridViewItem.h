@@ -30,25 +30,35 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class CNGridViewItemLayout;
 
 __unused static NSString *kCNDefaultItemIdentifier;
-
+__unused static NSInteger CNItemIndexNoIndex = -1;
 
 @interface CNGridViewItem : NSView
 
 #pragma mark - Initialization
 /** @name Initialization */
 
+/**
+ Creates and returns an initialized  This is the designated initializer.
+ */
+- (id)initWithLayout:(CNGridViewItemLayout *)layout reuseIdentifier:(NSString *)reuseIdentifier;
+
+
+
+#pragma mark - Reusing Grid View Items
+/** @name Reusing Grid View Items */
 
 /**
- Initializes and returns a `CNGridView` item object having the given image and title as visible content.
+ ...
  */
-- (id)initWithImage:(NSImage*)itemImage title:(NSString*)itemTitle;
+@property (strong) NSString *reuseIdentifier;
 
 /**
- Initializes and returns a `CNGridView` item object having the given `NSView` as content.
+ ...
  */
-- (id)initWithContentView:(NSView*)contentView;
+- (void)prepareForReuse;
 
 
 
@@ -65,6 +75,15 @@ __unused static NSString *kCNDefaultItemIdentifier;
  */
 @property (strong) IBOutlet NSString *itemTitle;
 
+/**
+ ...
+ */
+@property (assign) NSInteger index;
+
+/**
+ ...
+ */
++ (CGSize)defaultItemSize;
 
 
 #pragma mark - Item external Content
