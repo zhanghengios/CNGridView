@@ -107,6 +107,10 @@ static CGSize kDefaultItemSize;
     _useSelectionRing   = YES;
 }
 
+- (BOOL)isFlipped
+{
+    return YES;
+}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,9 +118,13 @@ static CGSize kDefaultItemSize;
 
 - (void)prepareForReuse
 {
-    self.itemImage = nil;
-    self.itemTitle = nil;
-    self.index     = CNItemIndexNoIndex;
+    _itemImage          = nil;
+    _itemTitle          = @"";
+    _index              = CNItemIndexNoIndex;
+    _itemSelected       = NO;
+    _itemSelectable     = YES;
+    _useHover           = NO;
+    _useSelectionRing   = YES;
 }
 
 
@@ -130,18 +138,31 @@ static CGSize kDefaultItemSize;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - ViewDrawing
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void)drawRect:(NSRect)rect
 {
+    NSRect dirtyRect = self.bounds;
+    [NSGraphicsContext saveGraphicsState];
+    
     NSRect srcRect = NSZeroRect;
     srcRect.size = self.itemImage.size;
     NSRect imageRect = NSZeroRect;
-    
+    NSRect textRect = NSZeroRect;
+
     if (self.standardLayout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
-        CNLog(@"* picture & title *");
+        imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
+                               ((NSHeight(dirtyRect) - self.itemImage.size.height) / 2) - 14,
+                               self.itemImage.size.width,
+                               self.itemImage.size.height);
+        [self.itemImage drawInRect:imageRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
+
+        textRect = NSMakeRect(dirtyRect.origin.x + 5,
+                              NSHeight(dirtyRect) - 20,
+                              NSWidth(dirtyRect) - 10,
+                              15);
+        [self.itemTitle drawInRect:textRect withAttributes:nil];
     }
 
     else if (self.standardLayout.visibleContentMask & CNGridViewItemVisibleContentImage) {
-        CNLog(@"* picture only *");
         imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
                                       (NSHeight(dirtyRect) - self.itemImage.size.height) / 2,
                                       self.itemImage.size.width,
@@ -149,10 +170,9 @@ static CGSize kDefaultItemSize;
     }
 
     else if (self.standardLayout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
-        CNLog(@"* title only *");
     }
-
-    [self.itemImage drawInRect:imageRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1.0];
+    
+    [NSGraphicsContext restoreGraphicsState];
 }
 
 @end

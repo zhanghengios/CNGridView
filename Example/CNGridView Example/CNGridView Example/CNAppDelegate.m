@@ -35,18 +35,10 @@ static NSString *kContentTitleKey, *kContentImageKey;
     self.itemSizeSlider.title = @"GridView Item Size";
     
     /// insert some content
-    for (int i=0; i<30; i++) {
+    for (int i=0; i<3000; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
-                               nil]];
-        [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSImage imageNamed:NSImageNameBonjour], kContentImageKey,
-                               NSImageNameBonjour, kContentTitleKey,
-                               nil]];
-        [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSImage imageNamed:NSImageNameFolderBurnable], kContentImageKey,
-                               NSImageNameFolderBurnable, kContentTitleKey,
                                nil]];
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameNetwork], kContentImageKey,
@@ -55,10 +47,6 @@ static NSString *kContentTitleKey, *kContentImageKey;
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameDotMac], kContentImageKey,
                                NSImageNameDotMac, kContentTitleKey,
-                               nil]];
-        [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSImage imageNamed:NSImageNameUserAccounts], kContentImageKey,
-                               NSImageNameUserAccounts, kContentTitleKey,
                                nil]];
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameFolderSmart], kContentImageKey,
@@ -96,7 +84,7 @@ static NSString *kContentTitleKey, *kContentImageKey;
     }
 
     NSDictionary *contentDict = [self.items objectAtIndex:index];
-    item.itemTitle = [contentDict objectForKey:kContentTitleKey];
+    item.itemTitle = [NSString stringWithFormat:@"Index: %lu", index];
     item.itemImage = [contentDict objectForKey:kContentImageKey];
 
     return item;
