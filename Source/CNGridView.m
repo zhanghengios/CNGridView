@@ -48,7 +48,7 @@
 - (void)updateReuseableItems;
 - (void)updateVisibleItems;
 - (NSIndexSet *)indexesForVisibleItems;
-- (void)arrangeLayout;
+- (void)arrangeGridViewItemsAnimated:(BOOL)animated;
 - (NSRange)currentRange;
 - (NSRect)rectForItemAtIndex:(NSUInteger)index;
 - (NSUInteger)columnsInGridView;
@@ -158,7 +158,7 @@
 {
     [self updateReuseableItems];
     [self updateVisibleItems];
-    [self arrangeLayout];
+    [self arrangeGridViewItemsAnimated:NO];
 }
 
 - (void)refreshGridView
@@ -170,7 +170,7 @@
 
     [self updateReuseableItems];
     [self updateVisibleItems];
-    [self arrangeLayout];
+    [self arrangeGridViewItemsAnimated:YES];
 }
 
 - (void)updateReuseableItems
@@ -191,7 +191,6 @@
                 reuseQueue = [NSMutableSet set];
             [reuseQueue addObject:item];
             [_reuseableItems setObject:reuseQueue forKey:item.reuseIdentifier];
-            CNLog(@"_reuseableItems: %li", [[_reuseableItems objectForKey:item.reuseIdentifier] count]);
         }
     }];
  }
@@ -212,7 +211,6 @@
             [self addSubview:item];
         }
     }];
-    CNLog(@"_keyedVisibleItems: %li", _keyedVisibleItems.count);
 }
 
 - (NSIndexSet *)indexesForVisibleItems
@@ -224,20 +222,17 @@
     return indexesForVisibleItems;
 }
 
-- (void)arrangeLayout
+- (void)arrangeGridViewItemsAnimated:(BOOL)animated
 {
-//    [NSAnimationContext beginGrouping];
-//    [[NSAnimationContext currentContext] setDuration:0.2];
-//    [[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:(animated ? 0.15 : 0.0)];
+    [[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     [_keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSRect newRect = [self rectForItemAtIndex:[(CNGridViewItem *)obj index]];
-//        [[(CNGridViewItem *)obj animator] setFrame:newRect];
-        [(CNGridViewItem *)obj setFrame:newRect];
+        [[(CNGridViewItem *)obj animator] setFrame:newRect];
         [(CNGridViewItem *)obj setNeedsDisplay:YES];
     }];
-
-//    [NSAnimationContext endGrouping];
+    [NSAnimationContext endGrouping];
 }
 
 - (NSRange)currentRange
