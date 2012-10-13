@@ -13,7 +13,9 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (strong) IBOutlet CNGridView *gridView;
+@property (strong) IBOutlet NSSlider *itemSizeSlider;
 
 @property (strong) NSMutableArray *items;
 
+- (IBAction)itemSizeSliderAction:(id)sender;
 @end

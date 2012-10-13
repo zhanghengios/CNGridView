@@ -30,17 +30,13 @@
 
 #import "CNGridViewItem.h"
 #import "NSColor+CNGridViewPalette.h"
+#import "CNGridViewItemLayout.h"
 
 
-static NSColor *kDefaultSelectionRingColor, *kDefaultBackgroundColor, *kDefaultBackgroundColorHover, *kDefaultBackgroundColorSelection;
-static CGFloat kDefaultSelectionRingLineWidth;
-static CGFloat kDefaultSelectionRingRadius;
-static CGFloat kDefaultContentInset;
 static CGSize kDefaultItemSize;
 
 
 @interface CNGridViewItem ()
-@property (nonatomic, strong) NSView *currentContentView;
 @property (strong) NSImageView *itemImageView;
 @end
 
@@ -51,20 +47,13 @@ static CGSize kDefaultItemSize;
 
 + (void)initialize
 {
-    kCNDefaultItemIdentifier            = @"CNGridViewItem";
-    kDefaultBackgroundColor             = [NSColor itemBackgroundColor];
-    kDefaultBackgroundColorHover        = [NSColor itemBackgroundHoverColor];
-    kDefaultBackgroundColorSelection    = [NSColor itemBackgroundSelectionColor];
-    kDefaultSelectionRingColor          = [NSColor itemSelectionRingColor];
-    kDefaultSelectionRingLineWidth      = 4.0;
-    kDefaultSelectionRingRadius         = 6.0;
-    kDefaultContentInset                = 3.0;
-    kDefaultItemSize                    = [[self class] defaultItemSize];
+    kCNDefaultItemIdentifier = @"CNGridViewItem";
+    kDefaultItemSize         = NSMakeSize(96, 96);
 }
 
 + (CGSize)defaultItemSize
 {
-    return NSMakeSize(136, 163);
+    return kDefaultItemSize;
 }
 
 - (id)init
@@ -90,23 +79,32 @@ static CGSize kDefaultItemSize;
     self = [self init];
     if (self) {
         [self initProperties];
+        _standardLayout  = layout;
+        _reuseIdentifier = reuseIdentifier;
     }
     return self;
 }
 
 - (void)initProperties
 {
-    _currentContentView = self;
-
-    _itemImage = nil;
-    _itemTitle = @"";
-    
-    _backgroundColor = kDefaultBackgroundColor;
-    _hoverBackgroundColor = kDefaultBackgroundColorHover;
-    _selectionBackgroundColor = kDefaultBackgroundColorSelection;
-
-    _index = CNItemIndexNoIndex;
+    /// Reusing Grid View Items
     self.identifier = kCNDefaultItemIdentifier;
+
+    /// Item Default Content
+    _itemImage  = nil;
+    _itemTitle  = @"";
+    _index      = CNItemIndexNoIndex;
+
+    /// Grid View Item Layout
+    _standardLayout     = [CNGridViewItemLayout defaultLayout];
+    _hoverLayout        = _standardLayout;
+    _selectionLayout    = _standardLayout;
+
+    /// Selection and Hovering
+    _itemSelected       = NO;
+    _itemSelectable     = YES;
+    _useHover           = NO;
+    _useSelectionRing   = YES;
 }
 
 
@@ -116,8 +114,16 @@ static CGSize kDefaultItemSize;
 
 - (void)prepareForReuse
 {
-    
+    self.itemImage = nil;
+    self.itemTitle = nil;
+    self.index     = CNItemIndexNoIndex;
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Grid View Item Layout
+
 
 
 
@@ -126,22 +132,27 @@ static CGSize kDefaultItemSize;
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-//    [[[NSColor grayColor] colorWithAlphaComponent:0.2] setFill];
-//    NSRectFill(dirtyRect);
+    NSRect srcRect = NSZeroRect;
+    srcRect.size = self.itemImage.size;
+    NSRect imageRect = NSZeroRect;
+    
+    if (self.standardLayout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
+        CNLog(@"* picture & title *");
+    }
 
-//    if (self.itemTitle == nil || [self.itemTitle isEqualToString:@""]) {
-        NSRect imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
+    else if (self.standardLayout.visibleContentMask & CNGridViewItemVisibleContentImage) {
+        CNLog(@"* picture only *");
+        imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
                                       (NSHeight(dirtyRect) - self.itemImage.size.height) / 2,
                                       self.itemImage.size.width,
                                       self.itemImage.size.height);
-        NSImageView *itemImageView = [[NSImageView alloc] initWithFrame:imageRect];
-        itemImageView.image = self.itemImage;
-        itemImageView.imageScaling = NSImageScaleProportionallyUpOrDown;
-        [self addSubview:itemImageView];
-        [itemImageView setNeedsDisplay];
-//    } else {
-//
-//    }
+    }
+
+    else if (self.standardLayout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
+        CNLog(@"* title only *");
+    }
+
+    [self.itemImage drawInRect:imageRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1.0];
 }
 
 @end

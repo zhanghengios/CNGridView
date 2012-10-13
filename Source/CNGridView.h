@@ -32,6 +32,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "NSDictionary+Tools.h"
 #import "CNGridViewDelegate.h"
 #import "CNGridViewDataSource.h"
 #import "CNGridViewItem.h"
@@ -54,12 +55,12 @@
 /** @name Managing the Delegate and the Data Source */
 
 /**
- ...
+ Property for the receiver's delegate
  */
 @property (nonatomic, strong) IBOutlet id<CNGridViewDelegate> delegate;
 
 /**
- ...
+ Property for the receiver's data source
  */
 @property (nonatomic, strong) IBOutlet id<CNGridViewDataSource> dataSource;
 

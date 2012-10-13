@@ -32,14 +32,65 @@
 #import <Foundation/Foundation.h>
 #import "NSColor+CNGridViewPalette.h"
 
+
 /**
  `CNGridViewLayout` is a wrapper class containing all neccessary layout properties a `CNGridView` can adopt.
  */
 
+
+typedef enum {
+    CNGridViewItemVisibleContentNothing         = 0,
+    CNGridViewItemVisibleContentImage           = 1 << 0,
+    CNGridViewItemVisibleContentTitle           = 1 << 1,
+} CNGridViewItemVisibleContent;
+
+
 @interface CNGridViewItemLayout : NSObject
+
+/**
+ ...
+ */
 @property (nonatomic, strong) NSColor *backgroundColor;
+
+/**
+ ...
+ */
 @property (nonatomic, strong) NSColor *selectionRingColor;
-@property (nonatomic, strong) NSColor *selectionRingLineWidth;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) CGFloat selectionRingLineWidth;
+
+/**
+ ...
+ */
 @property (nonatomic, assign) NSUInteger contentInset;
+
+/**
+ ...
+ */
 @property (nonatomic, assign) NSUInteger itemBorderRadius;
+
+/**
+ A bit mask that defines the content a `CNGridViewItem` should show.
+ 
+ There are three possible values:
+     typedef enum {
+         CNGridViewItemVisibleContentNothing         = 0,
+         CNGridViewItemVisibleContentImage           = 1 << 0,
+         CNGridViewItemVisibleContentTitle           = 1 << 1,
+     } CNGridViewItemVisibleContent;
+ 
+ Default value is `CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle`.
+ */
+@property (nonatomic, assign) CNGridViewItemVisibleContent visibleContentMask;
+
+
+/** @name Creating Default Layouts */
+
+/**
+ Creates and returns an `CNGridViewItemLayout` object with default values.
+ */
++ (CNGridViewItemLayout *)defaultLayout;
 @end

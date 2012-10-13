@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA00C5351628998F0007DE99 /* NSDictionary+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */; };
+		AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA00C53B1628A65A0007DE99 /* QuartzCore.framework */; };
 		AADDA92A162839E10098DFBE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADDA929162839E00098DFBE /* Cocoa.framework */; };
 		AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADDA932162839E10098DFBE /* InfoPlist.strings */; };
 		AADDA936162839E10098DFBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA935162839E10098DFBE /* main.m */; };
@@ -20,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA00C5331628998F0007DE99 /* NSDictionary+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Tools.h"; path = "../../../Source/NSDictionary+Tools.h"; sourceTree = "<group>"; };
+		AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Tools.m"; path = "../../../Source/NSDictionary+Tools.m"; sourceTree = "<group>"; };
+		AA00C53B1628A65A0007DE99 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AADDA925162839E00098DFBE /* CNGridView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNGridView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADDA929162839E00098DFBE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AADDA92C162839E10098DFBE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -50,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */,
 				AADDA92A162839E10098DFBE /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,6 +83,7 @@
 		AADDA928162839E00098DFBE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA00C53B1628A65A0007DE99 /* QuartzCore.framework */,
 				AADDA929162839E00098DFBE /* Cocoa.framework */,
 				AADDA92B162839E10098DFBE /* Other Frameworks */,
 			);
@@ -130,6 +137,8 @@
 				AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */,
 				AADDA94F16283A180098DFBE /* NSColor+CNGridViewPalette.h */,
 				AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */,
+				AA00C5331628998F0007DE99 /* NSDictionary+Tools.h */,
+				AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */,
 			);
 			name = CNGridView;
 			sourceTree = "<group>";
@@ -205,6 +214,7 @@
 				AADDA95216283A180098DFBE /* CNGridViewItem.m in Sources */,
 				AADDA95316283A180098DFBE /* CNGridViewItemLayout.m in Sources */,
 				AADDA95416283A180098DFBE /* NSColor+CNGridViewPalette.m in Sources */,
+				AA00C5351628998F0007DE99 /* NSDictionary+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +344,7 @@
 				AADDA945162839E10098DFBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,7 @@
 
 #import "CNAppDelegate.h"
 #import "CNGridViewItem.h"
+#import "CNGridViewItemLayout.h"
 
 
 static NSString *kContentTitleKey, *kContentImageKey;
@@ -24,15 +25,17 @@ static NSString *kContentTitleKey, *kContentImageKey;
 {
     self = [super init];
     if (self) {
-        _items = [NSMutableArray array];
+        _items = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.itemSizeSlider.title = @"GridView Item Size";
+    
     /// insert some content
-    for (int i=0; i<99; i++) {
+    for (int i=0; i<30; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
@@ -53,12 +56,26 @@ static NSString *kContentTitleKey, *kContentImageKey;
                                [NSImage imageNamed:NSImageNameDotMac], kContentImageKey,
                                NSImageNameDotMac, kContentTitleKey,
                                nil]];
+        [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSImage imageNamed:NSImageNameUserAccounts], kContentImageKey,
+                               NSImageNameUserAccounts, kContentTitleKey,
+                               nil]];
+        [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSImage imageNamed:NSImageNameFolderSmart], kContentImageKey,
+                               NSImageNameFolderSmart, kContentTitleKey,
+                               nil]];
     }
 
-    self.gridView.itemSize = NSMakeSize(96, 96);
-    self.gridView.backgroundColor = [NSColor controlColor];
+    self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
+    self.gridView.backgroundColor = [[NSColor greenColor] colorWithAlphaComponent:0.1];
+    self.gridView.elasticity = NO;
+    [self.gridView reloadData];
 }
 
+- (IBAction)itemSizeSliderAction:(id)sender
+{
+    self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
+}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +92,7 @@ static NSString *kContentTitleKey, *kContentImageKey;
     CNGridViewItem *item = [gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
 
     if (item == nil) {
-        item = [[CNGridViewItem alloc] init];
+        item = [[CNGridViewItem alloc] initWithLayout:[CNGridViewItemLayout defaultLayout] reuseIdentifier:reuseIdentifier];
     }
 
     NSDictionary *contentDict = [self.items objectAtIndex:index];

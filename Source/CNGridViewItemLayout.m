@@ -33,4 +33,29 @@
 
 @implementation CNGridViewItemLayout
 
++ (CNGridViewItemLayout *)defaultLayout
+{
+    static dispatch_once_t predicate;
+    static CNGridViewItemLayout *_defaultLayout = nil;
+
+    dispatch_once(&predicate, ^{
+        _defaultLayout = [[[self class] alloc] init];
+    });
+    return _defaultLayout;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _backgroundColor        = [NSColor itemBackgroundColor];
+        _selectionRingColor     = [NSColor itemSelectionRingColor];
+        _selectionRingLineWidth = 3.0f;
+        _contentInset           = 2.0;
+        _itemBorderRadius       = 8.0;
+        _visibleContentMask     = (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle);
+    }
+    return self;
+}
+
 @end

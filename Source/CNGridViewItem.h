@@ -86,63 +86,24 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
 + (CGSize)defaultItemSize;
 
 
-#pragma mark - Item external Content
-/** @name Item external Content */
+
+#pragma mark - Grid View Item Layout
+/** @name Grid View Item Layout */
 
 /**
  ...
  */
-@property (strong) NSView *contentView;
-
-
-
-#pragma mark - Appearance
-/** @name Appearance */
+@property (nonatomic, strong) CNGridViewItemLayout *standardLayout;
 
 /**
  ...
  */
-@property (nonatomic, strong) NSColor *backgroundColor;
+@property (nonatomic, strong) CNGridViewItemLayout *hoverLayout;
 
 /**
  ...
  */
-@property (nonatomic, assign) NSUInteger contentInset;
-
-/**
- ...
- */
-@property (nonatomic, assign) NSUInteger itemBorderRadius;
-
-/**
- ...
- */
-@property (nonatomic, assign) BOOL useHover;
-
-/**
- ...
- */
-@property (nonatomic, strong) NSColor *hoverBackgroundColor;
-
-/**
- ...
- */
-@property (nonatomic, assign) BOOL useSelectionRing;
-
-/**
- ...
- */
-@property (nonatomic, strong) NSColor *selectionRingColor;
-
-/**
- ...
- */
-@property (nonatomic, strong) NSColor *selectionRingLineWidth;
-
-/**
- ...
- */
-@property (nonatomic, strong) NSColor *selectionBackgroundColor;
+@property (nonatomic, strong) CNGridViewItemLayout *selectionLayout;
 
 
 
@@ -158,5 +119,15 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
  ...
  */
 @property (nonatomic, assign, getter = isItemSelectable) BOOL itemSelectable;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL useHover;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL useSelectionRing;
 
 @end

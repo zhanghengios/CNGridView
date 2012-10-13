@@ -28,6 +28,7 @@
  THE SOFTWARE.
  */
 
+#import <QuartzCore/QuartzCore.h>
 #import "NSColor+CNGridViewPalette.h"
 #import "CNGridView.h"
 #import "CNGridViewItem.h"
@@ -35,20 +36,23 @@
 
 
 @interface CNGridView () {
-    NSMutableArray *_visibleItems;
-    NSMutableArray *_reuseableItems;
+    NSMutableDictionary *keyedVisibleItems;
+    NSMutableDictionary *_reuseableItems;
     NSMutableArray *_selectedItems;
+    NSUInteger _numberOfItems;
 }
 
 - (void)setupDefaults;
 - (void)refreshLayout;
-- (void)updateVisibleItemsForRect:(CGRect)visibleRect;
-- (void)drawVisibleItems;
-- (void)removeUnvisibleItems;
-- (NSRange)rangeForVisibleRect:(CGRect)visibleRect;
+- (void)queueInvisibleItems;
+- (void)updateVisibleItems;
+- (NSIndexSet *)indexesForVisibleItems;
+- (void)reArrangeLayout;
+- (void)queueItemForReuse:(CNGridViewItem *)reuseableItem;
+- (NSRange)rangeForVisibleRect;
 - (NSRect)rectForItemAtIndex:(NSUInteger)index;
-- (NSUInteger)columnsInGridViewForRect:(NSRect)gridViewRect;
-- (NSUInteger)rowsInGridViewForRect:(NSRect)gridViewRect;
+- (NSUInteger)columnsInGridView;
+- (NSUInteger)allOverRowsInGridView;
 @end
 
 
@@ -92,25 +96,24 @@
 - (void)setupDefaults
 {
     /// private properties
-    _visibleItems   = [[NSMutableArray alloc] init];
-    _reuseableItems = [[NSMutableArray alloc] init];
-    _selectedItems  = [[NSMutableArray alloc] init];
+    keyedVisibleItems = [[NSMutableDictionary alloc] init];
+    _reuseableItems   = [[NSMutableDictionary alloc] init];
+    _selectedItems    = [[NSMutableArray alloc] init];
 
     /// public properties
     _gridViewTitle  = nil;
 
-    _backgroundColor    = [NSColor gridViewBackgroundColor];
-    _elasticity         = YES;
-    _itemSize           = [CNGridViewItem defaultItemSize];
+    _backgroundColor = [NSColor gridViewBackgroundColor];
+    _elasticity      = YES;
+    _itemSize        = [CNGridViewItem defaultItemSize];
 
-    _allowsSelection            = YES;
-    _allowsMultipleSelection    = NO;
-
-//    [self setPostsBoundsChangedNotifications:YES];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLayout) name:NSViewBoundsDidChangeNotification object:nil];
+    _allowsSelection         = YES;
+    _allowsMultipleSelection = NO;
 
 
-    CNLog(@"Result is: %f", floor((0/163) % 163));
+//    NSClipView *clipView = [[self enclosingScrollView] contentView];
+//    [clipView setPostsBoundsChangedNotifications:YES];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLayout) name:NSViewBoundsDidChangeNotification object:clipView];
 }
 
 
@@ -118,26 +121,12 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Accessors
 
-- (void)setBackgroundColor:(NSColor *)backgroundColor
-{
-    CNLog(@"setBackgroundColor");
-    _backgroundColor = backgroundColor;
-//    [self refreshLayout];
-}
-
 - (void)setItemSize:(NSSize)itemSize
 {
-    CNLog(@"setItemSize");
+    CNLog(@"setItemSize: %f", itemSize.width);
     _itemSize = itemSize;
     [self refreshLayout];
 }
-
-//- (void)setNeedsLayout:(BOOL)flag
-//{
-//    CNLog(@"setNeedsLayout");
-//    [super setNeedsLayout:flag];
-//    [self refreshLayout];
-//}
 
 - (void)setElasticity:(BOOL)elasticity
 {
@@ -152,92 +141,150 @@
     }
 }
 
-
+- (void)drawRect:(NSRect)dirtyRect
+{
+//    [self.backgroundColor setFill];
+//    NSRectFill(dirtyRect);
+    [self refreshLayout];
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
 
 - (void)refreshLayout
 {
-    CNLog(@"refreshLayout");
-    CGRect visibleRect = [self visibleRect];
+    NSRect currentRect = [self frame];
+    currentRect.size.width = currentRect.size.width;
+    currentRect.size.height = [self allOverRowsInGridView] * self.itemSize.height;
+    [super setFrame:currentRect];
 
-    [self updateVisibleItemsForRect:visibleRect];
-    [self drawVisibleItems];
-//    NSUInteger numberOfItems = [self gridView:self numberOfItemsInSection:0];
-//    for (NSUInteger idx = 0; idx < numberOfItems; idx++) {
-//        NSRect itemRect = [self rectForItemAtVisibleIndex:idx];
-//        CNGridViewItem *currentItem = [self gridView:self itemAtIndex:idx inSection:0];
-//        currentItem.frame = itemRect;
-//        [self addSubview:currentItem];
-//        [currentItem setNeedsDisplay:YES];
-//    }
+    [self queueInvisibleItems];
+    [self updateVisibleItems];
+    [self reArrangeLayout];
+    [self setNeedsDisplay:YES];
 }
 
-- (void)updateVisibleItemsForRect:(CGRect)visibleRect
+- (void)queueInvisibleItems
 {
-    NSRange rangeForVisibleRect = [self rangeForVisibleRect:visibleRect];
-    for (NSUInteger idx = rangeForVisibleRect.location; idx < rangeForVisibleRect.length; idx++) {
-        CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];
-        item.index = idx;
-        [_visibleItems addObject:item];
-        [_reuseableItems addObject:item];
-    }
-}
+    NSRange rangeForVisibleRect = [self rangeForVisibleRect];
 
-- (void)drawVisibleItems
-{
-    CNLog(@"drawVisibleItems");
-    [_visibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        CNGridViewItem *currentItem = (CNGridViewItem *)obj;
-        currentItem.frame = [self rectForItemAtIndex:idx];
-        [self addSubview:currentItem];
+    /// remove all now unvisible items from the visible items list, put it to the reuse queue
+    /// and remove it from its super view
+    NSArray *visibleItems = [keyedVisibleItems allValues];
+    [visibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CNGridViewItem *item = (CNGridViewItem *)obj;
+        if (!NSLocationInRange(item.index, rangeForVisibleRect)) {
+            [self queueItemForReuse:item];
+            [item removeFromSuperview];
+            [keyedVisibleItems removeObjectForKey:[NSNumber numberWithInteger:item.index]];
+        }
     }];
 }
 
-- (void)removeUnvisibleItems
+- (void)updateVisibleItems
 {
+    NSRange rangeForVisibleRect = [self rangeForVisibleRect];
+    NSMutableIndexSet *visibleRangeIndexes = [NSMutableIndexSet indexSetWithIndexesInRange:rangeForVisibleRect];
+
+    /// update all visible items
+    [visibleRangeIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];
+        if (item != nil && ![keyedVisibleItems containsKey:[NSNumber numberWithInteger:idx]]) {
+            item.index = idx;
+            [keyedVisibleItems setObject:item forKey:[NSNumber numberWithInteger:item.index]];
+            [self addSubview:item];
+        }
+    }];
 }
 
-- (NSRange)rangeForVisibleRect:(CGRect)visibleRect
+- (NSIndexSet *)indexesForVisibleItems
 {
-    NSUInteger columns = [self columnsInGridViewForRect:visibleRect];
-    NSUInteger rows = [self rowsInGridViewForRect:visibleRect];
+    __block NSMutableIndexSet *indexesForVisibleItems = [[NSMutableIndexSet alloc] init];
+    [keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [indexesForVisibleItems addIndex:[(CNGridViewItem *)obj index]];
+    }];
+    return indexesForVisibleItems;
+}
+
+- (void)reArrangeLayout
+{
+//    [NSAnimationContext beginGrouping];
+//    [[NSAnimationContext currentContext] setDuration:0.2];
+//    [[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+
+    [keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSRect newRect = [self rectForItemAtIndex:[(CNGridViewItem *)obj index]];
+//        [[(CNGridViewItem *)obj animator] setFrame:newRect];
+        [(CNGridViewItem *)obj setFrame:newRect];
+        [(CNGridViewItem *)obj setNeedsDisplay:YES];
+    }];
+
+//    [NSAnimationContext endGrouping];
+}
+
+- (void)queueItemForReuse:(CNGridViewItem *)reuseableItem
+{
+    NSMutableArray *reuseQueue = [_reuseableItems objectForKey:reuseableItem.reuseIdentifier];
+    if (reuseQueue == nil)
+        reuseQueue = [NSMutableArray array];
+    [reuseableItem prepareForReuse];
+    [reuseQueue addObject:reuseableItem];
+    [_reuseableItems setObject:reuseQueue forKey:reuseableItem.reuseIdentifier];
+}
+
+- (NSRange)rangeForVisibleRect
+{
+    NSRect visibleRect  = [[[self enclosingScrollView] contentView] bounds];
+    NSUInteger columns  = [self columnsInGridView];
+    NSUInteger rows     = [self visibleRowsInGridView];
 
     NSUInteger rangeStart, rangeLength;
 
-    if (visibleRect.origin.y > _itemSize.height) {
-        rangeStart = (floor(fmod((visibleRect.origin.y / _itemSize.height), _itemSize.height)) -1) * columns + 1;
-        rangeLength = (rangeStart * rows) - rangeStart;
+    if (visibleRect.origin.y >= _itemSize.height) {
+        rangeStart = (floorf(fmod((visibleRect.origin.y / _itemSize.height), _itemSize.height))) * columns + 1;
+        rangeLength = (columns * rows) + rangeStart;
     } else {
         rangeStart = 0;
         rangeLength = (columns * rows);
     }
-    return NSMakeRange(rangeStart, rangeLength);
+    rangeLength = MIN(_numberOfItems, rangeLength);
+    NSRange rangeForVisibleRect = NSMakeRange(rangeStart, rangeLength-rangeStart);
+    CNLogForRange(rangeForVisibleRect);
+    return rangeForVisibleRect;
 }
 
 - (NSRect)rectForItemAtIndex:(NSUInteger)index
 {
-    NSRect visibleRect = [self visibleRect];
-    NSUInteger columns = [self columnsInGridViewForRect:visibleRect];
-    NSUInteger rowForIndex = floor(fmod((visibleRect.origin.y / _itemSize.height), _itemSize.height));
-
+    NSUInteger columns = [self columnsInGridView];
     NSRect itemRect = NSMakeRect((index % columns) * _itemSize.width,
-                                 ceil(index / columns) * _itemSize.height,
+                                 ceilf(index / columns) * _itemSize.height,
                                  _itemSize.width,
                                  _itemSize.height);
-    CNLogForRect(itemRect);
     return itemRect;
 }
 
-- (NSUInteger)columnsInGridViewForRect:(NSRect)gridViewRect
+- (NSUInteger)columnsInGridView
 {
-    return ceil(NSWidth(gridViewRect) / _itemSize.width);
+    NSRect gridViewRect = self.frame;
+    NSUInteger columns = floorf((float)NSWidth(gridViewRect) / _itemSize.width);
+    columns = (columns < 1 ? 1 : columns);
+    return columns;
 }
 
-- (NSUInteger)rowsInGridViewForRect:(NSRect)gridViewRect
+- (NSUInteger)allOverRowsInGridView
 {
-    return ceil(NSHeight(gridViewRect) / _itemSize.height);
+    NSUInteger allOverRows = ceilf((float)_numberOfItems / [self columnsInGridView]);
+//    CNLog(@"allOverRowsInGridView: %lu", allOverRows);
+    return allOverRows;
+}
+
+- (NSUInteger)visibleRowsInGridView
+{
+    NSRect visibleRect  = [[[self enclosingScrollView] contentView] frame];
+    NSUInteger visibleRows = floorf((float)NSHeight(visibleRect) / self.itemSize.height);
+//    CNLog(@"visibleRowsInGridView: %lu", visibleRows);
+    CNLogForRect(visibleRect);
+    return visibleRows;
 }
 
 
@@ -250,18 +297,15 @@
     return YES;
 }
 
-//- (void)drawRect:(NSRect)dirtyRect
+//- (void)viewWillStartLiveResize
 //{
-//    [_backgroundColor setFill];
-//    NSRectFill(dirtyRect);
+//    [self refreshLayout];
 //}
 
-- (void)viewDidEndLiveResize
-{
-    CNLog(@"viewDidEndLiveResize");
-    [self refreshLayout];
-    [self drawVisibleItems];
-}
+//- (void)viewDidEndLiveResize
+//{
+//    [self refreshLayout];
+//}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,7 +313,7 @@
 
 - (NSUInteger)numberOfVisibleItems
 {
-    return _visibleItems.count;
+    return keyedVisibleItems.count;
 }
 
 
@@ -278,8 +322,14 @@
 
 - (id)dequeueReusableItemWithIdentifier:(NSString *)identifier
 {
-    CNGridViewItem *item = [[CNGridViewItem alloc] init];
-    return item;
+    CNGridViewItem *reusableItem = nil;
+    NSMutableArray *reuseQueue = [_reuseableItems objectForKey:identifier];
+    if (reuseQueue != nil && reuseQueue.count > 0) {
+        reusableItem = [reuseQueue lastObject];
+        [reuseQueue removeLastObject];
+        [_reuseableItems setObject:reuseQueue forKey:identifier];
+    }
+    return reusableItem;
 }
 
 
@@ -289,6 +339,12 @@
 
 - (void)reloadData
 {
+    _numberOfItems = [self gridView:self numberOfItemsInSection:0];
+    [keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [(CNGridViewItem *)obj removeFromSuperview];
+    }];
+    [keyedVisibleItems removeAllObjects];
+    [_reuseableItems removeAllObjects];
     [self refreshLayout];
 }
 
