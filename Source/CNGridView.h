@@ -40,7 +40,7 @@
 
 /**
  `CNGridView` is an easy to use (wanna be) `NSCollectionView` replacement. It was completely written from the ground up.
-
+ The easiest way is to use a `NSScrollView` and set its content view class to `CNGridView`.
  */
 
 
