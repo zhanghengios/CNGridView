@@ -43,7 +43,7 @@ static CGFloat kDefaultItemBorderRadius;
 {
     kDefaultSelectionRingLineWidth = 3.0f;
     kDefaultContentInset = 3.0f;
-    kDefaultItemBorderRadius = 8.0f;
+    kDefaultItemBorderRadius = 5.0f;
 }
 
 - (id)init
@@ -56,6 +56,22 @@ static CGFloat kDefaultItemBorderRadius;
         _contentInset           = kDefaultContentInset;
         _itemBorderRadius       = kDefaultItemBorderRadius;
         _visibleContentMask     = (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle);
+
+        /// title text font attributes
+        NSColor *textColor      = [NSColor itemTitleColor];
+        NSShadow *textShadow    = [[NSShadow alloc] init];
+        [textShadow setShadowColor: [NSColor itemTitleShadowColor]];
+        [textShadow setShadowOffset: NSMakeSize(0, -1)];
+
+        NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+        [textStyle setAlignment: NSCenterTextAlignment];
+
+        _itemTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSFont fontWithName:@"Helvetica" size:12], NSFontAttributeName,
+                                    textShadow,                                 NSShadowAttributeName,
+                                    textColor,                                  NSForegroundColorAttributeName,
+                                    textStyle,                                  NSParagraphStyleAttributeName,
+                                    nil];
     }
     return self;
 }

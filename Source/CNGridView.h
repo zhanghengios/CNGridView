@@ -40,9 +40,10 @@
 
 /**
  `CNGridView` is an easy to use (wanna be) `NSCollectionView` replacement. It was completely written from the ground up.
- The easiest way is to use a `NSScrollView` and set its content view class to `CNGridView`.
+ `CNGridView` is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls like known from NSTableView/UITableView.
+ 
+ The use of `CNGridView` is just simple as possible.
  */
-
 
 
 @interface CNGridView : NSView

@@ -64,14 +64,18 @@ static NSString *kContentTitleKey, *kContentImageKey;
                                NSImageNameBonjour, kContentTitleKey,
                                nil]];
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSImage imageNamed:@"AppleLogo"], kContentImageKey,
+                               @"AppleLogo", kContentTitleKey,
+                               nil]];
+        [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameFolderBurnable], kContentImageKey,
                                NSImageNameFolderBurnable, kContentTitleKey,
                                nil]];
     }
 
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
-    self.gridView.backgroundColor = [[NSColor greenColor] colorWithAlphaComponent:0.1];
-    self.gridView.elasticity = NO;
+    self.gridView.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundDust"]];
+    self.gridView.elasticity = YES;
     [self.gridView reloadData];
 }
 

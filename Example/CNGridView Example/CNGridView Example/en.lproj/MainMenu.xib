@@ -1296,13 +1296,13 @@
 			<object class="NSWindowTemplate" id="972006081">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{335, 390}, {581, 380}}</string>
+				<string key="NSWindowRect">{{335, 390}, {883, 622}}</string>
 				<int key="NSWTFlags">1954022400</int>
 				<string key="NSWindowTitle">CNGridView Example</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{581, 380}</string>
+				<string key="NSWindowContentMinSize">{400, 250}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -1318,14 +1318,14 @@
 										<object class="NSView" id="770399885">
 											<reference key="NSNextResponder" ref="804309617"/>
 											<int key="NSvFlags">274</int>
-											<string key="NSFrameSize">{581, 338}</string>
+											<string key="NSFrameSize">{883, 580}</string>
 											<reference key="NSSuperview" ref="804309617"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="499354802"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 										</object>
 									</array>
-									<string key="NSFrameSize">{581, 338}</string>
+									<string key="NSFrameSize">{883, 580}</string>
 									<reference key="NSSuperview" ref="694172878"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="770399885"/>
@@ -1345,7 +1345,7 @@
 								<object class="NSScroller" id="335994999">
 									<reference key="NSNextResponder" ref="694172878"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{565, 0}, {16, 338}}</string>
+									<string key="NSFrame">{{867, 0}, {16, 580}}</string>
 									<reference key="NSSuperview" ref="694172878"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="927203309"/>
@@ -1359,7 +1359,7 @@
 								<object class="NSScroller" id="499354802">
 									<reference key="NSNextResponder" ref="694172878"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{0, 322}, {581, 16}}</string>
+									<string key="NSFrame">{{0, 564}, {883, 16}}</string>
 									<reference key="NSSuperview" ref="694172878"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="335994999"/>
@@ -1371,7 +1371,7 @@
 									<double key="NSPercent">0.50602412223815918</double>
 								</object>
 							</array>
-							<string key="NSFrame">{{0, 42}, {581, 338}}</string>
+							<string key="NSFrame">{{0, 42}, {883, 580}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="804309617"/>
@@ -1387,9 +1387,10 @@
 						<object class="NSSlider" id="927203309">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{422, 9}, {150, 18}}</string>
+							<string key="NSFrame">{{724, 9}, {150, 18}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:779</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="1020179825">
@@ -1410,13 +1411,13 @@
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 					</array>
-					<string key="NSFrameSize">{581, 380}</string>
+					<string key="NSFrameSize">{883, 622}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="694172878"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMinSize">{581, 402}</string>
+				<string key="NSMinSize">{400, 272}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">42</double>
@@ -2676,8 +2677,8 @@
 						<int key="objectID">372</int>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="927203309"/>
 							<reference ref="694172878"/>
+							<reference ref="927203309"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3361,7 +3362,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">558</int>
+			<int key="maxID">563</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

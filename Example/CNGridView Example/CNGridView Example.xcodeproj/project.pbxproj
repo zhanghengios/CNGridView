@@ -22,6 +22,7 @@
 		AADDA95216283A180098DFBE /* CNGridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA94C16283A180098DFBE /* CNGridViewItem.m */; };
 		AADDA95316283A180098DFBE /* CNGridViewItemLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */; };
 		AADDA95416283A180098DFBE /* NSColor+CNGridViewPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */; };
+		AAEF72A9162B66A10051A723 /* AppleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEF72A8162B66A10051A723 /* AppleLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItemLayout.m; path = ../../../Source/CNGridViewItemLayout.m; sourceTree = "<group>"; };
 		AADDA94F16283A180098DFBE /* NSColor+CNGridViewPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+CNGridViewPalette.h"; path = "../../../Source/NSColor+CNGridViewPalette.h"; sourceTree = "<group>"; };
 		AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+CNGridViewPalette.m"; path = "../../../Source/NSColor+CNGridViewPalette.m"; sourceTree = "<group>"; };
+		AAEF72A8162B66A10051A723 /* AppleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppleLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */,
 				AAA3E991162A3653001C6806 /* BackgroundDust.png */,
 				AAA3E992162A3653001C6806 /* BackgroundSolid.png */,
+				AAEF72A8162B66A10051A723 /* AppleLogo.png */,
 				AADDA931162839E10098DFBE /* CNGridView Example-Info.plist */,
 				AADDA932162839E10098DFBE /* InfoPlist.strings */,
 				AADDA935162839E10098DFBE /* main.m */,
@@ -210,6 +213,7 @@
 				AAA3E98F162A33D1001C6806 /* BackgroundNoisy.png in Resources */,
 				AAA3E993162A3653001C6806 /* BackgroundDust.png in Resources */,
 				AAA3E994162A3653001C6806 /* BackgroundSolid.png in Resources */,
+				AAEF72A9162B66A10051A723 /* AppleLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

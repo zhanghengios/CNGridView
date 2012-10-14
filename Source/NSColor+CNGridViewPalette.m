@@ -66,4 +66,14 @@
     return [NSColor colorWithCalibratedRed:0.346 green:0.531 blue:0.792 alpha:1.000];
 }
 
++ (NSColor *)itemTitleColor
+{
+    return [NSColor colorWithDeviceRed:0.196 green:0.200 blue:0.200 alpha:1.000];
+}
+
++ (NSColor *)itemTitleShadowColor
+{
+    return [NSColor colorWithDeviceWhite:1.000 alpha:0.800];
+}
+
 @end

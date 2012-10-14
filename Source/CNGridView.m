@@ -40,6 +40,8 @@
     NSMutableDictionary *_reuseableItems;
     NSMutableArray *_selectedItems;
     NSUInteger _numberOfItems;
+    NSTrackingArea *_gridViewTrackingArea;
+    BOOL _isInitialCall;
 }
 
 - (void)setupDefaults;
@@ -82,7 +84,7 @@
         _delegate = nil;
         _dataSource = nil;
     }
-    
+
     return self;
 }
 
@@ -112,6 +114,10 @@
     _allowsSelection         = YES;
     _allowsMultipleSelection = NO;
 
+    _isInitialCall = YES;
+
+    [[self enclosingScrollView] setDrawsBackground:YES];
+    
     NSClipView *clipView = [[self enclosingScrollView] contentView];
     [clipView setPostsBoundsChangedNotifications:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsOfViewDidChanged) name:NSViewBoundsDidChangeNotification object:clipView];
@@ -141,13 +147,14 @@
     }
 }
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void)setBackgroundColor:(NSColor *)backgroundColor
 {
-//    [NSGraphicsContext saveGraphicsState];
-    [[NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundSolid"]] setFill];
-    NSRectFill(dirtyRect);
-//    [NSGraphicsContext restoreGraphicsState];
+    _backgroundColor = backgroundColor;
+    [[self enclosingScrollView] setBackgroundColor:_backgroundColor];
 }
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
@@ -189,7 +196,7 @@
             [_reuseableItems setObject:reuseQueue forKey:item.reuseIdentifier];
         }
     }];
- }
+}
 
 - (void)updateVisibleItems
 {
@@ -220,15 +227,29 @@
 
 - (void)arrangeGridViewItemsAnimated:(BOOL)animated
 {
-    [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:(animated ? 0.15 : 0.0)];
-    [[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    [_keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSRect newRect = [self rectForItemAtIndex:[(CNGridViewItem *)obj index]];
-        [[(CNGridViewItem *)obj animator] setFrame:newRect];
-        [(CNGridViewItem *)obj setNeedsDisplay:YES];
-    }];
-    [NSAnimationContext endGrouping];
+    if (_isInitialCall && _keyedVisibleItems.count > 0) {
+        _isInitialCall = NO;
+        [self setAlphaValue:0.0];
+        [_keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSRect newRect = [self rectForItemAtIndex:[(CNGridViewItem *)obj index]];
+            [(CNGridViewItem *)obj setFrame:newRect];
+        }];
+        [NSAnimationContext beginGrouping];
+        [[NSAnimationContext currentContext] setDuration:(animated ? 0.26 : 0.0)];
+        [[self animator] setAlphaValue:1.0];
+        [NSAnimationContext endGrouping];
+    }
+
+    else if (_keyedVisibleItems.count > 0) {
+        [NSAnimationContext beginGrouping];
+        [[NSAnimationContext currentContext] setDuration:(animated ? 0.15 : 0.0)];
+        [[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+        [_keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSRect newRect = [self rectForItemAtIndex:[(CNGridViewItem *)obj index]];
+            [[(CNGridViewItem *)obj animator] setFrame:newRect];
+        }];
+        [NSAnimationContext endGrouping];
+    }
 }
 
 - (NSRange)currentRange
@@ -281,8 +302,7 @@
 
 - (NSRect)clippedRect
 {
-    NSRect clippedRect = [[[self enclosingScrollView] contentView] bounds];
-    return clippedRect;
+    return [[[self enclosingScrollView] contentView] bounds];
 }
 
 
@@ -300,7 +320,9 @@
     BOOL animated = (self.frame.size.width == frameRect.size.width ? NO: YES);
     [super setFrame:frameRect];
     [self refreshGridViewAnimated:animated];
+    [[self enclosingScrollView] setNeedsDisplay:YES];
 }
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -310,6 +332,7 @@
 {
     return _keyedVisibleItems.count;
 }
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,6 +379,31 @@
 - (void)scrollToGridViewItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated
 {
 
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Tracking Events
+
+- (void)updateTrackingAreas
+{
+    if (_gridViewTrackingArea)
+        [self removeTrackingArea:_gridViewTrackingArea];
+
+    _gridViewTrackingArea = nil;
+    _gridViewTrackingArea = [[NSTrackingArea alloc] initWithRect:self.frame
+                                                         options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow
+                                                           owner:self
+                                                        userInfo:nil];
+    [self addTrackingArea:_gridViewTrackingArea];
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+    NSPoint location = [theEvent locationInWindow];
+    NSPoint point = [self convertPoint:location fromView:nil];
+    CNLog(@"location with x: %f; y: %f", point.x, point.y);
 }
 
 

@@ -48,12 +48,16 @@ typedef enum {
 @interface CNGridViewItemLayout : NSObject
 
 /**
- ...
+ The background color of the `CNGridViewItem`.
+ 
+ You can set any known `NSColor` values, also pattern images. If this property is not used it will be set to the default value `[NSColor itemBackgroundColor]`. Also see NSColor(CNGridViewPalette).
  */
 @property (nonatomic, strong) NSColor *backgroundColor;
 
 /**
- ...
+ The color of the selection ring.
+ 
+ If this property is not used it will be set to the default value `[NSColor itemSelectionRingColor]`. Also see NSColor(CNGridViewPalette).
  */
 @property (nonatomic, strong) NSColor *selectionRingColor;
 
@@ -71,6 +75,12 @@ typedef enum {
  ...
  */
 @property (nonatomic, assign) NSUInteger itemBorderRadius;
+
+/**
+ ...
+ */
+@property (strong) NSDictionary *itemTitleTextAttributes;
+
 
 /**
  A bit mask that defines the content a `CNGridViewItem` should show.

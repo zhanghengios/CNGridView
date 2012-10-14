@@ -64,4 +64,8 @@
 /** Returns the standard `CNGridViewItem` selection ring color when the item is selected */
 + (NSColor *)itemSelectionRingColor;
 
++ (NSColor *)itemTitleColor;
+
++ (NSColor *)itemTitleShadowColor;
+
 @end

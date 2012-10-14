@@ -142,7 +142,7 @@ static CGSize kDefaultItemSize;
 - (void)drawRect:(NSRect)rect
 {
     NSRect dirtyRect = self.bounds;
-    [NSGraphicsContext saveGraphicsState];
+//    [NSGraphicsContext saveGraphicsState];
 
     /// contentRect is the rect respecting the value of layout.contentInset
     NSRect contentRect = NSMakeRect(dirtyRect.origin.x + self.layout.contentInset,
@@ -162,8 +162,8 @@ static CGSize kDefaultItemSize;
     NSRect textRect = NSZeroRect;
 
     if (self.layout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
-        imageRect = NSMakeRect((NSWidth(contentRect) - self.itemImage.size.width) / 2,
-                               ((NSHeight(contentRect) - self.itemImage.size.height) / 2) - 14,
+        imageRect = NSMakeRect(((NSWidth(contentRect) - self.itemImage.size.width) / 2) + self.layout.contentInset,
+                               self.layout.contentInset + 10,
                                self.itemImage.size.width,
                                self.itemImage.size.height);
         [self.itemImage drawInRect:imageRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
@@ -172,12 +172,12 @@ static CGSize kDefaultItemSize;
                               NSHeight(contentRect) - 20,
                               NSWidth(contentRect) - 6,
                               14);
-        [self.itemTitle drawInRect:textRect withAttributes:nil];
+        [self.itemTitle drawInRect:textRect withAttributes:self.layout.itemTitleTextAttributes];
     }
 
     else if (self.layout.visibleContentMask & CNGridViewItemVisibleContentImage) {
-        imageRect = NSMakeRect((NSWidth(contentRect) - self.itemImage.size.width) / 2,
-                                      (NSHeight(contentRect) - self.itemImage.size.height) / 2,
+        imageRect = NSMakeRect(((NSWidth(contentRect) - self.itemImage.size.width) / 2) + self.layout.contentInset,
+                                      ((NSHeight(contentRect) - self.itemImage.size.height) / 2) + self.layout.contentInset,
                                       self.itemImage.size.width,
                                       self.itemImage.size.height);
     }
@@ -185,7 +185,8 @@ static CGSize kDefaultItemSize;
     else if (self.layout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
     }
     
-    [NSGraphicsContext restoreGraphicsState];
+//    [NSGraphicsContext restoreGraphicsState];
+    
 }
 
 @end
