@@ -44,7 +44,7 @@
 
 - (void)setupDefaults;
 - (void)boundsOfViewDidChanged;
-- (void)refreshGridView;
+- (void)refreshGridViewAnimated:(BOOL)animated;
 - (void)updateReuseableItems;
 - (void)updateVisibleItems;
 - (NSIndexSet *)indexesForVisibleItems;
@@ -112,7 +112,6 @@
     _allowsSelection         = YES;
     _allowsMultipleSelection = NO;
 
-
     NSClipView *clipView = [[self enclosingScrollView] contentView];
     [clipView setPostsBoundsChangedNotifications:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsOfViewDidChanged) name:NSViewBoundsDidChangeNotification object:clipView];
@@ -126,7 +125,7 @@
 - (void)setItemSize:(NSSize)itemSize
 {
     _itemSize = itemSize;
-    [self refreshGridView];
+    [self refreshGridViewAnimated:YES];
 }
 
 - (void)setElasticity:(BOOL)elasticity
@@ -144,11 +143,10 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    [NSGraphicsContext saveGraphicsState];
-//    [self.backgroundColor setFill];
-//    NSRectFill(dirtyRect);
-//    [self refreshLayout];
-    [NSGraphicsContext restoreGraphicsState];
+//    [NSGraphicsContext saveGraphicsState];
+    [[NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundSolid"]] setFill];
+    NSRectFill(dirtyRect);
+//    [NSGraphicsContext restoreGraphicsState];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +159,7 @@
     [self arrangeGridViewItemsAnimated:NO];
 }
 
-- (void)refreshGridView
+- (void)refreshGridViewAnimated:(BOOL)animated
 {
     NSRect scrollRect = [self frame];
     scrollRect.size.width = scrollRect.size.width;
@@ -170,15 +168,13 @@
 
     [self updateReuseableItems];
     [self updateVisibleItems];
-    [self arrangeGridViewItemsAnimated:YES];
+    [self arrangeGridViewItemsAnimated:animated];
 }
 
 - (void)updateReuseableItems
 {
     NSRange currentRange = [self currentRange];
 
-    /// remove all now unvisible items from the visible items list, put it to the reuse queue
-    /// and remove it from its super view
     [[_keyedVisibleItems allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CNGridViewItem *item = (CNGridViewItem *)obj;
         if (!NSLocationInRange(item.index, currentRange)) {
@@ -301,19 +297,10 @@
 
 - (void)setFrame:(NSRect)frameRect
 {
+    BOOL animated = (self.frame.size.width == frameRect.size.width ? NO: YES);
     [super setFrame:frameRect];
-    [self refreshGridView];
+    [self refreshGridViewAnimated:animated];
 }
-
-//- (void)viewWillStartLiveResize
-//{
-//    [self refreshLayout];
-//}
-//
-//- (void)viewDidEndLiveResize
-//{
-//    [self refreshLayout];
-//}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -353,7 +340,7 @@
     }];
     [_keyedVisibleItems removeAllObjects];
     [_reuseableItems removeAllObjects];
-    [self refreshGridView];
+    [self refreshGridViewAnimated:YES];
 }
 
 
@@ -375,20 +362,6 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - CNGridView Delegate Callbacks
-
-- (void)gridView:(CNGridView*)gridView willDisplayItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate gridView:gridView willDisplayItemAtIndexPath:indexPath];
-    }
-}
-
-- (void)gridView:(CNGridView*)gridView didDisplayItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate gridView:gridView didDisplayItemAtIndexPath:indexPath];
-    }
-}
 
 - (void)gridView:(CNGridView*)gridView willSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -15,20 +15,6 @@
 @protocol CNGridViewDelegate <NSObject>
 @optional
 
-#pragma mark Displaying
-/** @name Displaying */
-
-
-/**
- ...
- */
-- (void)gridView:(CNGridView *)gridView willDisplayItemAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- ...
- */
-- (void)gridView:(CNGridView *)gridView didDisplayItemAtIndexPath:(NSIndexPath *)indexPath;
-
 
 #pragma mark Managing selection
 /** @name Managing selection */

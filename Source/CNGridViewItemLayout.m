@@ -31,7 +31,34 @@
 
 #import "CNGridViewItemLayout.h"
 
+
+static CGFloat kDefaultContentInset;
+static CGFloat kDefaultSelectionRingLineWidth;
+static CGFloat kDefaultItemBorderRadius;
+
+
 @implementation CNGridViewItemLayout
+
++ (void)initialize
+{
+    kDefaultSelectionRingLineWidth = 3.0f;
+    kDefaultContentInset = 2.0f;
+    kDefaultItemBorderRadius = 8.0f;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _backgroundColor        = [NSColor itemBackgroundColor];
+        _selectionRingColor     = [NSColor itemSelectionRingColor];
+        _selectionRingLineWidth = kDefaultSelectionRingLineWidth;
+        _contentInset           = kDefaultContentInset;
+        _itemBorderRadius       = kDefaultItemBorderRadius;
+        _visibleContentMask     = (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle);
+    }
+    return self;
+}
 
 + (CNGridViewItemLayout *)defaultLayout
 {
@@ -42,20 +69,6 @@
         _defaultLayout = [[[self class] alloc] init];
     });
     return _defaultLayout;
-}
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _backgroundColor        = [NSColor itemBackgroundColor];
-        _selectionRingColor     = [NSColor itemSelectionRingColor];
-        _selectionRingLineWidth = 3.0f;
-        _contentInset           = 2.0;
-        _itemBorderRadius       = 8.0;
-        _visibleContentMask     = (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle);
-    }
-    return self;
 }
 
 @end

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AA00C5351628998F0007DE99 /* NSDictionary+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */; };
 		AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA00C53B1628A65A0007DE99 /* QuartzCore.framework */; };
+		AAA3E98F162A33D1001C6806 /* BackgroundNoisy.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */; };
+		AAA3E993162A3653001C6806 /* BackgroundDust.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E991162A3653001C6806 /* BackgroundDust.png */; };
+		AAA3E994162A3653001C6806 /* BackgroundSolid.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E992162A3653001C6806 /* BackgroundSolid.png */; };
 		AADDA92A162839E10098DFBE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADDA929162839E00098DFBE /* Cocoa.framework */; };
 		AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADDA932162839E10098DFBE /* InfoPlist.strings */; };
 		AADDA936162839E10098DFBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA935162839E10098DFBE /* main.m */; };
@@ -25,6 +28,9 @@
 		AA00C5331628998F0007DE99 /* NSDictionary+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Tools.h"; path = "../../../Source/NSDictionary+Tools.h"; sourceTree = "<group>"; };
 		AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Tools.m"; path = "../../../Source/NSDictionary+Tools.m"; sourceTree = "<group>"; };
 		AA00C53B1628A65A0007DE99 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundNoisy.png; path = ../../../Source/BackgroundNoisy.png; sourceTree = "<group>"; };
+		AAA3E991162A3653001C6806 /* BackgroundDust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundDust.png; path = ../../../Source/BackgroundDust.png; sourceTree = "<group>"; };
+		AAA3E992162A3653001C6806 /* BackgroundSolid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundSolid.png; path = ../../../Source/BackgroundSolid.png; sourceTree = "<group>"; };
 		AADDA925162839E00098DFBE /* CNGridView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNGridView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADDA929162839E00098DFBE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AADDA92C162839E10098DFBE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -115,6 +121,9 @@
 		AADDA930162839E10098DFBE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */,
+				AAA3E991162A3653001C6806 /* BackgroundDust.png */,
+				AAA3E992162A3653001C6806 /* BackgroundSolid.png */,
 				AADDA931162839E10098DFBE /* CNGridView Example-Info.plist */,
 				AADDA932162839E10098DFBE /* InfoPlist.strings */,
 				AADDA935162839E10098DFBE /* main.m */,
@@ -198,6 +207,9 @@
 				AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */,
 				AADDA93A162839E10098DFBE /* Credits.rtf in Resources */,
 				AADDA940162839E10098DFBE /* MainMenu.xib in Resources */,
+				AAA3E98F162A33D1001C6806 /* BackgroundNoisy.png in Resources */,
+				AAA3E993162A3653001C6806 /* BackgroundDust.png in Resources */,
+				AAA3E994162A3653001C6806 /* BackgroundSolid.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
