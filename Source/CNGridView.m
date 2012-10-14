@@ -210,6 +210,10 @@
         CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];
         if (item) {
             item.index = idx;
+            if (_isInitialCall) {
+                [item setAlphaValue:0.0];
+                [item setFrame:[self rectForItemAtIndex:idx]];
+            }
             [_keyedVisibleItems setObject:item forKey:[NSNumber numberWithUnsignedInteger:item.index]];
             [self addSubview:item];
         }
@@ -229,14 +233,12 @@
 {
     if (_isInitialCall && _keyedVisibleItems.count > 0) {
         _isInitialCall = NO;
-        [self setAlphaValue:0.0];
-        [_keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSRect newRect = [self rectForItemAtIndex:[(CNGridViewItem *)obj index]];
-            [(CNGridViewItem *)obj setFrame:newRect];
-        }];
+        animated = YES;
         [NSAnimationContext beginGrouping];
-        [[NSAnimationContext currentContext] setDuration:(animated ? 0.26 : 0.0)];
-        [[self animator] setAlphaValue:1.0];
+        [[NSAnimationContext currentContext] setDuration:(animated ? 0.23 : 0.0)];
+        [_keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [[(CNGridViewItem *)obj animator] setAlphaValue:1.0];
+        }];
         [NSAnimationContext endGrouping];
     }
 

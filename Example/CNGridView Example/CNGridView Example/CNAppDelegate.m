@@ -40,9 +40,9 @@ static NSString *kContentTitleKey, *kContentImageKey;
     self.itemSizeSlider.title = @"GridView Item Size";
     self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
     
-    
+    NSDate *methodStart = [NSDate date];
     /// insert some content
-    for (int i=0; i<30000; i++) {
+    for (int i=0; i<50000; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
@@ -77,6 +77,10 @@ static NSString *kContentTitleKey, *kContentImageKey;
     self.gridView.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundDust"]];
     self.gridView.elasticity = YES;
     [self.gridView reloadData];
+
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    CNLog(@"executionTime: %f", executionTime);
 }
 
 - (IBAction)itemSizeSliderAction:(id)sender
