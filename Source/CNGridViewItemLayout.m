@@ -42,7 +42,7 @@ static CGFloat kDefaultItemBorderRadius;
 + (void)initialize
 {
     kDefaultSelectionRingLineWidth = 3.0f;
-    kDefaultContentInset = 2.0f;
+    kDefaultContentInset = 3.0f;
     kDefaultItemBorderRadius = 8.0f;
 }
 

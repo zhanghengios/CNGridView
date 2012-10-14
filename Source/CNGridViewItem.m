@@ -79,7 +79,7 @@ static CGSize kDefaultItemSize;
     self = [self init];
     if (self) {
         [self initProperties];
-        _standardLayout  = layout;
+        _layout          = layout;
         _reuseIdentifier = reuseIdentifier;
     }
     return self;
@@ -91,14 +91,15 @@ static CGSize kDefaultItemSize;
     self.identifier = kCNDefaultItemIdentifier;
 
     /// Item Default Content
-    _itemImage  = nil;
-    _itemTitle  = @"";
-    _index      = CNItemIndexNoIndex;
+    _itemImage          = nil;
+    _itemTitle          = @"";
+    _index              = CNItemIndexNoIndex;
 
     /// Grid View Item Layout
-    _standardLayout     = [CNGridViewItemLayout defaultLayout];
-    _hoverLayout        = _standardLayout;
-    _selectionLayout    = _standardLayout;
+    _layout             = [CNGridViewItemLayout defaultLayout];
+    _hoverLayout        = _layout;
+    _selectionLayout    = _layout;
+    _useLayout          = YES;
 
     /// Selection and Hovering
     _itemSelected       = NO;
@@ -142,34 +143,46 @@ static CGSize kDefaultItemSize;
 {
     NSRect dirtyRect = self.bounds;
     [NSGraphicsContext saveGraphicsState];
-    
+
+    /// contentRect is the rect respecting the value of layout.contentInset
+    NSRect contentRect = NSMakeRect(dirtyRect.origin.x + self.layout.contentInset,
+                                    dirtyRect.origin.y + self.layout.contentInset,
+                                    dirtyRect.size.width - self.layout.contentInset * 2,
+                                    dirtyRect.size.height - self.layout.contentInset * 2);
+
+    NSBezierPath *contentRectPath = [NSBezierPath bezierPathWithRoundedRect:contentRect
+                                                                    xRadius:self.layout.itemBorderRadius
+                                                                    yRadius:self.layout.itemBorderRadius];
+    [self.layout.backgroundColor setFill];
+    [contentRectPath fill];
+
     NSRect srcRect = NSZeroRect;
     srcRect.size = self.itemImage.size;
     NSRect imageRect = NSZeroRect;
     NSRect textRect = NSZeroRect;
 
-    if (self.standardLayout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
-        imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
-                               ((NSHeight(dirtyRect) - self.itemImage.size.height) / 2) - 14,
+    if (self.layout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
+        imageRect = NSMakeRect((NSWidth(contentRect) - self.itemImage.size.width) / 2,
+                               ((NSHeight(contentRect) - self.itemImage.size.height) / 2) - 14,
                                self.itemImage.size.width,
                                self.itemImage.size.height);
         [self.itemImage drawInRect:imageRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
 
-        textRect = NSMakeRect(dirtyRect.origin.x + 5,
-                              NSHeight(dirtyRect) - 20,
-                              NSWidth(dirtyRect) - 10,
-                              15);
+        textRect = NSMakeRect(contentRect.origin.x + 3,
+                              NSHeight(contentRect) - 20,
+                              NSWidth(contentRect) - 6,
+                              14);
         [self.itemTitle drawInRect:textRect withAttributes:nil];
     }
 
-    else if (self.standardLayout.visibleContentMask & CNGridViewItemVisibleContentImage) {
-        imageRect = NSMakeRect((NSWidth(dirtyRect) - self.itemImage.size.width) / 2,
-                                      (NSHeight(dirtyRect) - self.itemImage.size.height) / 2,
+    else if (self.layout.visibleContentMask & CNGridViewItemVisibleContentImage) {
+        imageRect = NSMakeRect((NSWidth(contentRect) - self.itemImage.size.width) / 2,
+                                      (NSHeight(contentRect) - self.itemImage.size.height) / 2,
                                       self.itemImage.size.width,
                                       self.itemImage.size.height);
     }
 
-    else if (self.standardLayout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
+    else if (self.layout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
     }
     
     [NSGraphicsContext restoreGraphicsState];

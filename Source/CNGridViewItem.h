@@ -93,7 +93,7 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
 /**
  ...
  */
-@property (nonatomic, strong) CNGridViewItemLayout *standardLayout;
+@property (nonatomic, strong) CNGridViewItemLayout *layout;
 
 /**
  ...
@@ -104,6 +104,11 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
  ...
  */
 @property (nonatomic, strong) CNGridViewItemLayout *selectionLayout;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL useLayout;
 
 
 

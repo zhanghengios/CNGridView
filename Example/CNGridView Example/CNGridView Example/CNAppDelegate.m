@@ -13,6 +13,10 @@
 
 static NSString *kContentTitleKey, *kContentImageKey;
 
+@interface CNAppDelegate ()
+@property (strong) CNGridViewItemLayout *hoverLayout;
+@end
+
 @implementation CNAppDelegate
 
 + (void)initialize
@@ -26,6 +30,7 @@ static NSString *kContentTitleKey, *kContentImageKey;
     self = [super init];
     if (self) {
         _items = [[NSMutableArray alloc] init];
+        _hoverLayout = [CNGridViewItemLayout defaultLayout];
     }
     return self;
 }
@@ -33,6 +38,8 @@ static NSString *kContentTitleKey, *kContentImageKey;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.itemSizeSlider.title = @"GridView Item Size";
+    self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
+    
     
     /// insert some content
     for (int i=0; i<30000; i++) {
@@ -86,6 +93,7 @@ static NSString *kContentTitleKey, *kContentImageKey;
 {
     static NSString *reuseIdentifier = @"CNGridViewItem";
     CNGridViewItem *item = [gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
+    item.hoverLayout = self.hoverLayout;
 
     if (item == nil) {
         item = [[CNGridViewItem alloc] initWithLayout:[CNGridViewItemLayout defaultLayout] reuseIdentifier:reuseIdentifier];
