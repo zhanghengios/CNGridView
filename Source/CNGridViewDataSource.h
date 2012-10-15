@@ -12,8 +12,6 @@
 @class CNGridView;
 
 @protocol CNGridViewDataSource <NSObject>
-@required
-
 /**
  ...
  */

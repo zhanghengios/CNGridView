@@ -78,13 +78,8 @@ static CGFloat kDefaultItemBorderRadius;
 
 + (CNGridViewItemLayout *)defaultLayout
 {
-    static dispatch_once_t predicate;
-    static CNGridViewItemLayout *_defaultLayout = nil;
-
-    dispatch_once(&predicate, ^{
-        _defaultLayout = [[[self class] alloc] init];
-    });
-    return _defaultLayout;
+    CNGridViewItemLayout *defaultLayout = [[[self class] alloc] init];
+    return defaultLayout;
 }
 
 @end

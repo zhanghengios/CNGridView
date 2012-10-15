@@ -11,10 +11,11 @@
 #import "CNGridViewItemLayout.h"
 
 
-static NSString *kContentTitleKey, *kContentImageKey;
+static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKey;
 
 @interface CNAppDelegate ()
 @property (strong) CNGridViewItemLayout *hoverLayout;
+@property (strong) CNGridViewItemLayout *selectionLayout;
 @end
 
 @implementation CNAppDelegate
@@ -23,6 +24,7 @@ static NSString *kContentTitleKey, *kContentImageKey;
 {
     kContentTitleKey = @"itemTitle";
     kContentImageKey = @"itemImage";
+    kItemSizeSliderPositionKey = @"ItemSizeSliderPosition";
 }
 
 - (id)init
@@ -31,18 +33,20 @@ static NSString *kContentTitleKey, *kContentImageKey;
     if (self) {
         _items = [[NSMutableArray alloc] init];
         _hoverLayout = [CNGridViewItemLayout defaultLayout];
+        _selectionLayout = [CNGridViewItemLayout defaultLayout];
     }
     return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.itemSizeSlider.title = @"GridView Item Size";
     self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
-    
-    NSDate *methodStart = [NSDate date];
+
+    self.selectionLayout.backgroundColor = [NSColor colorWithCalibratedRed:0.542 green:0.699 blue:0.807 alpha:0.420];
+//    self.selectionLayout.selectionRingColor = [NSColor colorWithCalibratedRed:0.363 green:0.731 blue:1.000 alpha:1.000];
+
     /// insert some content
-    for (int i=0; i<50000; i++) {
+    for (int i=0; i<500; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
@@ -73,20 +77,27 @@ static NSString *kContentTitleKey, *kContentImageKey;
                                nil]];
     }
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults integerForKey:kItemSizeSliderPositionKey]) {
+        self.itemSizeSlider.integerValue = [defaults integerForKey:kItemSizeSliderPositionKey];
+    }
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
     self.gridView.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundDust"]];
-    self.gridView.elasticity = YES;
+    self.gridView.scrollElasticity = YES;
     [self.gridView reloadData];
-
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    CNLog(@"executionTime: %f", executionTime);
 }
 
 - (IBAction)itemSizeSliderAction:(id)sender
 {
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
+    [[NSUserDefaults standardUserDefaults] setInteger:self.itemSizeSlider.integerValue forKey:kItemSizeSliderPositionKey];
 }
+
+- (IBAction)allowMultipleSelectionCheckboxAction:(id)sender
+{
+    self.gridView.allowsMultipleSelection = (self.allowMultipleSelectionCheckbox.state == NSOnState ? YES : NO);
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,16 +113,28 @@ static NSString *kContentTitleKey, *kContentImageKey;
     static NSString *reuseIdentifier = @"CNGridViewItem";
     CNGridViewItem *item = [gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
     item.hoverLayout = self.hoverLayout;
+    item.selectionLayout = self.selectionLayout;
 
     if (item == nil) {
         item = [[CNGridViewItem alloc] initWithLayout:[CNGridViewItemLayout defaultLayout] reuseIdentifier:reuseIdentifier];
     }
 
     NSDictionary *contentDict = [self.items objectAtIndex:index];
-    item.itemTitle = [NSString stringWithFormat:@"Index: %lu", index];
+    item.itemTitle = [NSString stringWithFormat:@"Item: %lu", index];
     item.itemImage = [contentDict objectForKey:kContentImageKey];
 
     return item;
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - CNGridView Delegate
+
+- (void)gridView:(CNGridView *)gridView willHovertemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
+{
+    CNLog(@"willHovertemAtIndex: %lu", index);
+}
+
 
 @end

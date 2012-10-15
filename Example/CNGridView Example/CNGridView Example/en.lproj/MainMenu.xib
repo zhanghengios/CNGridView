@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1080</int>
+		<int key="IBDocument.SystemTarget">1070</int>
 		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
@@ -11,6 +11,8 @@
 			<string key="NS.object.0">2843</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
+			<string>NSButton</string>
+			<string>NSButtonCell</string>
 			<string>NSCustomObject</string>
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
@@ -1318,14 +1320,14 @@
 										<object class="NSView" id="770399885">
 											<reference key="NSNextResponder" ref="804309617"/>
 											<int key="NSvFlags">274</int>
-											<string key="NSFrameSize">{883, 580}</string>
+											<string key="NSFrameSize">{883, 587}</string>
 											<reference key="NSSuperview" ref="804309617"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="499354802"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 										</object>
 									</array>
-									<string key="NSFrameSize">{883, 580}</string>
+									<string key="NSFrameSize">{883, 587}</string>
 									<reference key="NSSuperview" ref="694172878"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="770399885"/>
@@ -1345,7 +1347,7 @@
 								<object class="NSScroller" id="335994999">
 									<reference key="NSNextResponder" ref="694172878"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{867, 0}, {16, 580}}</string>
+									<string key="NSFrame">{{867, 0}, {16, 587}}</string>
 									<reference key="NSSuperview" ref="694172878"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="927203309"/>
@@ -1359,7 +1361,7 @@
 								<object class="NSScroller" id="499354802">
 									<reference key="NSNextResponder" ref="694172878"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{0, 564}, {883, 16}}</string>
+									<string key="NSFrame">{{0, 571}, {883, 16}}</string>
 									<reference key="NSSuperview" ref="694172878"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="335994999"/>
@@ -1371,7 +1373,7 @@
 									<double key="NSPercent">0.50602412223815918</double>
 								</object>
 							</array>
-							<string key="NSFrame">{{0, 42}, {883, 580}}</string>
+							<string key="NSFrame">{{0, 35}, {883, 587}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="804309617"/>
@@ -1387,26 +1389,60 @@
 						<object class="NSSlider" id="927203309">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{724, 9}, {150, 18}}</string>
+							<string key="NSFrame">{{713, 6}, {150, 18}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:779</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="1020179825">
-								<int key="NSCellFlags">67371264</int>
+								<int key="NSCellFlags">-2080112384</int>
 								<int key="NSCellFlags2">131072</int>
 								<string key="NSContents"/>
 								<string key="NSCellIdentifier">_NS:779</string>
 								<reference key="NSControlView" ref="927203309"/>
 								<double key="NSMaxValue">128</double>
-								<double key="NSMinValue">48</double>
-								<double key="NSValue">88</double>
+								<double key="NSMinValue">72</double>
+								<double key="NSValue">72</double>
 								<double key="NSAltIncValue">0.0</double>
-								<int key="NSNumberOfTickMarks">11</int>
+								<int key="NSNumberOfTickMarks">20</int>
 								<int key="NSTickMarkPosition">1</int>
 								<bool key="NSAllowsTickMarkValuesOnly">YES</bool>
 								<bool key="NSVertical">NO</bool>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
+						<object class="NSButton" id="2557286">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{17, 6}, {149, 18}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="183583558">
+								<int key="NSCellFlags">67108864</int>
+								<int key="NSCellFlags2">268566528</int>
+								<string key="NSContents">Allow Multiple Selection</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">11</double>
+									<int key="NSfFlags">3100</int>
+								</object>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="2557286"/>
+								<int key="NSButtonFlags">1211912448</int>
+								<int key="NSButtonFlags2">2</int>
+								<object class="NSCustomResource" key="NSNormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSSwitch</string>
+								</object>
+								<object class="NSButtonImageSource" key="NSAlternateImage">
+									<string key="NSImageName">NSSwitch</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
@@ -1420,7 +1456,7 @@
 				<string key="NSMinSize">{400, 272}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
-				<double key="NSContentBorderThicknessMinY">42</double>
+				<double key="NSContentBorderThicknessMinY">35</double>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomObject" id="976324537">
@@ -2138,6 +2174,22 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">allowMultipleSelectionCheckbox</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="2557286"/>
+					</object>
+					<int key="connectionID">568</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">allowMultipleSelectionCheckboxAction:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="2557286"/>
+					</object>
+					<int key="connectionID">569</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="770399885"/>
 						<reference key="destination" ref="976324537"/>
@@ -2677,8 +2729,9 @@
 						<int key="objectID">372</int>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="694172878"/>
 							<reference ref="927203309"/>
+							<reference ref="694172878"/>
+							<reference ref="2557286"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3193,6 +3246,19 @@
 						<reference key="object" ref="1020179825"/>
 						<reference key="parent" ref="927203309"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">566</int>
+						<reference key="object" ref="2557286"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="183583558"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">567</int>
+						<reference key="object" ref="183583558"/>
+						<reference key="parent" ref="2557286"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3344,6 +3410,8 @@
 				<string key="555.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="556.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="566.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="567.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3362,30 +3430,38 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">563</int>
+			<int key="maxID">569</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">CNAppDelegate</string>
 					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">itemSizeSliderAction:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">itemSizeSliderAction:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="allowMultipleSelectionCheckboxAction:">id</string>
+						<string key="itemSizeSliderAction:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="allowMultipleSelectionCheckboxAction:">
+							<string key="name">allowMultipleSelectionCheckboxAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="itemSizeSliderAction:">
 							<string key="name">itemSizeSliderAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="allowMultipleSelectionCheckbox">NSButton</string>
 						<string key="gridView">CNGridView</string>
 						<string key="itemSizeSlider">NSSlider</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="allowMultipleSelectionCheckbox">
+							<string key="name">allowMultipleSelectionCheckbox</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="gridView">
 							<string key="name">gridView</string>
 							<string key="candidateClassName">CNGridView</string>
@@ -3430,11 +3506,16 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
+			<real value="1070" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
+			<string key="NSSwitch">{15, 15}</string>
 		</dictionary>
 	</data>
 </archive>

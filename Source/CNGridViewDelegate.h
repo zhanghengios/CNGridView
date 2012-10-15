@@ -12,31 +12,40 @@
 @class CNGridView;
 @class CNGridViewItem;
 
+
 @protocol CNGridViewDelegate <NSObject>
 @optional
-
 
 #pragma mark Managing selection
 /** @name Managing selection */
 
+/**
+ ...
+ */
+- (void)gridView:(CNGridView *)gridView willHovertemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 
 /**
  ...
  */
-- (void)gridView:(CNGridView *)gridView willSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)gridView:(CNGridView *)gridView willUnhovertemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 
 /**
  ...
  */
-- (void)gridView:(CNGridView *)gridView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)gridView:(CNGridView *)gridView willSelectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 
 /**
  ...
  */
-- (void)gridView:(CNGridView *)gridView willDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)gridView:(CNGridView *)gridView didSelectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 
 /**
  ...
  */
-- (void)gridView:(CNGridView *)gridView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)gridView:(CNGridView *)gridView willDeselectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;;
+
+/**
+ ...
+ */
+- (void)gridView:(CNGridView *)gridView didDeselectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 @end

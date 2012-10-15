@@ -38,6 +38,7 @@ static CGSize kDefaultItemSize;
 
 @interface CNGridViewItem ()
 @property (strong) NSImageView *itemImageView;
+@property (strong) CNGridViewItemLayout *currentLayout;
 @end
 
 @implementation CNGridViewItem
@@ -79,7 +80,7 @@ static CGSize kDefaultItemSize;
     self = [self init];
     if (self) {
         [self initProperties];
-        _layout          = layout;
+        _standardLayout = layout;
         _reuseIdentifier = reuseIdentifier;
     }
     return self;
@@ -88,24 +89,24 @@ static CGSize kDefaultItemSize;
 - (void)initProperties
 {
     /// Reusing Grid View Items
-    self.identifier = kCNDefaultItemIdentifier;
+    _reuseIdentifier = kCNDefaultItemIdentifier;
 
     /// Item Default Content
-    _itemImage          = nil;
-    _itemTitle          = @"";
-    _index              = CNItemIndexNoIndex;
+    _itemImage = nil;
+    _itemTitle = @"";
+    _index = CNItemIndexNoIndex;
 
     /// Grid View Item Layout
-    _layout             = [CNGridViewItemLayout defaultLayout];
-    _hoverLayout        = _layout;
-    _selectionLayout    = _layout;
-    _useLayout          = YES;
+    _standardLayout = [CNGridViewItemLayout defaultLayout];
+    _hoverLayout = [CNGridViewItemLayout defaultLayout];
+    _selectionLayout = [CNGridViewItemLayout defaultLayout];
+    _currentLayout = _standardLayout;
+    _useLayout = YES;
 
     /// Selection and Hovering
-    _itemSelected       = NO;
-    _itemSelectable     = YES;
-    _useHover           = NO;
-    _useSelectionRing   = YES;
+    _isSelected = NO;
+    _isSelectable = YES;
+    _isHovered = NO;
 }
 
 - (BOOL)isFlipped
@@ -114,25 +115,19 @@ static CGSize kDefaultItemSize;
 }
 
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Reusing Grid View Items
 
 - (void)prepareForReuse
 {
-    _itemImage          = nil;
-    _itemTitle          = @"";
-    _index              = CNItemIndexNoIndex;
-    _itemSelected       = NO;
-    _itemSelectable     = YES;
-    _useHover           = NO;
-    _useSelectionRing   = YES;
+    self.itemImage = nil;
+    self.itemTitle = @"";
+    self.index = CNItemIndexNoIndex;
+    self.isSelected = NO;
+    self.isSelectable = YES;
+    self.isHovered = NO;
 }
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Grid View Item Layout
-
 
 
 
@@ -142,28 +137,36 @@ static CGSize kDefaultItemSize;
 - (void)drawRect:(NSRect)rect
 {
     NSRect dirtyRect = self.bounds;
-//    [NSGraphicsContext saveGraphicsState];
 
+    // decide which layout we have to use
     /// contentRect is the rect respecting the value of layout.contentInset
-    NSRect contentRect = NSMakeRect(dirtyRect.origin.x + self.layout.contentInset,
-                                    dirtyRect.origin.y + self.layout.contentInset,
-                                    dirtyRect.size.width - self.layout.contentInset * 2,
-                                    dirtyRect.size.height - self.layout.contentInset * 2);
+    NSRect contentRect = NSMakeRect(dirtyRect.origin.x + self.currentLayout.contentInset,
+                                    dirtyRect.origin.y + self.currentLayout.contentInset,
+                                    dirtyRect.size.width - self.currentLayout.contentInset * 2,
+                                    dirtyRect.size.height - self.currentLayout.contentInset * 2);
 
     NSBezierPath *contentRectPath = [NSBezierPath bezierPathWithRoundedRect:contentRect
-                                                                    xRadius:self.layout.itemBorderRadius
-                                                                    yRadius:self.layout.itemBorderRadius];
-    [self.layout.backgroundColor setFill];
+                                                                    xRadius:self.currentLayout.itemBorderRadius
+                                                                    yRadius:self.currentLayout.itemBorderRadius];
+    [self.currentLayout.backgroundColor setFill];
     [contentRectPath fill];
+
+    /// draw selection ring
+    if (self.isSelected) {
+        [self.currentLayout.selectionRingColor setStroke];
+        [contentRectPath setLineWidth:self.currentLayout.selectionRingLineWidth];
+        [contentRectPath stroke];
+    }
+
 
     NSRect srcRect = NSZeroRect;
     srcRect.size = self.itemImage.size;
     NSRect imageRect = NSZeroRect;
     NSRect textRect = NSZeroRect;
 
-    if (self.layout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
-        imageRect = NSMakeRect(((NSWidth(contentRect) - self.itemImage.size.width) / 2) + self.layout.contentInset,
-                               self.layout.contentInset + 10,
+    if (self.currentLayout.visibleContentMask & (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle)) {
+        imageRect = NSMakeRect(((NSWidth(contentRect) - self.itemImage.size.width) / 2) + self.currentLayout.contentInset,
+                               self.currentLayout.contentInset + 10,
                                self.itemImage.size.width,
                                self.itemImage.size.height);
         [self.itemImage drawInRect:imageRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
@@ -172,21 +175,58 @@ static CGSize kDefaultItemSize;
                               NSHeight(contentRect) - 20,
                               NSWidth(contentRect) - 6,
                               14);
-        [self.itemTitle drawInRect:textRect withAttributes:self.layout.itemTitleTextAttributes];
+        [self.itemTitle drawInRect:textRect withAttributes:self.currentLayout.itemTitleTextAttributes];
     }
 
-    else if (self.layout.visibleContentMask & CNGridViewItemVisibleContentImage) {
-        imageRect = NSMakeRect(((NSWidth(contentRect) - self.itemImage.size.width) / 2) + self.layout.contentInset,
-                                      ((NSHeight(contentRect) - self.itemImage.size.height) / 2) + self.layout.contentInset,
-                                      self.itemImage.size.width,
-                                      self.itemImage.size.height);
+    else if (self.currentLayout.visibleContentMask & CNGridViewItemVisibleContentImage) {
+        imageRect = NSMakeRect(((NSWidth(contentRect) - self.itemImage.size.width) / 2) + self.currentLayout.contentInset,
+                               ((NSHeight(contentRect) - self.itemImage.size.height) / 2) + self.currentLayout.contentInset,
+                               self.itemImage.size.width,
+                               self.itemImage.size.height);
     }
 
-    else if (self.layout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
+    else if (self.currentLayout.visibleContentMask & CNGridViewItemVisibleContentTitle) {
     }
-    
-//    [NSGraphicsContext restoreGraphicsState];
-    
+
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Notifications
+
+- (void)clearHovering
+{
+    self.isHovered = NO;
+}
+
+- (void)clearSelection
+{
+    self.isSelected = NO;
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Accessors
+
+- (void)setIsHovered:(BOOL)isHovered
+{
+    _isHovered = isHovered;
+    _currentLayout = (isHovered ? _hoverLayout : (_isSelected ? _selectionLayout : _standardLayout));
+    [self setNeedsDisplay:YES];
+}
+
+- (void)setIsSelected:(BOOL)isSelected
+{
+    _isSelected = isSelected;
+    _currentLayout = (isSelected ? _selectionLayout : _standardLayout);
+    [self setNeedsDisplay:YES];
+}
+
+- (BOOL)isReuseable
+{
+    return (_isSelected ? NO : YES);
 }
 
 @end

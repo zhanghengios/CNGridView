@@ -32,8 +32,12 @@
 
 @class CNGridViewItemLayout;
 
+
 __unused static NSString *kCNDefaultItemIdentifier;
 __unused static NSInteger CNItemIndexNoIndex = -1;
+__unused static NSString *kCNGridViewItemClearHoveringNotification;
+__unused static NSString *kCNGridViewItemClearSelectionNotification;
+
 
 @interface CNGridViewItem : NSView
 
@@ -54,6 +58,11 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
  ...
  */
 @property (strong) NSString *reuseIdentifier;
+
+/**
+ ...
+ */
+@property (readonly, nonatomic) BOOL isReuseable;
 
 /**
  ...
@@ -93,7 +102,7 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
 /**
  ...
  */
-@property (nonatomic, strong) CNGridViewItemLayout *layout;
+@property (nonatomic, strong) CNGridViewItemLayout *standardLayout;
 
 /**
  ...
@@ -118,21 +127,16 @@ __unused static NSInteger CNItemIndexNoIndex = -1;
 /**
  ...
  */
-@property (nonatomic, assign, getter = isItemSelected) BOOL itemSelected;
+@property (nonatomic, assign) BOOL isSelected;
 
 /**
  ...
  */
-@property (nonatomic, assign, getter = isItemSelectable) BOOL itemSelectable;
+@property (nonatomic, assign) BOOL isSelectable;
 
 /**
  ...
  */
-@property (nonatomic, assign) BOOL useHover;
-
-/**
- ...
- */
-@property (nonatomic, assign) BOOL useSelectionRing;
+@property (nonatomic, assign) BOOL isHovered;
 
 @end

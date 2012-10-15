@@ -14,8 +14,10 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (strong) IBOutlet CNGridView *gridView;
 @property (strong) IBOutlet NSSlider *itemSizeSlider;
+@property (strong) IBOutlet NSButton *allowMultipleSelectionCheckbox;
 
 @property (strong) NSMutableArray *items;
 
 - (IBAction)itemSizeSliderAction:(id)sender;
+- (IBAction)allowMultipleSelectionCheckboxAction:(id)sender;
 @end

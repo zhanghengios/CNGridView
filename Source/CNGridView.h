@@ -56,12 +56,12 @@
 /** @name Managing the Delegate and the Data Source */
 
 /**
- Property for the receiver's delegate
+ Property for the receiver's delegate.
  */
 @property (nonatomic, strong) IBOutlet id<CNGridViewDelegate> delegate;
 
 /**
- Property for the receiver's data source
+ Property for the receiver's data source.
  */
 @property (nonatomic, strong) IBOutlet id<CNGridViewDataSource> dataSource;
 
@@ -71,7 +71,9 @@
 /** @name Configuring the GridView */
 
 /**
- ...
+ A title string for the grid view.
+ 
+ The default value is `nil`.
  */
 @property (nonatomic, strong) NSString *gridViewTitle;
 
@@ -81,17 +83,26 @@
 @property (nonatomic, strong) NSColor *backgroundColor;
 
 /**
- ...
+ Property for setting the elasticity of the enclosing `NSScrollView`.
+ 
+ This property will be set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
+ The default value is `YES`.
+
+ @param     YES Elasticity is on.
+ @param     NO Elasticity is off.
+
  */
-@property (nonatomic, assign) BOOL elasticity;
+@property (nonatomic, assign) BOOL scrollElasticity;
 
 /**
- ...
+ Property for setting the grid view item size.
  */
 @property (nonatomic, assign) NSSize itemSize;
 
 /**
- ...
+ Returns the number of currently visible items of `CNGridView`.
+ 
+ The returned value of this method is subject to continous variation. It depends on the actual size of its view and will be calculated in realtime.
  */
 - (NSUInteger)numberOfVisibleItems;
 
@@ -107,11 +118,13 @@
 
 
 
-#pragma mark - Managing Selections
+#pragma mark - Managing Selections and Hovering
 /** @name Managing Selections */
 
 /**
- ...
+ Property for setting whether the grid view allows item selection or not.
+ 
+ The default value is `YES`.
  */
 @property (nonatomic, assign) BOOL allowsSelection;
 
@@ -119,6 +132,16 @@
  ...
  */
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL useSelectionRing;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL useHover;
 
 
 
@@ -145,5 +168,6 @@
  ...
  */
 - (void)scrollToGridViewItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
+
 
 @end

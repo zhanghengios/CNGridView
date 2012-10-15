@@ -4,29 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CNGridView Example/CNAppDelegate.m"
-         timestampString = "371869112.964556"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "32"
-         endingLineNumber = "32"
-         landmarkName = "-init"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../../Source/CNGridView.m"
-         timestampString = "371948913.312029"
+         filePath = "../../Source/CNGridViewItem.m"
+         timestampString = "372036596.530193"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "234"
-         endingLineNumber = "234"
-         landmarkName = "-arrangeGridViewItemsAnimated:"
+         startingLineNumber = "217"
+         endingLineNumber = "217"
+         landmarkName = "-setIsHovered:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
