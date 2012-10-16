@@ -34,6 +34,8 @@
 #import "CNGridViewItem.h"
 
 
+static NSTimeInterval CNDoubleClickInterval = 0.3;
+
 
 @interface CNGridView ()
 @property (strong) NSMutableDictionary *keyedVisibleItems;
@@ -43,6 +45,7 @@
 @property (assign) BOOL isInitialCall;
 @property (assign) NSInteger lastHoveredIndex;
 @property (assign) NSInteger lastSelectedIndex;
+@property (assign) NSTimeInterval lastClickTime;
 @property (assign) NSInteger numberOfItems;
 
 - (void)setupDefaults;
@@ -118,10 +121,10 @@
     _useSelectionRing = YES;
     _useHover = YES;
 
-
     _isInitialCall = YES;
     _lastHoveredIndex = NSNotFound;
     _lastSelectedIndex = NSNotFound;
+    _lastClickTime = 0;
 
     [[self enclosingScrollView] setDrawsBackground:YES];
 
@@ -252,6 +255,7 @@
 
 - (void)arrangeGridViewItemsAnimated:(BOOL)animated
 {
+    /// on initial call (aka app startup) we will fade all items (after loading it) in
     if (self.isInitialCall && self.keyedVisibleItems.count > 0) {
         self.isInitialCall = NO;
         animated = YES;
@@ -401,7 +405,7 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Scrolling to GridView Items / Selection GridView items
+#pragma mark - Scrolling to GridView Items & Selection Handling
 
 - (void)scrollToGridViewItem:(CNGridViewItem *)gridViewItem animated:(BOOL)animated
 {
@@ -413,15 +417,47 @@
 
 }
 
-- (void)selectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+- (void)handleSingleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
 {
+    /// inform the delegate
+    [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
 
+    CNGridViewItem *gridViewItem = nil;
+
+    if (self.lastSelectedIndex != NSNotFound && self.lastSelectedIndex != selectedItemIndex) {
+        /// inform the delegate
+        [self gridView:self willDeselectItemAtIndex:self.lastSelectedIndex inSection:0];
+
+        gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:self.lastSelectedIndex]];
+        gridViewItem.isSelected = NO;
+        [self.selectedItems removeObjectForKey:[NSNumber numberWithInteger:gridViewItem.index]];
+
+        /// inform the delegate
+        [self gridView:self didDeselectItemAtIndex:self.lastSelectedIndex inSection:0];
+    }
+
+    /// inform the delegate
+    [self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
+
+    gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
+    gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+    self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
+    [self.selectedItems setObject:gridViewItem forKey:[NSNumber numberWithInteger:selectedItemIndex]];
+
+    /// inform the delegate
+    [self gridView:self didSelectItemAtIndex:selectedItemIndex inSection:0];
+}
+
+- (void)handleDoubleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
+{
+    /// inform the delegate
+    [self gridView:self didDoubleClickItemAtIndex:selectedItemIndex inSection:0];
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Tracking Events
+#pragma mark - Events & Tracking
 
 - (void)updateTrackingAreas
 {
@@ -454,22 +490,31 @@
         CNGridViewItem *gridViewItem = nil;
         /// unhover the last hovered item
         if (self.lastHoveredIndex != NSNotFound) {
-            gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:self.lastHoveredIndex]];
+            /// inform the delegate
             [self gridView:self willUnhovertemAtIndex:self.lastHoveredIndex inSection:0];
+
+            gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:self.lastHoveredIndex]];
             gridViewItem.isHovered = NO;
         }
 
-        /// hover the current hovered item
+        /// inform the delegate
+        [self gridView:self willHovertemAtIndex:hoverItemIndex inSection:0];
+
         self.lastHoveredIndex = hoverItemIndex;
         gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:hoverItemIndex]];
-        [self gridView:self willHovertemAtIndex:hoverItemIndex inSection:0];
         gridViewItem.isHovered = YES;
     }
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    CNLog(@"theEvent.clickCount: %li", theEvent.clickCount);
+    if (theEvent.clickCount >= 2) {
+        NSPoint location = [theEvent locationInWindow];
+        NSPoint point = [self convertPoint:location fromView:nil];
+        NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
+
+        [self handleDoubleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
+    }
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -481,29 +526,21 @@
     NSPoint point = [self convertPoint:location fromView:nil];
     NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
 
-    CNGridViewItem *gridViewItem = nil;
+    [self handleSingleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
+}
 
-    [self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
-
-    if (self.lastSelectedIndex != NSNotFound && self.lastSelectedIndex != selectedItemIndex) {
-        gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:self.lastSelectedIndex]];
-        gridViewItem.isSelected = NO;
-        [self.selectedItems removeObjectForKey:[NSNumber numberWithInteger:gridViewItem.index]];
-    }
-
-    gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
-    gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
-    self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
-
-    [self.selectedItems setObject:gridViewItem forKey:[NSNumber numberWithInteger:selectedItemIndex]];
-
-    [self gridView:self didSelectItemAtIndex:selectedItemIndex inSection:0];
+- (void)rightMouseDown:(NSEvent *)theEvent
+{
+    NSPoint location = [theEvent locationInWindow];
+    NSPoint point = [self convertPoint:location fromView:nil];
+    NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
+    [self gridView:self rightMouseButtonClickedOnItemAtIndex:selectedItemIndex inSection:0];
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CNGridView Delegate Callbacks
+#pragma mark - CNGridView Delegate Calls
 
 - (void)gridView:(CNGridView *)gridView willHovertemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
 {
@@ -547,10 +584,31 @@
     }
 }
 
+- (void)gridView:(CNGridView *)gridView didClickItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    if ([self.delegate respondsToSelector:_cmd]) {
+        [self.delegate gridView:gridView didClickItemAtIndex:index inSection:section];
+    }
+}
+
+- (void)gridView:(CNGridView *)gridView didDoubleClickItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    if ([self.delegate respondsToSelector:_cmd]) {
+        [self.delegate gridView:gridView didDoubleClickItemAtIndex:index inSection:section];
+    }
+}
+
+- (void)gridView:(CNGridView *)gridView rightMouseButtonClickedOnItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    if ([self.delegate respondsToSelector:_cmd]) {
+        [self.delegate gridView:gridView rightMouseButtonClickedOnItemAtIndex:index inSection:section];
+    }
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CNGridView DataSource Callbacks
+#pragma mark - CNGridView DataSource Calls
 
 - (NSUInteger)gridView:(CNGridView *)gridView numberOfItemsInSection:(NSInteger)section
 {

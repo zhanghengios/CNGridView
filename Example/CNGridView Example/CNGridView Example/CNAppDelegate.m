@@ -135,5 +135,9 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 {
 }
 
+- (void)gridView:(CNGridView *)gridView rightMouseButtonClickedOnItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    CNLog(@"rightMouseButtonClickedOnItemAtIndex: %li", index);
+}
 
 @end
