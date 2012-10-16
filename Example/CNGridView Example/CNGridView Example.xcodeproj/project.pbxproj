@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA00C5351628998F0007DE99 /* NSDictionary+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */; };
 		AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA00C53B1628A65A0007DE99 /* QuartzCore.framework */; };
 		AAA3E98F162A33D1001C6806 /* BackgroundNoisy.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */; };
 		AAA3E993162A3653001C6806 /* BackgroundDust.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E991162A3653001C6806 /* BackgroundDust.png */; };
@@ -26,8 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA00C5331628998F0007DE99 /* NSDictionary+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Tools.h"; path = "../../../Source/NSDictionary+Tools.h"; sourceTree = "<group>"; };
-		AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Tools.m"; path = "../../../Source/NSDictionary+Tools.m"; sourceTree = "<group>"; };
 		AA00C53B1628A65A0007DE99 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundNoisy.png; path = ../../../Source/BackgroundNoisy.png; sourceTree = "<group>"; };
 		AAA3E991162A3653001C6806 /* BackgroundDust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundDust.png; path = ../../../Source/BackgroundDust.png; sourceTree = "<group>"; };
@@ -149,8 +146,6 @@
 				AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */,
 				AADDA94F16283A180098DFBE /* NSColor+CNGridViewPalette.h */,
 				AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */,
-				AA00C5331628998F0007DE99 /* NSDictionary+Tools.h */,
-				AA00C5341628998F0007DE99 /* NSDictionary+Tools.m */,
 			);
 			name = CNGridView;
 			sourceTree = "<group>";
@@ -230,7 +225,6 @@
 				AADDA95216283A180098DFBE /* CNGridViewItem.m in Sources */,
 				AADDA95316283A180098DFBE /* CNGridViewItemLayout.m in Sources */,
 				AADDA95416283A180098DFBE /* NSColor+CNGridViewPalette.m in Sources */,
-				AA00C5351628998F0007DE99 /* NSDictionary+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

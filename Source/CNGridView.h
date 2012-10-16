@@ -32,7 +32,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "NSDictionary+Tools.h"
 #import "CNGridViewDelegate.h"
 #import "CNGridViewDataSource.h"
 #import "CNGridViewItem.h"

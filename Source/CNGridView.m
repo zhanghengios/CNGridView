@@ -467,6 +467,11 @@
     }
 }
 
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    CNLog(@"theEvent.clickCount: %li", theEvent.clickCount);
+}
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
     if (!self.allowsSelection)
@@ -480,14 +485,14 @@
 
     [self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
 
-    if (self.lastSelectedIndex != NSNotFound) {
+    if (self.lastSelectedIndex != NSNotFound && self.lastSelectedIndex != selectedItemIndex) {
         gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:self.lastSelectedIndex]];
         gridViewItem.isSelected = NO;
         [self.selectedItems removeObjectForKey:[NSNumber numberWithInteger:gridViewItem.index]];
     }
 
     gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
-    gridViewItem.isSelected = YES;
+    gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
     self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
 
     [self.selectedItems setObject:gridViewItem forKey:[NSNumber numberWithInteger:selectedItemIndex]];

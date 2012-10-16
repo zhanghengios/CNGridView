@@ -111,13 +111,13 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 - (CNGridViewItem *)gridView:(CNGridView *)gridView itemAtIndex:(NSInteger)index inSection:(NSInteger)section
 {
     static NSString *reuseIdentifier = @"CNGridViewItem";
+    
     CNGridViewItem *item = [gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
-    item.hoverLayout = self.hoverLayout;
-    item.selectionLayout = self.selectionLayout;
-
     if (item == nil) {
         item = [[CNGridViewItem alloc] initWithLayout:[CNGridViewItemLayout defaultLayout] reuseIdentifier:reuseIdentifier];
     }
+    item.hoverLayout = self.hoverLayout;
+    item.selectionLayout = self.selectionLayout;
 
     NSDictionary *contentDict = [self.items objectAtIndex:index];
     item.itemTitle = [NSString stringWithFormat:@"Item: %lu", index];
@@ -133,7 +133,6 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 
 - (void)gridView:(CNGridView *)gridView willHovertemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 {
-    CNLog(@"willHovertemAtIndex: %lu", index);
 }
 
 
