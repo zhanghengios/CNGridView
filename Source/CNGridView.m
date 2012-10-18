@@ -35,7 +35,7 @@
 #import "CNGridViewItem.h"
 
 
-static NSTimeInterval CNDoubleClickTime = 0.2;        /// 250 milliseconds
+static NSTimeInterval CNDoubleClickTime = 0.25;        /// 250 milliseconds
 const int CNSingleClick = 1;
 const int CNDoubleClick = 2;
 
@@ -66,6 +66,7 @@ const int CNDoubleClick = 2;
 - (NSUInteger)visibleRowsInGridView;
 - (NSRect)clippedRect;
 - (NSUInteger)indexForItemAtLocation:(NSPoint)location;
+- (NSUInteger)indexForItemOfMouseEvent:(NSEvent *)theEvent;
 @end
 
 
@@ -346,6 +347,14 @@ const int CNDoubleClick = 2;
     return currentItemIndex;
 }
 
+- (NSUInteger)indexForItemOfMouseEvent:(NSEvent *)theEvent
+{
+    NSPoint location = [theEvent locationInWindow];
+    NSPoint point = [self convertPoint:location fromView:nil];
+    NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
+    return selectedItemIndex;
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -422,12 +431,8 @@ const int CNDoubleClick = 2;
 
 }
 
-- (void)handleSingleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
+- (void)selectItemAtIndex:(NSUInteger)selectedItemIndex forEvent:(NSEvent *)theEvent
 {
-    CNLog(@"handleSingleClickForEvent");
-    /// inform the delegate
-    [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
-
     CNGridViewItem *gridViewItem = nil;
 
     if (self.lastSelectedIndex != NSNotFound && self.lastSelectedIndex != selectedItemIndex) {
@@ -446,12 +451,31 @@ const int CNDoubleClick = 2;
     [self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
 
     gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
-    gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+    if (self.allowsMultipleSelection) {
+        if (!gridViewItem.isSelected) {
+            gridViewItem.isSelected = YES;
+        } else {
+            if (theEvent.modifierFlags & NSCommandKeyMask) {
+                gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+            }
+        }
+    }
+    else {
+        gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+    }
+
     self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
     [self.selectedItems setObject:gridViewItem forKey:[NSNumber numberWithInteger:selectedItemIndex]];
 
     /// inform the delegate
     [self gridView:self didSelectItemAtIndex:selectedItemIndex inSection:0];
+}
+
+- (void)handleSingleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
+{
+    CNLog(@"handleSingleClickForEvent");
+    /// inform the delegate
+    [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
 }
 
 - (void)handleDoubleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
@@ -489,10 +513,7 @@ const int CNDoubleClick = 2;
     if (!self.useHover)
         return;
 
-    NSPoint location = [theEvent locationInWindow];
-    NSPoint point = [self convertPoint:location fromView:nil];
-    NSUInteger hoverItemIndex = [self indexForItemAtLocation:point];
-
+    NSUInteger hoverItemIndex = [self indexForItemOfMouseEvent:theEvent];
     if (hoverItemIndex == NSNotFound || hoverItemIndex != self.lastHoveredIndex) {
         CNGridViewItem *gridViewItem = nil;
         /// unhover the last hovered item
@@ -513,45 +534,40 @@ const int CNDoubleClick = 2;
     }
 }
 
-//- (void)mouseUp:(NSEvent *)theEvent
-//{
-//}
-
-- (void)mouseDown:(NSEvent *)theEvent
+- (void)mouseUp:(NSEvent *)theEvent
 {
     [self.clickEvents addObject:theEvent];
     self.clickTimer = nil;
     self.clickTimer = [NSTimer scheduledTimerWithTimeInterval:CNDoubleClickTime target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
 }
 
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    if (!self.allowsSelection)
+        return;
+
+    [self selectItemAtIndex:[self indexForItemOfMouseEvent:theEvent] forEvent:theEvent];
+}
+
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
-    NSPoint location = [theEvent locationInWindow];
-    NSPoint point = [self convertPoint:location fromView:nil];
-    NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
-    [self gridView:self rightMouseButtonClickedOnItemAtIndex:selectedItemIndex inSection:0];
+    [self gridView:self rightMouseButtonClickedOnItemAtIndex:[self indexForItemOfMouseEvent:theEvent] inSection:0];
 }
 
 - (void)handleClicks:(NSTimer *)theTimer
 {
     switch ([self.clickEvents count]) {
         case CNSingleClick: {
-            if (self.allowsSelection) {
-                NSEvent *theEvent = [self.clickEvents lastObject];
-                NSPoint location = [theEvent locationInWindow];
-                NSPoint point = [self convertPoint:location fromView:nil];
-                NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
-                [self handleSingleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
-            }
+            NSEvent *theEvent = [self.clickEvents lastObject];
+            [self handleSingleClickForEvent:theEvent onItemAtIndex:[self indexForItemOfMouseEvent:theEvent]];
             break;
         }
 
         case CNDoubleClick: {
+            /// @ToDo: check, if the two click events are still in the area of
+            ///        the same grid view item.
             NSEvent *theEvent = [self.clickEvents lastObject];
-            NSPoint location = [theEvent locationInWindow];
-            NSPoint point = [self convertPoint:location fromView:nil];
-            NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
-            [self handleDoubleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
+            [self handleDoubleClickForEvent:theEvent onItemAtIndex:[self indexForItemOfMouseEvent:theEvent]];
             break;
         }
     }
