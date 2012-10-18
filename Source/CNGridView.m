@@ -29,12 +29,15 @@
  */
 
 #import <QuartzCore/QuartzCore.h>
+
 #import "NSColor+CNGridViewPalette.h"
 #import "CNGridView.h"
 #import "CNGridViewItem.h"
 
 
-static NSTimeInterval CNDoubleClickInterval = 0.3;
+static NSTimeInterval CNDoubleClickTime = 0.2;        /// 250 milliseconds
+const int CNSingleClick = 1;
+const int CNDoubleClick = 2;
 
 
 @interface CNGridView ()
@@ -45,8 +48,9 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
 @property (assign) BOOL isInitialCall;
 @property (assign) NSInteger lastHoveredIndex;
 @property (assign) NSInteger lastSelectedIndex;
-@property (assign) NSTimeInterval lastClickTime;
 @property (assign) NSInteger numberOfItems;
+@property (strong) NSMutableArray *clickEvents;
+@property (strong) NSTimer *clickTimer;
 
 - (void)setupDefaults;
 - (void)updateVisibleRect;
@@ -124,7 +128,8 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
     _isInitialCall = YES;
     _lastHoveredIndex = NSNotFound;
     _lastSelectedIndex = NSNotFound;
-    _lastClickTime = 0;
+    _clickEvents = [NSMutableArray array];
+    _clickTimer = nil;
 
     [[self enclosingScrollView] setDrawsBackground:YES];
 
@@ -419,6 +424,7 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
 
 - (void)handleSingleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
 {
+    CNLog(@"handleSingleClickForEvent");
     /// inform the delegate
     [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
 
@@ -450,6 +456,7 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
 
 - (void)handleDoubleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
 {
+    CNLog(@"handleDoubleClickForEvent");
     /// inform the delegate
     [self gridView:self didDoubleClickItemAtIndex:selectedItemIndex inSection:0];
 }
@@ -457,7 +464,7 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Events & Tracking
+#pragma mark - Event Handling
 
 - (void)updateTrackingAreas
 {
@@ -506,27 +513,15 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
     }
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
-{
-    if (theEvent.clickCount >= 2) {
-        NSPoint location = [theEvent locationInWindow];
-        NSPoint point = [self convertPoint:location fromView:nil];
-        NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
-
-        [self handleDoubleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
-    }
-}
+//- (void)mouseUp:(NSEvent *)theEvent
+//{
+//}
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    if (!self.allowsSelection)
-        return;
-
-    NSPoint location = [theEvent locationInWindow];
-    NSPoint point = [self convertPoint:location fromView:nil];
-    NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
-
-    [self handleSingleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
+    [self.clickEvents addObject:theEvent];
+    self.clickTimer = nil;
+    self.clickTimer = [NSTimer scheduledTimerWithTimeInterval:CNDoubleClickTime target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
 }
 
 - (void)rightMouseDown:(NSEvent *)theEvent
@@ -535,6 +530,32 @@ static NSTimeInterval CNDoubleClickInterval = 0.3;
     NSPoint point = [self convertPoint:location fromView:nil];
     NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
     [self gridView:self rightMouseButtonClickedOnItemAtIndex:selectedItemIndex inSection:0];
+}
+
+- (void)handleClicks:(NSTimer *)theTimer
+{
+    switch ([self.clickEvents count]) {
+        case CNSingleClick: {
+            if (self.allowsSelection) {
+                NSEvent *theEvent = [self.clickEvents lastObject];
+                NSPoint location = [theEvent locationInWindow];
+                NSPoint point = [self convertPoint:location fromView:nil];
+                NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
+                [self handleSingleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
+            }
+            break;
+        }
+
+        case CNDoubleClick: {
+            NSEvent *theEvent = [self.clickEvents lastObject];
+            NSPoint location = [theEvent locationInWindow];
+            NSPoint point = [self convertPoint:location fromView:nil];
+            NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
+            [self handleDoubleClickForEvent:theEvent onItemAtIndex:selectedItemIndex];
+            break;
+        }
+    }
+    [self.clickEvents removeAllObjects];
 }
 
 
