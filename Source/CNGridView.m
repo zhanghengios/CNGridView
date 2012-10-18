@@ -447,40 +447,40 @@ const int CNDoubleClick = 2;
         [self gridView:self didDeselectItemAtIndex:self.lastSelectedIndex inSection:0];
     }
 
-    /// inform the delegate
-    [self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
-
     gridViewItem = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
-    if (self.allowsMultipleSelection) {
-        if (!gridViewItem.isSelected) {
-            gridViewItem.isSelected = YES;
-        } else {
-            if (theEvent.modifierFlags & NSCommandKeyMask) {
-                gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+    if (gridViewItem) {
+        /// inform the delegate
+        [self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
+
+        if (self.allowsMultipleSelection) {
+            if (!gridViewItem.isSelected) {
+                gridViewItem.isSelected = YES;
+            } else {
+                if (theEvent.modifierFlags & NSCommandKeyMask) {
+                    gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+                }
             }
+
+        } else {
+            gridViewItem.isSelected = YES;
         }
-    }
-    else {
-        gridViewItem.isSelected = YES;
-    }
 
-    self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
-    [self.selectedItems setObject:gridViewItem forKey:[NSNumber numberWithInteger:selectedItemIndex]];
+        self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
+        [self.selectedItems setObject:gridViewItem forKey:[NSNumber numberWithInteger:selectedItemIndex]];
 
-    /// inform the delegate
-    [self gridView:self didSelectItemAtIndex:selectedItemIndex inSection:0];
+        /// inform the delegate
+        [self gridView:self didSelectItemAtIndex:selectedItemIndex inSection:0];
+    }
 }
 
 - (void)handleSingleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
 {
-    CNLog(@"handleSingleClickForEvent");
     /// inform the delegate
     [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
 }
 
 - (void)handleDoubleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
 {
-    CNLog(@"handleDoubleClickForEvent");
     /// inform the delegate
     [self gridView:self didDoubleClickItemAtIndex:selectedItemIndex inSection:0];
 }

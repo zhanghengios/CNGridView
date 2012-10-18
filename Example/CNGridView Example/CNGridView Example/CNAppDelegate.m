@@ -41,12 +41,10 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
-
     self.selectionLayout.backgroundColor = [NSColor colorWithCalibratedRed:0.542 green:0.699 blue:0.807 alpha:0.420];
-//    self.selectionLayout.selectionRingColor = [NSColor colorWithCalibratedRed:0.363 green:0.731 blue:1.000 alpha:1.000];
 
     /// insert some content
-    for (int i=0; i<500; i++) {
+    for (int i=0; i<1000; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
