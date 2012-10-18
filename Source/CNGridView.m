@@ -461,7 +461,7 @@ const int CNDoubleClick = 2;
         }
     }
     else {
-        gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+        gridViewItem.isSelected = YES;
     }
 
     self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
