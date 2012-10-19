@@ -8,10 +8,6 @@ To use `CNGridView` the easy work is done in a few steps:
 
 - open InterfaceBuilder and select your NIB file that should contain the grid view
 - Drag a `NSScrollView` to your target view, and set the class of `NSScrollView`'s content view to `CNGridView`
-
-![Xcode Objects Browser](https://dl.dropbox.com/u/34133216/WebImages/Github/XcodeObjectsBrowser.png)
-![Xcode Inspector](https://dl.dropbox.com/u/34133216/WebImages/Github/XcodeInspector.png)
-
 - connect the delegate & dataSource
 - implement all required delegate/dataSource methods
 
