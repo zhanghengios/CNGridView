@@ -747,6 +747,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     if (!self.allowsMultipleSelection)
         return;
 
+    [NSCursor pointingHandCursor];
     if (!self.abortSelection) {
         NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         [self drawSelectionFrameForMousePointerAtLocation:location];
@@ -756,6 +757,8 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
+    [NSCursor arrowCursor];
+
     /// remove selection frame
     [[self.selectionFrameView animator] setAlphaValue:0];
     self.selectionFrameView = nil;

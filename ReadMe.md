@@ -1,15 +1,18 @@
 ##Overview
 `CNGridView` is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls just like known from [NSTableView](https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSTableView_Class/Reference/Reference.html) and [UITableView](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableView_Class/Reference/Reference.html).
 
+The main inspiration to develop this control comes fom @JustSid who wrote the @JUCollectionView. But `CNGridView` was written from ground up. It uses ARC and was only testet on 10.7 Lion & 10.8 Mountain Lion.
+
+
 ![CNGridView Example Application](https://dl.dropbox.com/u/34133216/WebImages/Github/CNGridView-Example.png)
 
 ###Usage
 To use `CNGridView` the easy work is done in a few steps:
 
 - open InterfaceBuilder and select your NIB file that should contain the grid view
-- Drag a `NSScrollView` to your target view, and set the class of `NSScrollView`'s content view to `CNGridView`
+- drag a `NSScrollView` to your target view, and set the class of `NSScrollView`'s content view to `CNGridView`
 - connect the delegate & dataSource
-- implement all required delegate/dataSource methods
+- implement all required delegate/dataSource methods and fill it with appropriate content.
 
 Now you have a fully functionable grid view. `CNGridView` offers a bunch of properties you can change to customize the layout and behavior.
 
