@@ -64,6 +64,13 @@ struct CNItemPoint {
 };
 typedef struct CNItemPoint CNItemPoint;
 
+CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
+    CNItemPoint point;
+    point.column = aColumn;
+    point.row = aRow;
+    return point;
+}
+
 
 @interface CNGridView ()
 @property (strong) NSMutableDictionary *keyedVisibleItems;
@@ -101,7 +108,7 @@ typedef struct CNItemPoint CNItemPoint;
 - (void)handleSingleClickForItemAtIndex:(NSUInteger)selectedItemIndex;
 - (void)handleDoubleClickForItemAtIndex:(NSUInteger)selectedItemIndex;
 - (void)drawSelectionFrameForMousePointerAtLocation:(NSPoint)location;
-- (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame;
+- (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame usingModifierFlags:(NSUInteger)modifierFlags;
 @end
 
 
@@ -159,7 +166,6 @@ typedef struct CNItemPoint CNItemPoint;
 
     _allowsSelection = YES;
     _allowsMultipleSelection = NO;
-    _selectionFrameColor = [NSColor selectionFrameColor];
     _useSelectionRing = YES;
     _useHover = YES;
 
@@ -399,7 +405,11 @@ typedef struct CNItemPoint CNItemPoint;
 
 - (CNItemPoint)locationForItemAtIndex:(NSUInteger)itemIndex
 {
-    
+    NSUInteger columnsInGridView = [self columnsInGridView];
+    NSUInteger row = floor(itemIndex / columnsInGridView) + 1;
+    NSUInteger column = itemIndex - floor((row -1) * columnsInGridView) + 1;
+    CNItemPoint location = CNMakeItemPoint(column, row);
+    return location;
 }
 
 
@@ -431,16 +441,6 @@ typedef struct CNItemPoint CNItemPoint;
                                                                owner:self
                                                             userInfo:nil];
     [self addTrackingArea:_gridViewTrackingArea];
-}
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Configuring the GridView
-
-- (NSUInteger)numberOfVisibleItems
-{
-    return _keyedVisibleItems.count;
 }
 
 
@@ -606,7 +606,7 @@ typedef struct CNItemPoint CNItemPoint;
 {
     if (!self.selectionFrameView) {
         self.selectionFrameInitialPoint = location;
-        self.selectionFrameView = [[CNSelectionFrameView alloc] initWithSelectionFrameColor:self.selectionFrameColor];
+        self.selectionFrameView = [[CNSelectionFrameView alloc] init];
         self.selectionFrameView.frame = NSMakeRect(location.x, location.y, 0, 0);
         if (![self containsSubView:self.selectionFrameView])
             [self addSubview:self.selectionFrameView];
@@ -622,14 +622,77 @@ typedef struct CNItemPoint CNItemPoint;
     }
 }
 
-- (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame
+- (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame usingModifierFlags:(NSUInteger)modifierFlags
 {
     NSUInteger topLeftItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMinX(selectionFrame), NSMinY(selectionFrame)) toView:nil]];
     NSUInteger bottomRightItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMaxX(selectionFrame), NSMaxY(selectionFrame)) toView:nil]];
 
-    CNLog(@"topLeftItemIndex: %li", topLeftItemIndex);
-    CNLog(@"bottomRightItemIndex: %li", bottomRightItemIndex);
+    CNItemPoint topLeftItemPoint = [self locationForItemAtIndex:topLeftItemIndex];
+    CNItemPoint bottomRightItemPoint = [self locationForItemAtIndex:bottomRightItemIndex];
+
+    /// handle all "by selection frame" selected items beeing now outside
+    /// the selection frame
+    [[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        CNGridViewItem *item = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
+        CNItemPoint itemPoint = [self locationForItemAtIndex:item.index];
+
+        if ((itemPoint.row < topLeftItemPoint.row)              ||  /// top edge out of range
+            (itemPoint.column > bottomRightItemPoint.column)    ||  /// right edge out of range
+            (itemPoint.row > bottomRightItemPoint.row)          ||  /// bottom edge out of range
+            (itemPoint.column < topLeftItemPoint.column))           /// left edge out of range
+        {
+            item.isSelected = NO;
+            [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:idx]];
+        }
+    }];
+
+    /// update all items that needs to be selected
+    NSUInteger columnsInGridView = [self columnsInGridView];
+    for (NSUInteger row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
+        for (NSUInteger col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
+            NSUInteger itemIndex = ((row -1) * columnsInGridView + col) -1;
+            CNGridViewItem *item = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+            if (modifierFlags & NSCommandKeyMask) {
+                item.isSelected = (item.isSelected ? NO : YES);
+            } else {
+                item.isSelected = YES;
+            }
+            [self.selectedItemsBySelectionFrame setObject:item forKey:[NSNumber numberWithInteger:item.index]];
+        }
+    }
 }
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Managing the Content
+
+- (NSUInteger)numberOfVisibleItems
+{
+    return _keyedVisibleItems.count;
+}
+
+- (void)removeItem:(CNGridViewItem *)theItem
+{
+
+}
+
+- (void)removeItemAtIndex:(NSUInteger)index
+{
+
+}
+
+- (void)removeAllItems
+{
+
+}
+
+- (void)removeAllSelectedItems
+{
+
+}
+
 
 
 
@@ -675,7 +738,7 @@ typedef struct CNItemPoint CNItemPoint;
     if (!self.abortSelection) {
         NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         [self drawSelectionFrameForMousePointerAtLocation:location];
-        [self selectItemsCoveredBySelectionFrame:self.selectionFrameView.frame];
+        [self selectItemsCoveredBySelectionFrame:self.selectionFrameView.frame usingModifierFlags:theEvent.modifierFlags];
     }
 }
 
@@ -686,6 +749,9 @@ typedef struct CNItemPoint CNItemPoint;
     self.selectionFrameView = nil;
 
     self.abortSelection = NO;
+
+    [self.selectedItems addEntriesFromDictionary:self.selectedItemsBySelectionFrame];
+    [self.selectedItemsBySelectionFrame removeAllObjects];
 
     [self.clickEvents addObject:theEvent];
     self.clickTimer = nil;
@@ -841,47 +907,18 @@ typedef struct CNItemPoint CNItemPoint;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - CNSelectionFrameView
 
-@interface CNSelectionFrameView () {
-    NSColor *selectionFrameColor;
-}
-@end
-
 @implementation CNSelectionFrameView
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        selectionFrameColor = [NSColor selectionFrameColor];
-    }
-    return self;
-}
-
-- (id)initWithSelectionFrameColor:(NSColor *)aColor
-{
-    self = [self init];
-    if (self) {
-        selectionFrameColor = aColor;
-    }
-    return self;
-}
 
 - (void)drawRect:(NSRect)rect
 {
     NSRect dirtyRect = NSMakeRect(0.5, 0.5, floorf(NSWidth(self.bounds))-1, floorf(NSHeight(self.bounds))-1);
     NSBezierPath *selectionFramePath = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
 
-    [[selectionFrameColor colorWithAlphaComponent:0.35] setFill];
+    [[[NSColor lightGrayColor] colorWithAlphaComponent:0.42] setFill];
     [selectionFramePath fill];
 
     [[NSColor whiteColor] set];
     [selectionFramePath stroke];
-}
-
-- (void)setSelectionFrameColor:(NSColor *)aColor
-{
-    selectionFrameColor = aColor;
-    [self setNeedsDisplay:YES];
 }
 
 - (BOOL)isFlipped

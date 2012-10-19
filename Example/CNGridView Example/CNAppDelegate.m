@@ -82,7 +82,6 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
     self.gridView.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundDust"]];
     self.gridView.scrollElasticity = YES;
-    self.gridView.selectionFrameColor = [NSColor grayColor];
     [self.gridView reloadData];
 }
 
@@ -95,6 +94,11 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 - (IBAction)allowMultipleSelectionCheckboxAction:(id)sender
 {
     self.gridView.allowsMultipleSelection = (self.allowMultipleSelectionCheckbox.state == NSOnState ? YES : NO);
+}
+
+- (IBAction)deleteButtonAction:(id)sender
+{
+    
 }
 
 

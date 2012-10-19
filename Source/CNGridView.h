@@ -135,17 +135,37 @@
 /**
  ...
  */
-@property (nonatomic, assign) NSColor *selectionFrameColor;
-
-/**
- ...
- */
 @property (nonatomic, assign) BOOL useSelectionRing;
 
 /**
  ...
  */
 @property (nonatomic, assign) BOOL useHover;
+
+
+
+#pragma mark - Managing the Content
+/** @name  Managing the Content */
+
+/**
+ ...
+ */
+- (void)removeItem:(CNGridViewItem *)theItem;
+
+/**
+ ...
+ */
+- (void)removeItemAtIndex:(NSUInteger)index;
+
+/**
+ ...
+ */
+- (void)removeAllItems;
+
+/**
+ ...
+ */
+- (void)removeAllSelectedItems;
 
 
 
