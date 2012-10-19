@@ -57,10 +57,19 @@ const int CNSingleClick = 1;
 const int CNDoubleClick = 2;
 const int CNTrippleClick = 3;
 
+
+struct CNItemPoint {
+    NSUInteger column;
+    NSUInteger row;
+};
+typedef struct CNItemPoint CNItemPoint;
+
+
 @interface CNGridView ()
 @property (strong) NSMutableDictionary *keyedVisibleItems;
 @property (strong) NSMutableDictionary *reuseableItems;
 @property (strong) NSMutableDictionary *selectedItems;
+@property (strong) NSMutableDictionary *selectedItemsBySelectionFrame;
 @property (strong) NSTrackingArea *gridViewTrackingArea;
 @property (assign) BOOL isInitialCall;
 @property (assign) NSInteger lastHoveredIndex;
@@ -70,6 +79,7 @@ const int CNTrippleClick = 3;
 @property (strong) NSTimer *clickTimer;
 @property (strong) CNSelectionFrameView *selectionFrameView;
 @property (assign) CGPoint selectionFrameInitialPoint;
+@property (assign) BOOL abortSelection;
 
 - (void)setupDefaults;
 - (void)updateVisibleRect;
@@ -85,6 +95,7 @@ const int CNTrippleClick = 3;
 - (NSUInteger)visibleRowsInGridView;
 - (NSRect)clippedRect;
 - (NSUInteger)indexForItemAtLocation:(NSPoint)location;
+- (CNItemPoint)locationForItemAtIndex:(NSUInteger)itemIndex;
 - (void)selectItemAtIndex:(NSUInteger)selectedItemIndex usingModifierFlags:(NSUInteger)modifierFlags;
 - (void)handleClicks:(NSTimer *)theTimer;
 - (void)handleSingleClickForItemAtIndex:(NSUInteger)selectedItemIndex;
@@ -137,6 +148,7 @@ const int CNTrippleClick = 3;
     _keyedVisibleItems = [[NSMutableDictionary alloc] init];
     _reuseableItems = [[NSMutableDictionary alloc] init];
     _selectedItems = [[NSMutableDictionary alloc] init];
+    _selectedItemsBySelectionFrame = [[NSMutableDictionary alloc] init];
 
     /// public properties
     _gridViewTitle = nil;
@@ -158,6 +170,7 @@ const int CNTrippleClick = 3;
     _clickTimer = nil;
     _selectionFrameView = nil;
     _selectionFrameInitialPoint = CGPointZero;
+    _abortSelection = NO;
 
     [[self enclosingScrollView] setDrawsBackground:YES];
 
@@ -384,6 +397,11 @@ const int CNTrippleClick = 3;
     return indexForItemAtLocation;
 }
 
+- (CNItemPoint)locationForItemAtIndex:(NSUInteger)itemIndex
+{
+    
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -499,7 +517,7 @@ const int CNTrippleClick = 3;
                 gridViewItem.isSelected = YES;
             } else {
                 if (modifierFlags & NSCommandKeyMask) {
-                    gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+                    gridViewItem.isSelected = NO;
                 }
             }
 
@@ -606,7 +624,11 @@ const int CNTrippleClick = 3;
 
 - (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame
 {
-    NSRange currentRange = [self currentRange];
+    NSUInteger topLeftItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMinX(selectionFrame), NSMinY(selectionFrame)) toView:nil]];
+    NSUInteger bottomRightItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMaxX(selectionFrame), NSMaxY(selectionFrame)) toView:nil]];
+
+    CNLog(@"topLeftItemIndex: %li", topLeftItemIndex);
+    CNLog(@"bottomRightItemIndex: %li", bottomRightItemIndex);
 }
 
 
@@ -650,9 +672,11 @@ const int CNTrippleClick = 3;
     if (!self.allowsMultipleSelection)
         return;
 
-    NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    [self drawSelectionFrameForMousePointerAtLocation:location];
-    [self selectItemsCoveredBySelectionFrame:self.selectionFrameView.frame];
+    if (!self.abortSelection) {
+        NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+        [self drawSelectionFrameForMousePointerAtLocation:location];
+        [self selectItemsCoveredBySelectionFrame:self.selectionFrameView.frame];
+    }
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
@@ -660,6 +684,8 @@ const int CNTrippleClick = 3;
     /// remove selection frame
     [[self.selectionFrameView animator] setAlphaValue:0];
     self.selectionFrameView = nil;
+
+    self.abortSelection = NO;
 
     [self.clickEvents addObject:theEvent];
     self.clickTimer = nil;
@@ -679,6 +705,17 @@ const int CNTrippleClick = 3;
 {
     NSPoint location = [theEvent locationInWindow];
     [self gridView:self rightMouseButtonClickedOnItemAtIndex:[self indexForItemAtLocation:location] inSection:0];
+}
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    CNLog(@"keyDown");
+    switch ([theEvent keyCode]) {
+        case 53: {  // escape
+            self.abortSelection = YES;
+            break;
+        }
+    }
 }
 
 
@@ -832,12 +869,12 @@ const int CNTrippleClick = 3;
 - (void)drawRect:(NSRect)rect
 {
     NSRect dirtyRect = NSMakeRect(0.5, 0.5, floorf(NSWidth(self.bounds))-1, floorf(NSHeight(self.bounds))-1);
-    NSBezierPath *selectionFramePath = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:3 yRadius:3];
+    NSBezierPath *selectionFramePath = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
 
     [[selectionFrameColor colorWithAlphaComponent:0.35] setFill];
     [selectionFramePath fill];
 
-    [selectionFrameColor set];
+    [[NSColor whiteColor] set];
     [selectionFramePath stroke];
 }
 
