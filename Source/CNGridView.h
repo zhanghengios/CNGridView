@@ -135,6 +135,11 @@
 /**
  ...
  */
+@property (nonatomic, assign) NSColor *selectionFrameColor;
+
+/**
+ ...
+ */
 @property (nonatomic, assign) BOOL useSelectionRing;
 
 /**

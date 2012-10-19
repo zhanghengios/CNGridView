@@ -31,14 +31,31 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "NSColor+CNGridViewPalette.h"
+#import "NSView+Tools.h"
 #import "CNGridView.h"
 #import "CNGridViewItem.h"
 
 
-static NSTimeInterval CNDoubleClickTime = 0.25;        /// 250 milliseconds
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark CNSelectionFrameView
+
+@interface CNSelectionFrameView : NSView
+- (id)initWithSelectionFrameColor:(NSColor *)aColor;
+@end
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark CNGridView
+
 const int CNSingleClick = 1;
 const int CNDoubleClick = 2;
-
+const int CNTrippleClick = 3;
 
 @interface CNGridView ()
 @property (strong) NSMutableDictionary *keyedVisibleItems;
@@ -51,6 +68,8 @@ const int CNDoubleClick = 2;
 @property (assign) NSInteger numberOfItems;
 @property (strong) NSMutableArray *clickEvents;
 @property (strong) NSTimer *clickTimer;
+@property (strong) CNSelectionFrameView *selectionFrameView;
+@property (assign) CGPoint selectionFrameInitialPoint;
 
 - (void)setupDefaults;
 - (void)updateVisibleRect;
@@ -66,7 +85,12 @@ const int CNDoubleClick = 2;
 - (NSUInteger)visibleRowsInGridView;
 - (NSRect)clippedRect;
 - (NSUInteger)indexForItemAtLocation:(NSPoint)location;
-- (NSUInteger)indexForItemOfMouseEvent:(NSEvent *)theEvent;
+- (void)selectItemAtIndex:(NSUInteger)selectedItemIndex usingModifierFlags:(NSUInteger)modifierFlags;
+- (void)handleClicks:(NSTimer *)theTimer;
+- (void)handleSingleClickForItemAtIndex:(NSUInteger)selectedItemIndex;
+- (void)handleDoubleClickForItemAtIndex:(NSUInteger)selectedItemIndex;
+- (void)drawSelectionFrameForMousePointerAtLocation:(NSPoint)location;
+- (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame;
 @end
 
 
@@ -123,6 +147,7 @@ const int CNDoubleClick = 2;
 
     _allowsSelection = YES;
     _allowsMultipleSelection = NO;
+    _selectionFrameColor = [NSColor selectionFrameColor];
     _useSelectionRing = YES;
     _useHover = YES;
 
@@ -131,12 +156,17 @@ const int CNDoubleClick = 2;
     _lastSelectedIndex = NSNotFound;
     _clickEvents = [NSMutableArray array];
     _clickTimer = nil;
+    _selectionFrameView = nil;
+    _selectionFrameInitialPoint = CGPointZero;
 
     [[self enclosingScrollView] setDrawsBackground:YES];
 
     NSClipView *clipView = [[self enclosingScrollView] contentView];
     [clipView setPostsBoundsChangedNotifications:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateVisibleRect) name:NSViewBoundsDidChangeNotification object:clipView];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateVisibleRect)
+                                                 name:NSViewBoundsDidChangeNotification
+                                               object:clipView];
 }
 
 
@@ -340,19 +370,18 @@ const int CNDoubleClick = 2;
 
 - (NSUInteger)indexForItemAtLocation:(NSPoint)location
 {
-    NSUInteger currentColumn = floor(location.x / self.itemSize.width);
-    NSUInteger currentRow = floor(location.y / self.itemSize.height);
-    NSUInteger currentItemIndex = currentRow * [self columnsInGridView] + currentColumn;
-    currentItemIndex = (currentItemIndex > self.numberOfItems ? NSNotFound : currentItemIndex);
-    return currentItemIndex;
-}
-
-- (NSUInteger)indexForItemOfMouseEvent:(NSEvent *)theEvent
-{
-    NSPoint location = [theEvent locationInWindow];
     NSPoint point = [self convertPoint:location fromView:nil];
-    NSUInteger selectedItemIndex = [self indexForItemAtLocation:point];
-    return selectedItemIndex;
+    NSUInteger indexForItemAtLocation;
+    if (point.x > (self.itemSize.width * [self columnsInGridView])) {
+        indexForItemAtLocation = NSNotFound;
+
+    } else {
+        NSUInteger currentColumn = floor(point.x / self.itemSize.width);
+        NSUInteger currentRow = floor(point.y / self.itemSize.height);
+        indexForItemAtLocation = currentRow * [self columnsInGridView] + currentColumn;
+        indexForItemAtLocation = (indexForItemAtLocation > self.numberOfItems ? NSNotFound : indexForItemAtLocation);
+    }
+    return indexForItemAtLocation;
 }
 
 
@@ -371,6 +400,19 @@ const int CNDoubleClick = 2;
     [super setFrame:frameRect];
     [self refreshGridViewAnimated:animated];
     [[self enclosingScrollView] setNeedsDisplay:YES];
+}
+
+- (void)updateTrackingAreas
+{
+    if (self.gridViewTrackingArea)
+        [self removeTrackingArea:self.gridViewTrackingArea];
+
+    self.gridViewTrackingArea = nil;
+    self.gridViewTrackingArea = [[NSTrackingArea alloc] initWithRect:self.frame
+                                                             options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow
+                                                               owner:self
+                                                            userInfo:nil];
+    [self addTrackingArea:_gridViewTrackingArea];
 }
 
 
@@ -419,7 +461,7 @@ const int CNDoubleClick = 2;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Scrolling to GridView Items & Selection Handling
+#pragma mark - Selection Handling
 
 - (void)scrollToGridViewItem:(CNGridViewItem *)gridViewItem animated:(BOOL)animated
 {
@@ -431,7 +473,7 @@ const int CNDoubleClick = 2;
 
 }
 
-- (void)selectItemAtIndex:(NSUInteger)selectedItemIndex forEvent:(NSEvent *)theEvent
+- (void)selectItemAtIndex:(NSUInteger)selectedItemIndex usingModifierFlags:(NSUInteger)modifierFlags
 {
     CNGridViewItem *gridViewItem = nil;
 
@@ -456,13 +498,17 @@ const int CNDoubleClick = 2;
             if (!gridViewItem.isSelected) {
                 gridViewItem.isSelected = YES;
             } else {
-                if (theEvent.modifierFlags & NSCommandKeyMask) {
+                if (modifierFlags & NSCommandKeyMask) {
                     gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
                 }
             }
 
         } else {
-            gridViewItem.isSelected = YES;
+            if (modifierFlags & NSCommandKeyMask) {
+                gridViewItem.isSelected = (gridViewItem.isSelected ? NO : YES);
+            } else {
+                gridViewItem.isSelected = YES;
+            }
         }
 
         self.lastSelectedIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
@@ -473,35 +519,100 @@ const int CNDoubleClick = 2;
     }
 }
 
-- (void)handleSingleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
+- (void)handleClicks:(NSTimer *)theTimer
+{
+    switch ([self.clickEvents count]) {
+        case CNSingleClick: {
+            NSEvent *theEvent = [self.clickEvents lastObject];
+            NSUInteger index = [self indexForItemAtLocation:theEvent.locationInWindow];
+            [self handleSingleClickForItemAtIndex:index];
+            break;
+        }
+
+        case CNDoubleClick: {
+            NSUInteger indexClick1 = [self indexForItemAtLocation:[[self.clickEvents objectAtIndex:0] locationInWindow]];
+            NSUInteger indexClick2 = [self indexForItemAtLocation:[[self.clickEvents objectAtIndex:1] locationInWindow]];
+            if (indexClick1 == indexClick2) {
+                [self handleDoubleClickForItemAtIndex:indexClick1];
+            } else {
+                [self handleSingleClickForItemAtIndex:indexClick1];
+                [self handleSingleClickForItemAtIndex:indexClick2];
+            }
+            break;
+        }
+
+        case CNTrippleClick: {
+            NSUInteger indexClick1 = [self indexForItemAtLocation:[[self.clickEvents objectAtIndex:0] locationInWindow]];
+            NSUInteger indexClick2 = [self indexForItemAtLocation:[[self.clickEvents objectAtIndex:1] locationInWindow]];
+            NSUInteger indexClick3 = [self indexForItemAtLocation:[[self.clickEvents objectAtIndex:2] locationInWindow]];
+            if (indexClick1 == indexClick2 == indexClick3) {
+                [self handleDoubleClickForItemAtIndex:indexClick1];
+            }
+
+            else if ((indexClick1 == indexClick2) && (indexClick1 != indexClick3)) {
+                [self handleDoubleClickForItemAtIndex:indexClick1];
+                [self handleSingleClickForItemAtIndex:indexClick3];
+            }
+
+            else if ((indexClick1 != indexClick2) && (indexClick2 == indexClick3)) {
+                [self handleSingleClickForItemAtIndex:indexClick1];
+                [self handleDoubleClickForItemAtIndex:indexClick3];
+            }
+
+            else if (indexClick1 != indexClick2 != indexClick3) {
+                [self handleSingleClickForItemAtIndex:indexClick1];
+                [self handleSingleClickForItemAtIndex:indexClick2];
+                [self handleSingleClickForItemAtIndex:indexClick3];
+            }
+            break;
+        }
+    }
+    [self.clickEvents removeAllObjects];
+}
+
+- (void)handleSingleClickForItemAtIndex:(NSUInteger)selectedItemIndex
 {
     /// inform the delegate
     [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
+    CNLog(@"handleSingleClick for item at index: %lu", selectedItemIndex);
 }
 
-- (void)handleDoubleClickForEvent:(NSEvent *)theEvent onItemAtIndex:(NSUInteger)selectedItemIndex
+- (void)handleDoubleClickForItemAtIndex:(NSUInteger)selectedItemIndex
 {
     /// inform the delegate
     [self gridView:self didDoubleClickItemAtIndex:selectedItemIndex inSection:0];
+    CNLog(@"handleDoubleClick for item at index: %lu", selectedItemIndex);
+}
+
+- (void)drawSelectionFrameForMousePointerAtLocation:(NSPoint)location
+{
+    if (!self.selectionFrameView) {
+        self.selectionFrameInitialPoint = location;
+        self.selectionFrameView = [[CNSelectionFrameView alloc] initWithSelectionFrameColor:self.selectionFrameColor];
+        self.selectionFrameView.frame = NSMakeRect(location.x, location.y, 0, 0);
+        if (![self containsSubView:self.selectionFrameView])
+            [self addSubview:self.selectionFrameView];
+    }
+
+    else {
+        NSRect newRect = NSMakeRect(ceil((location.x > self.selectionFrameInitialPoint.x ? self.selectionFrameInitialPoint.x: location.x)),
+                                    ceil((location.y > self.selectionFrameInitialPoint.y ? self.selectionFrameInitialPoint.y: location.y)),
+                                    (location.x > self.selectionFrameInitialPoint.x ? location.x - self.selectionFrameInitialPoint.x: self.selectionFrameInitialPoint.x - location.x),
+                                    (location.y > self.selectionFrameInitialPoint.y ? location.y - self.selectionFrameInitialPoint.y: self.selectionFrameInitialPoint.y - location.y));
+        self.selectionFrameView.frame = newRect;
+        [self.selectionFrameView setNeedsDisplay:YES];
+    }
+}
+
+- (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame
+{
+    NSRange currentRange = [self currentRange];
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Event Handling
-
-- (void)updateTrackingAreas
-{
-    if (self.gridViewTrackingArea)
-        [self removeTrackingArea:self.gridViewTrackingArea];
-
-    self.gridViewTrackingArea = nil;
-    self.gridViewTrackingArea = [[NSTrackingArea alloc] initWithRect:self.frame
-                                                             options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow
-                                                               owner:self
-                                                            userInfo:nil];
-    [self addTrackingArea:_gridViewTrackingArea];
-}
+#pragma mark - NSResponder Methods
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
@@ -513,8 +624,8 @@ const int CNDoubleClick = 2;
     if (!self.useHover)
         return;
 
-    NSUInteger hoverItemIndex = [self indexForItemOfMouseEvent:theEvent];
-    if (hoverItemIndex == NSNotFound || hoverItemIndex != self.lastHoveredIndex) {
+    NSUInteger hoverItemIndex = [self indexForItemAtLocation:theEvent.locationInWindow];
+    if (hoverItemIndex != NSNotFound || hoverItemIndex != self.lastHoveredIndex) {
         CNGridViewItem *gridViewItem = nil;
         /// unhover the last hovered item
         if (self.lastHoveredIndex != NSNotFound) {
@@ -534,11 +645,25 @@ const int CNDoubleClick = 2;
     }
 }
 
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+    if (!self.allowsMultipleSelection)
+        return;
+
+    NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    [self drawSelectionFrameForMousePointerAtLocation:location];
+    [self selectItemsCoveredBySelectionFrame:self.selectionFrameView.frame];
+}
+
 - (void)mouseUp:(NSEvent *)theEvent
 {
+    /// remove selection frame
+    [[self.selectionFrameView animator] setAlphaValue:0];
+    self.selectionFrameView = nil;
+
     [self.clickEvents addObject:theEvent];
     self.clickTimer = nil;
-    self.clickTimer = [NSTimer scheduledTimerWithTimeInterval:CNDoubleClickTime target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
+    self.clickTimer = [NSTimer scheduledTimerWithTimeInterval:[NSEvent doubleClickInterval] target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -546,32 +671,14 @@ const int CNDoubleClick = 2;
     if (!self.allowsSelection)
         return;
 
-    [self selectItemAtIndex:[self indexForItemOfMouseEvent:theEvent] forEvent:theEvent];
+    NSPoint location = [theEvent locationInWindow];
+    [self selectItemAtIndex:[self indexForItemAtLocation:location] usingModifierFlags:theEvent.modifierFlags];
 }
 
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
-    [self gridView:self rightMouseButtonClickedOnItemAtIndex:[self indexForItemOfMouseEvent:theEvent] inSection:0];
-}
-
-- (void)handleClicks:(NSTimer *)theTimer
-{
-    switch ([self.clickEvents count]) {
-        case CNSingleClick: {
-            NSEvent *theEvent = [self.clickEvents lastObject];
-            [self handleSingleClickForEvent:theEvent onItemAtIndex:[self indexForItemOfMouseEvent:theEvent]];
-            break;
-        }
-
-        case CNDoubleClick: {
-            /// @ToDo: check, if the two click events are still in the area of
-            ///        the same grid view item.
-            NSEvent *theEvent = [self.clickEvents lastObject];
-            [self handleDoubleClickForEvent:theEvent onItemAtIndex:[self indexForItemOfMouseEvent:theEvent]];
-            break;
-        }
-    }
-    [self.clickEvents removeAllObjects];
+    NSPoint location = [theEvent locationInWindow];
+    [self gridView:self rightMouseButtonClickedOnItemAtIndex:[self indexForItemAtLocation:location] inSection:0];
 }
 
 
@@ -685,6 +792,64 @@ const int CNDoubleClick = 2;
         return [self.dataSource sectionIndexTitlesForGridView:gridView];
     }
     return nil;
+}
+
+@end
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - CNSelectionFrameView
+
+@interface CNSelectionFrameView () {
+    NSColor *selectionFrameColor;
+}
+@end
+
+@implementation CNSelectionFrameView
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        selectionFrameColor = [NSColor selectionFrameColor];
+    }
+    return self;
+}
+
+- (id)initWithSelectionFrameColor:(NSColor *)aColor
+{
+    self = [self init];
+    if (self) {
+        selectionFrameColor = aColor;
+    }
+    return self;
+}
+
+- (void)drawRect:(NSRect)rect
+{
+    NSRect dirtyRect = NSMakeRect(0.5, 0.5, floorf(NSWidth(self.bounds))-1, floorf(NSHeight(self.bounds))-1);
+    NSBezierPath *selectionFramePath = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:3 yRadius:3];
+
+    [[selectionFrameColor colorWithAlphaComponent:0.35] setFill];
+    [selectionFramePath fill];
+
+    [selectionFrameColor set];
+    [selectionFramePath stroke];
+}
+
+- (void)setSelectionFrameColor:(NSColor *)aColor
+{
+    selectionFrameColor = aColor;
+    [self setNeedsDisplay:YES];
+}
+
+- (BOOL)isFlipped
+{
+    return YES;
 }
 
 @end

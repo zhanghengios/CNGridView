@@ -8,27 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA00C53B1628A65A0007DE99 /* QuartzCore.framework */; };
-		AAA3E98F162A33D1001C6806 /* BackgroundNoisy.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */; };
-		AAA3E993162A3653001C6806 /* BackgroundDust.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E991162A3653001C6806 /* BackgroundDust.png */; };
-		AAA3E994162A3653001C6806 /* BackgroundSolid.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA3E992162A3653001C6806 /* BackgroundSolid.png */; };
+		AA47208F163171FD00C1C460 /* CNGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA472084163171FD00C1C460 /* CNGridView.m */; };
+		AA472090163171FD00C1C460 /* CNGridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AA472088163171FD00C1C460 /* CNGridViewItem.m */; };
+		AA472091163171FD00C1C460 /* CNGridViewItemLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47208A163171FD00C1C460 /* CNGridViewItemLayout.m */; };
+		AA472092163171FD00C1C460 /* NSColor+CNGridViewPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47208C163171FD00C1C460 /* NSColor+CNGridViewPalette.m */; };
+		AA472093163171FD00C1C460 /* NSView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47208E163171FD00C1C460 /* NSView+Tools.m */; };
+		AA4720981631721000C1C460 /* BackgroundDust.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720951631721000C1C460 /* BackgroundDust.png */; };
+		AA4720991631721000C1C460 /* BackgroundNoisy.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720961631721000C1C460 /* BackgroundNoisy.png */; };
+		AA47209A1631721000C1C460 /* BackgroundSolid.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720971631721000C1C460 /* BackgroundSolid.png */; };
 		AADDA92A162839E10098DFBE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADDA929162839E00098DFBE /* Cocoa.framework */; };
 		AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADDA932162839E10098DFBE /* InfoPlist.strings */; };
 		AADDA936162839E10098DFBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA935162839E10098DFBE /* main.m */; };
 		AADDA93A162839E10098DFBE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AADDA938162839E10098DFBE /* Credits.rtf */; };
 		AADDA93D162839E10098DFBE /* CNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA93C162839E10098DFBE /* CNAppDelegate.m */; };
 		AADDA940162839E10098DFBE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADDA93E162839E10098DFBE /* MainMenu.xib */; };
-		AADDA95116283A180098DFBE /* CNGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA94816283A180098DFBE /* CNGridView.m */; };
-		AADDA95216283A180098DFBE /* CNGridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA94C16283A180098DFBE /* CNGridViewItem.m */; };
-		AADDA95316283A180098DFBE /* CNGridViewItemLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */; };
-		AADDA95416283A180098DFBE /* NSColor+CNGridViewPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */; };
 		AAEF72A9162B66A10051A723 /* AppleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEF72A8162B66A10051A723 /* AppleLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AA00C53B1628A65A0007DE99 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundNoisy.png; path = ../../../Source/BackgroundNoisy.png; sourceTree = "<group>"; };
-		AAA3E991162A3653001C6806 /* BackgroundDust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundDust.png; path = ../../../Source/BackgroundDust.png; sourceTree = "<group>"; };
-		AAA3E992162A3653001C6806 /* BackgroundSolid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundSolid.png; path = ../../../Source/BackgroundSolid.png; sourceTree = "<group>"; };
+		AA472083163171FD00C1C460 /* CNGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridView.h; path = ../../Source/CNGridView.h; sourceTree = "<group>"; };
+		AA472084163171FD00C1C460 /* CNGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridView.m; path = ../../Source/CNGridView.m; sourceTree = "<group>"; };
+		AA472085163171FD00C1C460 /* CNGridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewDataSource.h; path = ../../Source/CNGridViewDataSource.h; sourceTree = "<group>"; };
+		AA472086163171FD00C1C460 /* CNGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewDelegate.h; path = ../../Source/CNGridViewDelegate.h; sourceTree = "<group>"; };
+		AA472087163171FD00C1C460 /* CNGridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewItem.h; path = ../../Source/CNGridViewItem.h; sourceTree = "<group>"; };
+		AA472088163171FD00C1C460 /* CNGridViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItem.m; path = ../../Source/CNGridViewItem.m; sourceTree = "<group>"; };
+		AA472089163171FD00C1C460 /* CNGridViewItemLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewItemLayout.h; path = ../../Source/CNGridViewItemLayout.h; sourceTree = "<group>"; };
+		AA47208A163171FD00C1C460 /* CNGridViewItemLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItemLayout.m; path = ../../Source/CNGridViewItemLayout.m; sourceTree = "<group>"; };
+		AA47208B163171FD00C1C460 /* NSColor+CNGridViewPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+CNGridViewPalette.h"; path = "../../Source/NSColor+CNGridViewPalette.h"; sourceTree = "<group>"; };
+		AA47208C163171FD00C1C460 /* NSColor+CNGridViewPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+CNGridViewPalette.m"; path = "../../Source/NSColor+CNGridViewPalette.m"; sourceTree = "<group>"; };
+		AA47208D163171FD00C1C460 /* NSView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+Tools.h"; path = "../../Source/NSView+Tools.h"; sourceTree = "<group>"; };
+		AA47208E163171FD00C1C460 /* NSView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+Tools.m"; path = "../../Source/NSView+Tools.m"; sourceTree = "<group>"; };
+		AA4720951631721000C1C460 /* BackgroundDust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundDust.png; sourceTree = "<group>"; };
+		AA4720961631721000C1C460 /* BackgroundNoisy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundNoisy.png; sourceTree = "<group>"; };
+		AA4720971631721000C1C460 /* BackgroundSolid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundSolid.png; sourceTree = "<group>"; };
 		AADDA925162839E00098DFBE /* CNGridView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNGridView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADDA929162839E00098DFBE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AADDA92C162839E10098DFBE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -42,16 +55,6 @@
 		AADDA93B162839E10098DFBE /* CNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CNAppDelegate.h; sourceTree = "<group>"; };
 		AADDA93C162839E10098DFBE /* CNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CNAppDelegate.m; sourceTree = "<group>"; };
 		AADDA93F162839E10098DFBE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		AADDA94716283A180098DFBE /* CNGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridView.h; path = ../../../Source/CNGridView.h; sourceTree = "<group>"; };
-		AADDA94816283A180098DFBE /* CNGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridView.m; path = ../../../Source/CNGridView.m; sourceTree = "<group>"; };
-		AADDA94916283A180098DFBE /* CNGridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewDataSource.h; path = ../../../Source/CNGridViewDataSource.h; sourceTree = "<group>"; };
-		AADDA94A16283A180098DFBE /* CNGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewDelegate.h; path = ../../../Source/CNGridViewDelegate.h; sourceTree = "<group>"; };
-		AADDA94B16283A180098DFBE /* CNGridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewItem.h; path = ../../../Source/CNGridViewItem.h; sourceTree = "<group>"; };
-		AADDA94C16283A180098DFBE /* CNGridViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItem.m; path = ../../../Source/CNGridViewItem.m; sourceTree = "<group>"; };
-		AADDA94D16283A180098DFBE /* CNGridViewItemLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewItemLayout.h; path = ../../../Source/CNGridViewItemLayout.h; sourceTree = "<group>"; };
-		AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItemLayout.m; path = ../../../Source/CNGridViewItemLayout.m; sourceTree = "<group>"; };
-		AADDA94F16283A180098DFBE /* NSColor+CNGridViewPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+CNGridViewPalette.h"; path = "../../../Source/NSColor+CNGridViewPalette.h"; sourceTree = "<group>"; };
-		AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+CNGridViewPalette.m"; path = "../../../Source/NSColor+CNGridViewPalette.m"; sourceTree = "<group>"; };
 		AAEF72A8162B66A10051A723 /* AppleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppleLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,9 +123,9 @@
 		AADDA930162839E10098DFBE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AAA3E98E162A33D1001C6806 /* BackgroundNoisy.png */,
-				AAA3E991162A3653001C6806 /* BackgroundDust.png */,
-				AAA3E992162A3653001C6806 /* BackgroundSolid.png */,
+				AA4720951631721000C1C460 /* BackgroundDust.png */,
+				AA4720961631721000C1C460 /* BackgroundNoisy.png */,
+				AA4720971631721000C1C460 /* BackgroundSolid.png */,
 				AAEF72A8162B66A10051A723 /* AppleLogo.png */,
 				AADDA931162839E10098DFBE /* CNGridView Example-Info.plist */,
 				AADDA932162839E10098DFBE /* InfoPlist.strings */,
@@ -136,16 +139,18 @@
 		AADDA946162839F90098DFBE /* CNGridView */ = {
 			isa = PBXGroup;
 			children = (
-				AADDA94716283A180098DFBE /* CNGridView.h */,
-				AADDA94816283A180098DFBE /* CNGridView.m */,
-				AADDA94916283A180098DFBE /* CNGridViewDataSource.h */,
-				AADDA94A16283A180098DFBE /* CNGridViewDelegate.h */,
-				AADDA94B16283A180098DFBE /* CNGridViewItem.h */,
-				AADDA94C16283A180098DFBE /* CNGridViewItem.m */,
-				AADDA94D16283A180098DFBE /* CNGridViewItemLayout.h */,
-				AADDA94E16283A180098DFBE /* CNGridViewItemLayout.m */,
-				AADDA94F16283A180098DFBE /* NSColor+CNGridViewPalette.h */,
-				AADDA95016283A180098DFBE /* NSColor+CNGridViewPalette.m */,
+				AA472083163171FD00C1C460 /* CNGridView.h */,
+				AA472084163171FD00C1C460 /* CNGridView.m */,
+				AA472085163171FD00C1C460 /* CNGridViewDataSource.h */,
+				AA472086163171FD00C1C460 /* CNGridViewDelegate.h */,
+				AA472087163171FD00C1C460 /* CNGridViewItem.h */,
+				AA472088163171FD00C1C460 /* CNGridViewItem.m */,
+				AA472089163171FD00C1C460 /* CNGridViewItemLayout.h */,
+				AA47208A163171FD00C1C460 /* CNGridViewItemLayout.m */,
+				AA47208B163171FD00C1C460 /* NSColor+CNGridViewPalette.h */,
+				AA47208C163171FD00C1C460 /* NSColor+CNGridViewPalette.m */,
+				AA47208D163171FD00C1C460 /* NSView+Tools.h */,
+				AA47208E163171FD00C1C460 /* NSView+Tools.m */,
 			);
 			name = CNGridView;
 			sourceTree = "<group>";
@@ -205,10 +210,10 @@
 				AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */,
 				AADDA93A162839E10098DFBE /* Credits.rtf in Resources */,
 				AADDA940162839E10098DFBE /* MainMenu.xib in Resources */,
-				AAA3E98F162A33D1001C6806 /* BackgroundNoisy.png in Resources */,
-				AAA3E993162A3653001C6806 /* BackgroundDust.png in Resources */,
-				AAA3E994162A3653001C6806 /* BackgroundSolid.png in Resources */,
 				AAEF72A9162B66A10051A723 /* AppleLogo.png in Resources */,
+				AA4720981631721000C1C460 /* BackgroundDust.png in Resources */,
+				AA4720991631721000C1C460 /* BackgroundNoisy.png in Resources */,
+				AA47209A1631721000C1C460 /* BackgroundSolid.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,10 +226,11 @@
 			files = (
 				AADDA936162839E10098DFBE /* main.m in Sources */,
 				AADDA93D162839E10098DFBE /* CNAppDelegate.m in Sources */,
-				AADDA95116283A180098DFBE /* CNGridView.m in Sources */,
-				AADDA95216283A180098DFBE /* CNGridViewItem.m in Sources */,
-				AADDA95316283A180098DFBE /* CNGridViewItemLayout.m in Sources */,
-				AADDA95416283A180098DFBE /* NSColor+CNGridViewPalette.m in Sources */,
+				AA47208F163171FD00C1C460 /* CNGridView.m in Sources */,
+				AA472090163171FD00C1C460 /* CNGridViewItem.m in Sources */,
+				AA472091163171FD00C1C460 /* CNGridViewItemLayout.m in Sources */,
+				AA472092163171FD00C1C460 /* NSColor+CNGridViewPalette.m in Sources */,
+				AA472093163171FD00C1C460 /* NSView+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

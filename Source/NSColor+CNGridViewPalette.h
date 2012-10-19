@@ -68,4 +68,10 @@
 
 + (NSColor *)itemTitleShadowColor;
 
++ (NSColor *)selectionFrameColor;
+
+
+- (CGColorRef)CGColor;
++ (NSColor *)colorWithCGColor:(CGColorRef)CGColor;
+
 @end
