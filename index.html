@@ -32,6 +32,8 @@
 
 <p><code>CNGridView</code> is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls just like known from <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSTableView_Class/Reference/Reference.html">NSTableView</a> and <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableView_Class/Reference/Reference.html">UITableView</a>.</p>
 
+<p>The main inspiration to develop this control comes fom <a href="https://github.com/JustSid" class="user-mention">@JustSid</a> who wrote the <a href="https://github.com/JustSid/JUCollectionView">JUCollectionView</a>. But <code>CNGridView</code> was written from ground up. It uses ARC and was only testet on 10.7 Lion &amp; 10.8 Mountain Lion.</p>
+
 <p><img src="https://dl.dropbox.com/u/34133216/WebImages/Github/CNGridView-Example.png" alt="CNGridView Example Application"></p>
 
 <h3>Usage</h3>
@@ -40,10 +42,10 @@
 
 <ul>
 <li>open InterfaceBuilder and select your NIB file that should contain the grid view</li>
-<li>Drag a <code>NSScrollView</code> to your target view, and set the class of <code>NSScrollView</code>'s content view to <code>CNGridView</code>
+<li>drag a <code>NSScrollView</code> to your target view, and set the class of <code>NSScrollView</code>'s content view to <code>CNGridView</code>
 </li>
 <li>connect the delegate &amp; dataSource</li>
-<li>implement all required delegate/dataSource methods</li>
+<li>implement all required delegate/dataSource methods and fill it with appropriate content.</li>
 </ul><p>Now you have a fully functionable grid view. <code>CNGridView</code> offers a bunch of properties you can change to customize the layout and behavior.</p>
 
 <h3>Documentation</h3>
