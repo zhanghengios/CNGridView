@@ -11,7 +11,7 @@ To use `CNGridView` the easy work is done in a few steps:
 - connect the delegate & dataSource
 - implement all required delegate/dataSource methods
 
-With this setting you will get all the default settings. `CNGridView`
+Now you have a fully functionable grid view. `CNGridView` offers a bunch of properties you can change to customize the layout and behavior.
 
 ###Documentation
 The documentation of this project is auto generated using [Appledoc](http://gentlebytes.com/appledoc/) by [@gentlebytes](https://twitter.com/gentlebytes). You can find the complete reference [here](http://cngridview.cocoanaut.com/documentation/).
