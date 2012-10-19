@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>CNGridView</h1>
-        <p>CNGridView is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls like known from NSTableView/UITableView.</p>
+        <p>CNGridView shows you an array of various content, each in its own view.</p>
 
         <p class="view"><a href="https://github.com/phranck/CNGridView">View the Project on GitHub <small>phranck/CNGridView</small></a></p>
 
@@ -32,7 +32,9 @@
 
 <p><code>CNGridView</code> is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls just like known from <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSTableView_Class/Reference/Reference.html">NSTableView</a> and <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableView_Class/Reference/Reference.html">UITableView</a>.</p>
 
-<p>The main inspiration to develop this control comes fom <a href="https://github.com/JustSid" class="user-mention">@JustSid</a> who wrote the <a href="https://github.com/JustSid/JUCollectionView">JUCollectionView</a>. But <code>CNGridView</code> was written from ground up. It uses ARC and was only testet on 10.7 Lion &amp; 10.8 Mountain Lion.</p>
+<p>The main inspiration to develop this control came fom <a href="https://github.com/JustSid" class="user-mention">@JustSid</a> who wrote the <a href="https://github.com/JustSid/JUCollectionView">JUCollectionView</a>. But <code>CNGridView</code> was written from ground up, it uses ARC and has a bunch of properties to customize its layout and behavior.</p>
+
+<p><code>CNGridView</code> was only testet on 10.7 Lion &amp; 10.8 Mountain Lion.</p>
 
 <p><img src="https://dl.dropbox.com/u/34133216/WebImages/Github/CNGridView-Example.png" alt="CNGridView Example Application"></p>
 
@@ -46,7 +48,20 @@
 </li>
 <li>connect the delegate &amp; dataSource</li>
 <li>implement all required delegate/dataSource methods and fill it with appropriate content.</li>
-</ul><p>Now you have a fully functionable grid view. <code>CNGridView</code> offers a bunch of properties you can change to customize the layout and behavior.</p>
+</ul><p>Now you have a fully functionable grid view.</p>
+
+<h3>Missing Features</h3>
+
+<p>There are some features I planned to integrate - if time permits.</p>
+
+<ul>
+<li>Drag &amp; Drop</li>
+<li>keyboard control</li>
+<li>custom views for grid view items</li>
+<li>custom views for grid view header &amp; footer</li>
+<li>sections</li>
+<li>...</li>
+</ul><p>If you have any ideas of features you are missing, or you wanna contribute this project, please let me know. Feedback is very welcome. (-:</p>
 
 <h3>Documentation</h3>
 
