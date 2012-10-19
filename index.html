@@ -30,12 +30,24 @@
       <section>
         <h2>Overview</h2>
 
-<p><code>CNGridView</code> is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls like known from NSTableView/UITableView.
-<img src="https://dl.dropbox.com/u/34133216/WebImages/Github/CNGridView-Example.png" alt="CNGridView Example Application"></p>
+<p><code>CNGridView</code> is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls just like known from <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSTableView_Class/Reference/Reference.html">NSTableView</a> and <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableView_Class/Reference/Reference.html">UITableView</a>.</p>
+
+<p><img src="https://dl.dropbox.com/u/34133216/WebImages/Github/CNGridView-Example.png" alt="CNGridView Example Application"></p>
 
 <h3>Usage</h3>
 
-<p>To use <code>CNGridView</code> just drag a <code>NSScrollView</code> to your target view, and set the class of <code>NSScrollView</code>s content view to <code>CNGridView</code>.</p>
+<p>To use <code>CNGridView</code> the easy work is done in a few steps:</p>
+
+<ul>
+<li>open InterfaceBuilder and select your NIB file that should contain the grid view</li>
+<li>Drag a <code>NSScrollView</code> to your target view, and set the class of <code>NSScrollView</code>'s content view to <code>CNGridView</code>
+</li>
+</ul><p><img src="https://dl.dropbox.com/u/34133216/WebImages/Github/XcodeObjectsBrowser.png" alt="Xcode Objects Browser"><img src="https://dl.dropbox.com/u/34133216/WebImages/Github/XcodeInspector.png" alt="Xcode Inspector"></p>
+
+<ul>
+<li>connect the delegate &amp; dataSource</li>
+<li>implement all required delegate/dataSource methods</li>
+</ul><p>With this setting you will get all the default settings. <code>CNGridView</code></p>
 
 <h3>Documentation</h3>
 
