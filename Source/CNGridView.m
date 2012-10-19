@@ -43,7 +43,6 @@
 #pragma mark CNSelectionFrameView
 
 @interface CNSelectionFrameView : NSView
-- (id)initWithSelectionFrameColor:(NSColor *)aColor;
 @end
 
 
@@ -310,7 +309,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)arrangeGridViewItemsAnimated:(BOOL)animated
 {
-    /// on initial call (aka app startup) we will fade all items (after loading it) in
+    /// on initial call (aka application startup) we will fade all items (after loading it) in
     if (self.isInitialCall && self.keyedVisibleItems.count > 0) {
         self.isInitialCall = NO;
         animated = YES;
@@ -613,12 +612,23 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 
     else {
-        NSRect newRect = NSMakeRect(ceil((location.x > self.selectionFrameInitialPoint.x ? self.selectionFrameInitialPoint.x: location.x)),
-                                    ceil((location.y > self.selectionFrameInitialPoint.y ? self.selectionFrameInitialPoint.y: location.y)),
-                                    (location.x > self.selectionFrameInitialPoint.x ? location.x - self.selectionFrameInitialPoint.x: self.selectionFrameInitialPoint.x - location.x),
-                                    (location.y > self.selectionFrameInitialPoint.y ? location.y - self.selectionFrameInitialPoint.y: self.selectionFrameInitialPoint.y - location.y));
-        self.selectionFrameView.frame = newRect;
-        [self.selectionFrameView setNeedsDisplay:YES];
+        NSRect clippedRect = [self clippedRect];
+        NSUInteger columnsInGridView = [self columnsInGridView];
+        
+        CGFloat posX = ceil((location.x > self.selectionFrameInitialPoint.x ? self.selectionFrameInitialPoint.x : location.x));
+        posX = (posX < NSMinX(clippedRect) ? NSMinX(clippedRect) : posX);
+            
+        CGFloat posY = ceil((location.y > self.selectionFrameInitialPoint.y ? self.selectionFrameInitialPoint.y : location.y));
+        posY = (posY < NSMinY(clippedRect) ? NSMinY(clippedRect) : posY);
+        
+        CGFloat width = (location.x > self.selectionFrameInitialPoint.x ? location.x - self.selectionFrameInitialPoint.x : self.selectionFrameInitialPoint.x - posX);
+        width = (posX + width >= (columnsInGridView * self.itemSize.width) ? (columnsInGridView * self.itemSize.width) - posX - 1 : width);
+
+        CGFloat height = (location.y > self.selectionFrameInitialPoint.y ? location.y - self.selectionFrameInitialPoint.y : self.selectionFrameInitialPoint.y - posY);
+        height = (posY + height > NSMaxY(clippedRect) ? NSMaxY(clippedRect) - posY : height);
+
+        NSRect selectionFrame = NSMakeRect(posX, posY, width, height);
+        self.selectionFrameView.frame = selectionFrame;
     }
 }
 
@@ -634,15 +644,19 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     /// the selection frame
     [[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         CNGridViewItem *item = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
-        CNItemPoint itemPoint = [self locationForItemAtIndex:item.index];
+        if (item) {
+            CNItemPoint itemPoint = [self locationForItemAtIndex:item.index];
 
-        if ((itemPoint.row < topLeftItemPoint.row)              ||  /// top edge out of range
-            (itemPoint.column > bottomRightItemPoint.column)    ||  /// right edge out of range
-            (itemPoint.row > bottomRightItemPoint.row)          ||  /// bottom edge out of range
-            (itemPoint.column < topLeftItemPoint.column))           /// left edge out of range
-        {
-            item.isSelected = NO;
-            [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:idx]];
+            if ((itemPoint.row < topLeftItemPoint.row)              ||  /// top edge out of range
+                (itemPoint.column > bottomRightItemPoint.column)    ||  /// right edge out of range
+                (itemPoint.row > bottomRightItemPoint.row)          ||  /// bottom edge out of range
+                (itemPoint.column < topLeftItemPoint.column))           /// left edge out of range
+            {
+                /// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
+                /// if it there is selected too. If it so, keep it untouched!
+                item.isSelected = NO;
+                [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:item.index]];
+            }
         }
     }];
 
@@ -661,7 +675,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         }
     }
 }
-
 
 
 
@@ -692,7 +705,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 {
 
 }
-
 
 
 
@@ -918,6 +930,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     [selectionFramePath fill];
 
     [[NSColor whiteColor] set];
+    [selectionFramePath setLineWidth:2];
     [selectionFramePath stroke];
 }
 
