@@ -19,7 +19,7 @@ To use `CNGridView` the easy work is done in a few steps:
 Now you have a fully functionable grid view. Please take a look at the example.
 
 ###Missing Features
-There are some features I planned to integrate - if time permits.
+This is a project in progress and far byond being feature complete. There are some stuff I planned to integrate - if time permits.
 * Drag & Drop
 * keyboard control
 * custom views for grid view items
