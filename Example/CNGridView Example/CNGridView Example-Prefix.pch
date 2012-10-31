@@ -4,9 +4,5 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    #import "CNLog.h"
 #endif
-
-
-#define CNLog(parameter, ...)   NSLog((parameter), ##__VA_ARGS__)
-#define CNLogForRect(aRect)     CNLog(@"NSRect with origin x: %f, origin y: %f, width: %f, height: %f", (aRect.origin.x), (aRect.origin.y), (aRect.size.width), (aRect.size.height))
-#define CNLogForRange(aRange)   CNLog(@"NSRange with location: %lu; length: %lu", (aRange.location), (aRange.length))

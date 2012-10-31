@@ -8,6 +8,12 @@
 
 #import "NSView+Tools.h"
 
+
+#if !__has_feature(objc_arc)
+#error "Please use ARC for compiling this file."
+#endif
+
+
 @implementation NSView (Tools)
 
 - (BOOL)isSubviewOfView:(NSView *)theView

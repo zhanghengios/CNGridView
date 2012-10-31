@@ -31,6 +31,12 @@
 
 #import "NSColor+CNGridViewPalette.h"
 
+
+#if !__has_feature(objc_arc)
+#error "Please use ARC for compiling this file."
+#endif
+
+
 @implementation NSColor (CNGridViewPalette)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

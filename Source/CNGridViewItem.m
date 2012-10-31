@@ -33,6 +33,11 @@
 #import "CNGridViewItemLayout.h"
 
 
+#if !__has_feature(objc_arc)
+#error "Please use ARC for compiling this file."
+#endif
+
+
 static CGSize kDefaultItemSize;
 
 

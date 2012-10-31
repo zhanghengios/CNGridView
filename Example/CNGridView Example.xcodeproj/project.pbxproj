@@ -42,6 +42,7 @@
 		AA4720951631721000C1C460 /* BackgroundDust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundDust.png; sourceTree = "<group>"; };
 		AA4720961631721000C1C460 /* BackgroundNoisy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundNoisy.png; sourceTree = "<group>"; };
 		AA4720971631721000C1C460 /* BackgroundSolid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundSolid.png; sourceTree = "<group>"; };
+		AAB08C551639D4E80007FAFA /* CNLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CNLog.h; sourceTree = "<group>"; };
 		AADDA925162839E00098DFBE /* CNGridView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNGridView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADDA929162839E00098DFBE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AADDA92C162839E10098DFBE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -131,6 +132,7 @@
 				AADDA932162839E10098DFBE /* InfoPlist.strings */,
 				AADDA935162839E10098DFBE /* main.m */,
 				AADDA937162839E10098DFBE /* CNGridView Example-Prefix.pch */,
+				AAB08C551639D4E80007FAFA /* CNLog.h */,
 				AADDA938162839E10098DFBE /* Credits.rtf */,
 			);
 			name = "Supporting Files";

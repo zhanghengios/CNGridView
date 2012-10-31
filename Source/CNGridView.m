@@ -36,6 +36,9 @@
 #import "CNGridViewItem.h"
 
 
+#if !__has_feature(objc_arc)
+#error "Please use ARC for compiling this file."
+#endif
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +89,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 @property (strong) CNSelectionFrameView *selectionFrameView;
 @property (assign) CGPoint selectionFrameInitialPoint;
 @property (assign) BOOL abortSelection;
+@property (assign) BOOL mouseHasDragged;
 
 - (void)setupDefaults;
 - (void)updateVisibleRect;
@@ -176,6 +180,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     _selectionFrameView = nil;
     _selectionFrameInitialPoint = CGPointZero;
     _abortSelection = NO;
+    _mouseHasDragged = NO;
 
     [[self enclosingScrollView] setDrawsBackground:YES];
 
@@ -314,7 +319,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         self.isInitialCall = NO;
         animated = YES;
         [NSAnimationContext beginGrouping];
-        [[NSAnimationContext currentContext] setDuration:(animated ? 0.23 : 0.0)];
+        [[NSAnimationContext currentContext] setDuration:(animated ? 0.42 : 0.0)];
         [self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             [[(CNGridViewItem *)obj animator] setAlphaValue:1.0];
         }];
@@ -643,10 +648,12 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     /// handle all "by selection frame" selected items beeing now outside
     /// the selection frame
     [[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        CNGridViewItem *item = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
-        if (item) {
-            CNItemPoint itemPoint = [self locationForItemAtIndex:item.index];
+        CNGridViewItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:idx]];
+        CNGridViewItem *selectionFrameItem = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
+        if (selectionFrameItem) {
+            CNItemPoint itemPoint = [self locationForItemAtIndex:selectionFrameItem.index];
 
+            /// handle all 'out of selection frame range' items
             if ((itemPoint.row < topLeftItemPoint.row)              ||  /// top edge out of range
                 (itemPoint.column > bottomRightItemPoint.column)    ||  /// right edge out of range
                 (itemPoint.row > bottomRightItemPoint.row)          ||  /// bottom edge out of range
@@ -654,8 +661,18 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
             {
                 /// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
                 /// if it there is selected too. If it so, keep it untouched!
-                item.isSelected = NO;
-                [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:item.index]];
+
+                /// so, the current item wasn't selected, we can restore its old state (to unselected)
+                if (![selectionFrameItem isEqual:selectedItem]) {
+                    selectionFrameItem.isSelected = NO;
+                    [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+                }
+
+                /// the current item already was selected, so reselect it.
+                else {
+                    selectionFrameItem.isSelected = YES;
+                    [self.selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+                }
             }
         }
     }];
@@ -665,13 +682,14 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     for (NSUInteger row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
         for (NSUInteger col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
             NSUInteger itemIndex = ((row -1) * columnsInGridView + col) -1;
-            CNGridViewItem *item = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+            CNGridViewItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+            CNGridViewItem *itemToSelect = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+            [self.selectedItemsBySelectionFrame setObject:itemToSelect forKey:[NSNumber numberWithInteger:itemToSelect.index]];
             if (modifierFlags & NSCommandKeyMask) {
-                item.isSelected = (item.isSelected ? NO : YES);
+                itemToSelect.isSelected = ([itemToSelect isEqual:selectedItem] ? NO : YES);
             } else {
-                item.isSelected = YES;
+                itemToSelect.isSelected = YES;
             }
-            [self.selectedItemsBySelectionFrame setObject:item forKey:[NSNumber numberWithInteger:item.index]];
         }
     }
 }
@@ -747,7 +765,9 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     if (!self.allowsMultipleSelection)
         return;
 
-    [NSCursor pointingHandCursor];
+    self.mouseHasDragged = YES;
+    [NSCursor closedHandCursor];
+
     if (!self.abortSelection) {
         NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         [self drawSelectionFrameForMousePointerAtLocation:location];
@@ -759,18 +779,34 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 {
     [NSCursor arrowCursor];
 
-    /// remove selection frame
-    [[self.selectionFrameView animator] setAlphaValue:0];
-    self.selectionFrameView = nil;
-
     self.abortSelection = NO;
 
-    [self.selectedItems addEntriesFromDictionary:self.selectedItemsBySelectionFrame];
-    [self.selectedItemsBySelectionFrame removeAllObjects];
+    /// this happens just if we have multiselection ON and dragged the
+    /// mouse over items. In this case we have to handle this selection.
+    if (self.mouseHasDragged) {
+        self.mouseHasDragged = NO;
 
-    [self.clickEvents addObject:theEvent];
-    self.clickTimer = nil;
-    self.clickTimer = [NSTimer scheduledTimerWithTimeInterval:[NSEvent doubleClickInterval] target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
+        /// remove selection frame
+        [[self.selectionFrameView animator] setAlphaValue:0];
+        self.selectionFrameView = nil;
+
+        /// catch all newly selected items that was selected by selection frame
+        [self.selectedItemsBySelectionFrame enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            if ([(CNGridViewItem *)obj isSelected] == YES) {
+                [self.selectedItems setObject:obj forKey:key];
+            } else {
+                [self.selectedItems removeObjectForKey:key];
+            }
+        }];
+        [self.selectedItemsBySelectionFrame removeAllObjects];
+    }
+
+    /// otherwise it was a real click on an item
+    else {
+        [self.clickEvents addObject:theEvent];
+        self.clickTimer = nil;
+        self.clickTimer = [NSTimer scheduledTimerWithTimeInterval:[NSEvent doubleClickInterval] target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
+    }
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -785,6 +821,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
     NSPoint location = [theEvent locationInWindow];
+    /// inform the delegate
     [self gridView:self rightMouseButtonClickedOnItemAtIndex:[self indexForItemAtLocation:location] inSection:0];
 }
 
@@ -927,19 +964,16 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)drawRect:(NSRect)rect
 {
     NSRect dirtyRect = NSMakeRect(0.5, 0.5, floorf(NSWidth(self.bounds))-1, floorf(NSHeight(self.bounds))-1);
-    NSBezierPath *selectionFramePath = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
+    NSBezierPath *selectionFrame = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
 
     [[[NSColor lightGrayColor] colorWithAlphaComponent:0.42] setFill];
-    [selectionFramePath fill];
+    [selectionFrame fill];
 
     [[NSColor whiteColor] set];
-    [selectionFramePath setLineWidth:2];
-    [selectionFramePath stroke];
+    [selectionFrame setLineWidth:1];
+    [selectionFrame stroke];
 }
 
-- (BOOL)isFlipped
-{
-    return YES;
-}
+- (BOOL)isFlipped { return YES; }
 
 @end
