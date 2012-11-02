@@ -1,0 +1,635 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>CNGridViewDelegate Protocol Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">CNGridView </a></h1>
+				<a id="developerHome" href="../index.html">cocoa:naut</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">CNGridViewDelegate Protocol Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/gridView:didClickItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:didClickItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:didDeselectItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:didDeselectItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:didDoubleClickItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:didDoubleClickItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:didSelectItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:didSelectItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:rightMouseButtonClickedOnItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:rightMouseButtonClickedOnItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:willDeselectItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willDeselectItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:willHovertemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willHovertemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:willSelectItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willSelectItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridView:willUnhovertemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willUnhovertemAtIndex:inSection:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing selection">Managing selection</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:didClickItemAtIndex:inSection:">gridView:didClickItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:didDeselectItemAtIndex:inSection:">gridView:didDeselectItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:didDoubleClickItemAtIndex:inSection:">gridView:didDoubleClickItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:didSelectItemAtIndex:inSection:">gridView:didSelectItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:rightMouseButtonClickedOnItemAtIndex:inSection:">gridView:rightMouseButtonClickedOnItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willDeselectItemAtIndex:inSection:">gridView:willDeselectItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willHovertemAtIndex:inSection:">gridView:willHovertemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willSelectItemAtIndex:inSection:">gridView:willSelectItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willUnhovertemAtIndex:inSection:">gridView:willUnhovertemAtIndex:inSection:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="CNGridViewDelegate Protocol Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">CNGridViewDelegate Protocol Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">CNGridViewDelegate.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Managing selection" name="task_Managing selection"></a>
+						
+<h3 class="subsubtitle task-title">Managing selection</h3>
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:willHovertemAtIndex:inSection:">&ndash;&nbsp;gridView:willHovertemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:willUnhovertemAtIndex:inSection:">&ndash;&nbsp;gridView:willUnhovertemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:willSelectItemAtIndex:inSection:">&ndash;&nbsp;gridView:willSelectItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:didSelectItemAtIndex:inSection:">&ndash;&nbsp;gridView:didSelectItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:willDeselectItemAtIndex:inSection:">&ndash;&nbsp;gridView:willDeselectItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:didDeselectItemAtIndex:inSection:">&ndash;&nbsp;gridView:didDeselectItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:didClickItemAtIndex:inSection:">&ndash;&nbsp;gridView:didClickItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:didDoubleClickItemAtIndex:inSection:">&ndash;&nbsp;gridView:didDoubleClickItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:rightMouseButtonClickedOnItemAtIndex:inSection:">&ndash;&nbsp;gridView:rightMouseButtonClickedOnItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:didClickItemAtIndex:inSection:" title="gridView:didClickItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:didClickItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> didClickItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:didDeselectItemAtIndex:inSection:" title="gridView:didDeselectItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:didDeselectItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> didDeselectItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:didDoubleClickItemAtIndex:inSection:" title="gridView:didDoubleClickItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:didDoubleClickItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> didDoubleClickItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:didSelectItemAtIndex:inSection:" title="gridView:didSelectItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:didSelectItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> didSelectItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:rightMouseButtonClickedOnItemAtIndex:inSection:" title="gridView:rightMouseButtonClickedOnItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:rightMouseButtonClickedOnItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> rightMouseButtonClickedOnItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:willDeselectItemAtIndex:inSection:" title="gridView:willDeselectItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:willDeselectItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> willDeselectItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:willHovertemAtIndex:inSection:" title="gridView:willHovertemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:willHovertemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> willHovertemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:willSelectItemAtIndex:inSection:" title="gridView:willSelectItemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:willSelectItemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> willSelectItemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/gridView:willUnhovertemAtIndex:inSection:" title="gridView:willUnhovertemAtIndex:inSection:"></a>
+	<h3 class="subsubtitle method-title">gridView:willUnhovertemAtIndex:inSection:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> willUnhovertemAtIndex:(NSUInteger)<em>index</em> inSection:(NSUInteger)<em>section</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 cocoa:naut. All rights reserved. (Last updated: 2012-10-19)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>
