@@ -34,7 +34,7 @@
 
 
 __unused static NSString *kCNDefaultItemIdentifier;
-__unused static NSInteger CNItemIndexNoIndex = -1;
+__unused static NSInteger CNItemIndexUndefined = -1;
 __unused static NSString *kCNGridViewItemClearHoveringNotification;
 __unused static NSString *kCNGridViewItemClearSelectionNotification;
 
@@ -127,16 +127,16 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
 /**
  ...
  */
-@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL selected;
 
 /**
  ...
  */
-@property (nonatomic, assign) BOOL isSelectable;
+@property (nonatomic, assign) BOOL selectable;
 
 /**
  ...
  */
-@property (nonatomic, assign) BOOL isHovered;
+@property (nonatomic, assign) BOOL hovered;
 
 @end

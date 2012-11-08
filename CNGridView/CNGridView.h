@@ -37,8 +37,30 @@
 #import "CNGridViewItem.h"
 
 
+/// Notifications
+/// All notifications have the sender `CNGridView` as object parameter
+extern NSString *CNGridViewSelectAllItemsNotification;
+extern NSString *CNGridViewDeSelectAllItemsNotification;
+
+/// the userInfo dictionary of these notifications contains the item index
+/// wrapped in a NSNumber object with the key `CNGridViewItemIndexKey`
+extern NSString *CNGridViewWillHoverItemNotification;
+extern NSString *CNGridViewWillUnhoverItemNotification;
+extern NSString *CNGridViewWillSelectItemNotification;
+extern NSString *CNGridViewDidSelectItemNotification;
+extern NSString *CNGridViewWillDeselectItemNotification;
+extern NSString *CNGridViewDidDeselectItemNotification;
+extern NSString *CNGridViewDidClickItemNotification;
+extern NSString *CNGridViewDidDoubleClickItemNotification;
+extern NSString *CNGridViewRightMouseButtonClickedOnItemNotification;
+
+/// these keys are use for the notification userInfo dictionary (see above)
+extern NSString *CNGridViewItemKey;
+extern NSString *CNGridViewItemIndexKey;
+
+
+
 /**
- `CNGridView` is an easy to use (wanna be) `NSCollectionView` replacement. It was completely written from the ground up.
  `CNGridView` is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls like known from NSTableView/UITableView.
  
  The use of `CNGridView` is just simple as possible.
@@ -70,21 +92,27 @@
 /** @name Configuring the GridView */
 
 /**
- A title string for the grid view.
+ Property for a title of the grid view.
  
  The default value is `nil`.
  */
 @property (nonatomic, strong) NSString *gridViewTitle;
 
 /**
- ...
- */
+ Property for the background color of the grid view.
+ 
+ This color (or pattern image) will be assigned to the enclosing scroll view. In the phase of initializing `CNGridView` will
+ send the enclosing scroll view a `setDrawsBackground` message with `YES` as parameter value. So it's guaranteed the background 
+ will be drawn even if you forgot to set this flag in interface builder.
+ 
+ If you don't use this property, the default value is `[NSColor controlColor]`.
+*/
 @property (nonatomic, strong) NSColor *backgroundColor;
 
 /**
  Property for setting the elasticity of the enclosing `NSScrollView`.
  
- This property will be set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
+ This property will set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
  The default value is `YES`.
 
  @param     YES Elasticity is on.
@@ -95,6 +123,9 @@
 
 /**
  Property for setting the grid view item size.
+ 
+ You can set this property programmatically to any value you want. On each change of this value `CNGridView` will automatically
+ refresh the entire visible grid view with an animation effect.
  */
 @property (nonatomic, assign) NSSize itemSize;
 
@@ -111,7 +142,10 @@
 /** @name Creating GridView Items */
 
 /**
- ...
+ Returns a reusable grid view item object located by its identifier.
+ 
+ @param identifier  A string identifying the grid view item object to be reused. This parameter must not be nil.
+ @return A CNGridViewItem object with the associated identifier or nil if no such object exists in the reusable queue.
  */
 - (id)dequeueReusableItemWithIdentifier:(NSString *)identifier;
 
@@ -128,7 +162,12 @@
 @property (nonatomic, assign) BOOL allowsSelection;
 
 /**
- ...
+ Property that indicates whether the grid view should allow multiple item selection or not.
+ 
+ If you have this property set to `YES` with actually many selected items, all these items will be unselect on setting `allowsMultipleSelection` to `NO`.
+ 
+ @param YES The grid view allows multiple item selection.
+ @param NO  The grid view don't allow multiple item selection.
  */
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
 
@@ -141,6 +180,36 @@
  ...
  */
 @property (nonatomic, assign) BOOL useHover;
+
+/**
+
+ */
+- (void)selectAllItems;
+
+/**
+ ...
+ */
+- (void)deselectAllItems;
+
+/**
+ ...
+ */
+- (void)selectItem:(CNGridViewItem *)theItem;
+
+/**
+ ...
+ */
+- (void)deSelectItem:(CNGridViewItem *)theItem;
+
+/**
+ ...
+ */
+- (void)selectItemAtIndex:(NSUInteger)index;
+
+/**
+ ...
+ */
+- (void)deSelectItemAtIndex:(NSUInteger)index;
 
 
 
@@ -166,6 +235,7 @@
  ...
  */
 - (void)removeAllSelectedItems;
+
 
 
 

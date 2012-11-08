@@ -6,16 +6,30 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		AA533807164C4A2900562865 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AA533808164C4A2900562865 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				AA53380B164C4A2D00562865 /* Generate Appledoc Documentation */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA00C53B1628A65A0007DE99 /* QuartzCore.framework */; };
-		AA47208F163171FD00C1C460 /* CNGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA472084163171FD00C1C460 /* CNGridView.m */; };
-		AA472090163171FD00C1C460 /* CNGridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AA472088163171FD00C1C460 /* CNGridViewItem.m */; };
-		AA472091163171FD00C1C460 /* CNGridViewItemLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47208A163171FD00C1C460 /* CNGridViewItemLayout.m */; };
-		AA472092163171FD00C1C460 /* NSColor+CNGridViewPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47208C163171FD00C1C460 /* NSColor+CNGridViewPalette.m */; };
-		AA472093163171FD00C1C460 /* NSView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47208E163171FD00C1C460 /* NSView+Tools.m */; };
 		AA4720981631721000C1C460 /* BackgroundDust.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720951631721000C1C460 /* BackgroundDust.png */; };
 		AA4720991631721000C1C460 /* BackgroundNoisy.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720961631721000C1C460 /* BackgroundNoisy.png */; };
 		AA47209A1631721000C1C460 /* BackgroundSolid.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720971631721000C1C460 /* BackgroundSolid.png */; };
+		AABF74B8164BA3ED0097D6F7 /* CNGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74AD164BA3ED0097D6F7 /* CNGridView.m */; };
+		AABF74B9164BA3ED0097D6F7 /* CNGridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B1164BA3ED0097D6F7 /* CNGridViewItem.m */; };
+		AABF74BA164BA3ED0097D6F7 /* CNGridViewItemLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B3164BA3ED0097D6F7 /* CNGridViewItemLayout.m */; };
+		AABF74BB164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B5164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m */; };
+		AABF74BC164BA3ED0097D6F7 /* NSView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B7164BA3ED0097D6F7 /* NSView+Tools.m */; };
 		AADDA92A162839E10098DFBE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADDA929162839E00098DFBE /* Cocoa.framework */; };
 		AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADDA932162839E10098DFBE /* InfoPlist.strings */; };
 		AADDA936162839E10098DFBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA935162839E10098DFBE /* main.m */; };
@@ -27,22 +41,22 @@
 
 /* Begin PBXFileReference section */
 		AA00C53B1628A65A0007DE99 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AA472083163171FD00C1C460 /* CNGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridView.h; path = ../../Source/CNGridView.h; sourceTree = "<group>"; };
-		AA472084163171FD00C1C460 /* CNGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridView.m; path = ../../Source/CNGridView.m; sourceTree = "<group>"; };
-		AA472085163171FD00C1C460 /* CNGridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewDataSource.h; path = ../../Source/CNGridViewDataSource.h; sourceTree = "<group>"; };
-		AA472086163171FD00C1C460 /* CNGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewDelegate.h; path = ../../Source/CNGridViewDelegate.h; sourceTree = "<group>"; };
-		AA472087163171FD00C1C460 /* CNGridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewItem.h; path = ../../Source/CNGridViewItem.h; sourceTree = "<group>"; };
-		AA472088163171FD00C1C460 /* CNGridViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItem.m; path = ../../Source/CNGridViewItem.m; sourceTree = "<group>"; };
-		AA472089163171FD00C1C460 /* CNGridViewItemLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNGridViewItemLayout.h; path = ../../Source/CNGridViewItemLayout.h; sourceTree = "<group>"; };
-		AA47208A163171FD00C1C460 /* CNGridViewItemLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNGridViewItemLayout.m; path = ../../Source/CNGridViewItemLayout.m; sourceTree = "<group>"; };
-		AA47208B163171FD00C1C460 /* NSColor+CNGridViewPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+CNGridViewPalette.h"; path = "../../Source/NSColor+CNGridViewPalette.h"; sourceTree = "<group>"; };
-		AA47208C163171FD00C1C460 /* NSColor+CNGridViewPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+CNGridViewPalette.m"; path = "../../Source/NSColor+CNGridViewPalette.m"; sourceTree = "<group>"; };
-		AA47208D163171FD00C1C460 /* NSView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+Tools.h"; path = "../../Source/NSView+Tools.h"; sourceTree = "<group>"; };
-		AA47208E163171FD00C1C460 /* NSView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+Tools.m"; path = "../../Source/NSView+Tools.m"; sourceTree = "<group>"; };
 		AA4720951631721000C1C460 /* BackgroundDust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundDust.png; sourceTree = "<group>"; };
 		AA4720961631721000C1C460 /* BackgroundNoisy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundNoisy.png; sourceTree = "<group>"; };
 		AA4720971631721000C1C460 /* BackgroundSolid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundSolid.png; sourceTree = "<group>"; };
 		AAB08C551639D4E80007FAFA /* CNLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CNLog.h; sourceTree = "<group>"; };
+		AABF74AC164BA3ED0097D6F7 /* CNGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridView.h; sourceTree = "<group>"; };
+		AABF74AD164BA3ED0097D6F7 /* CNGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNGridView.m; sourceTree = "<group>"; };
+		AABF74AE164BA3ED0097D6F7 /* CNGridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewDataSource.h; sourceTree = "<group>"; };
+		AABF74AF164BA3ED0097D6F7 /* CNGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewDelegate.h; sourceTree = "<group>"; };
+		AABF74B0164BA3ED0097D6F7 /* CNGridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewItem.h; sourceTree = "<group>"; };
+		AABF74B1164BA3ED0097D6F7 /* CNGridViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNGridViewItem.m; sourceTree = "<group>"; };
+		AABF74B2164BA3ED0097D6F7 /* CNGridViewItemLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewItemLayout.h; sourceTree = "<group>"; };
+		AABF74B3164BA3ED0097D6F7 /* CNGridViewItemLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNGridViewItemLayout.m; sourceTree = "<group>"; };
+		AABF74B4164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+CNGridViewPalette.h"; sourceTree = "<group>"; };
+		AABF74B5164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+CNGridViewPalette.m"; sourceTree = "<group>"; };
+		AABF74B6164BA3ED0097D6F7 /* NSView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+Tools.h"; sourceTree = "<group>"; };
+		AABF74B7164BA3ED0097D6F7 /* NSView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Tools.m"; sourceTree = "<group>"; };
 		AADDA925162839E00098DFBE /* CNGridView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNGridView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADDA929162839E00098DFBE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AADDA92C162839E10098DFBE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -72,6 +86,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AABF74AA164BA3DD0097D6F7 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				AABF74AB164BA3ED0097D6F7 /* CNGridView */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		AABF74AB164BA3ED0097D6F7 /* CNGridView */ = {
+			isa = PBXGroup;
+			children = (
+				AABF74AC164BA3ED0097D6F7 /* CNGridView.h */,
+				AABF74AD164BA3ED0097D6F7 /* CNGridView.m */,
+				AABF74AE164BA3ED0097D6F7 /* CNGridViewDataSource.h */,
+				AABF74AF164BA3ED0097D6F7 /* CNGridViewDelegate.h */,
+				AABF74B0164BA3ED0097D6F7 /* CNGridViewItem.h */,
+				AABF74B1164BA3ED0097D6F7 /* CNGridViewItem.m */,
+				AABF74B2164BA3ED0097D6F7 /* CNGridViewItemLayout.h */,
+				AABF74B3164BA3ED0097D6F7 /* CNGridViewItemLayout.m */,
+				AABF74B4164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.h */,
+				AABF74B5164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m */,
+				AABF74B6164BA3ED0097D6F7 /* NSView+Tools.h */,
+				AABF74B7164BA3ED0097D6F7 /* NSView+Tools.m */,
+			);
+			name = CNGridView;
+			path = ../../CNGridView;
+			sourceTree = "<group>";
+		};
 		AADDA91A162839E00098DFBE = {
 			isa = PBXGroup;
 			children = (
@@ -112,11 +154,11 @@
 		AADDA92F162839E10098DFBE /* CNGridView Example */ = {
 			isa = PBXGroup;
 			children = (
-				AADDA946162839F90098DFBE /* CNGridView */,
 				AADDA93B162839E10098DFBE /* CNAppDelegate.h */,
 				AADDA93C162839E10098DFBE /* CNAppDelegate.m */,
 				AADDA93E162839E10098DFBE /* MainMenu.xib */,
 				AADDA930162839E10098DFBE /* Supporting Files */,
+				AABF74AA164BA3DD0097D6F7 /* Libraries */,
 			);
 			path = "CNGridView Example";
 			sourceTree = "<group>";
@@ -136,25 +178,6 @@
 				AADDA938162839E10098DFBE /* Credits.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		AADDA946162839F90098DFBE /* CNGridView */ = {
-			isa = PBXGroup;
-			children = (
-				AA472083163171FD00C1C460 /* CNGridView.h */,
-				AA472084163171FD00C1C460 /* CNGridView.m */,
-				AA472085163171FD00C1C460 /* CNGridViewDataSource.h */,
-				AA472086163171FD00C1C460 /* CNGridViewDelegate.h */,
-				AA472087163171FD00C1C460 /* CNGridViewItem.h */,
-				AA472088163171FD00C1C460 /* CNGridViewItem.m */,
-				AA472089163171FD00C1C460 /* CNGridViewItemLayout.h */,
-				AA47208A163171FD00C1C460 /* CNGridViewItemLayout.m */,
-				AA47208B163171FD00C1C460 /* NSColor+CNGridViewPalette.h */,
-				AA47208C163171FD00C1C460 /* NSColor+CNGridViewPalette.m */,
-				AA47208D163171FD00C1C460 /* NSView+Tools.h */,
-				AA47208E163171FD00C1C460 /* NSView+Tools.m */,
-			);
-			name = CNGridView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +223,7 @@
 			projectRoot = "";
 			targets = (
 				AADDA924162839E00098DFBE /* CNGridView Example */,
+				AA533807164C4A2900562865 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -221,6 +245,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AA53380B164C4A2D00562865 /* Generate Appledoc Documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Appledoc Documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "cd ../\n`which appledoc` .\n./bin/deployDoc.sh\nexit 0";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AADDA921162839E00098DFBE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -228,11 +270,11 @@
 			files = (
 				AADDA936162839E10098DFBE /* main.m in Sources */,
 				AADDA93D162839E10098DFBE /* CNAppDelegate.m in Sources */,
-				AA47208F163171FD00C1C460 /* CNGridView.m in Sources */,
-				AA472090163171FD00C1C460 /* CNGridViewItem.m in Sources */,
-				AA472091163171FD00C1C460 /* CNGridViewItemLayout.m in Sources */,
-				AA472092163171FD00C1C460 /* NSColor+CNGridViewPalette.m in Sources */,
-				AA472093163171FD00C1C460 /* NSView+Tools.m in Sources */,
+				AABF74B8164BA3ED0097D6F7 /* CNGridView.m in Sources */,
+				AABF74B9164BA3ED0097D6F7 /* CNGridViewItem.m in Sources */,
+				AABF74BA164BA3ED0097D6F7 /* CNGridViewItemLayout.m in Sources */,
+				AABF74BB164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m in Sources */,
+				AABF74BC164BA3ED0097D6F7 /* NSView+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +308,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AA533809164C4A2900562865 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AA53380A164C4A2900562865 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		AADDA941162839E10098DFBE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -348,6 +404,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA533808164C4A2900562865 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA533809164C4A2900562865 /* Debug */,
+				AA53380A164C4A2900562865 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		AADDA91F162839E00098DFBE /* Build configuration list for PBXProject "CNGridView Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -43,8 +43,19 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
     self.selectionLayout.backgroundColor = [NSColor colorWithCalibratedRed:0.542 green:0.699 blue:0.807 alpha:0.420];
 
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewWillHoverItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewWillUnhoverItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewWillSelectItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewDidSelectItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewWillDeselectItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewDidDeselectItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewDidClickItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewDidDoubleClickItemNotification object:nil];
+    [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewRightMouseButtonClickedOnItemNotification object:nil];
+
     /// insert some content
-    for (int i=0; i<1; i++) {
+    for (int i=0; i<50; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
@@ -82,7 +93,6 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
     self.gridView.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"BackgroundDust"]];
     self.gridView.scrollElasticity = YES;
-    self.gridView.itemSize = CGSizeMake(136, 163);
     [self.gridView reloadData];
 }
 
@@ -132,16 +142,44 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSNotifications
+
+- (void)detectedNotification:(NSNotification *)notif
+{
+//    CNLog(@"notification: %@", notif);
+}
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - CNGridView Delegate
 
-- (void)gridView:(CNGridView *)gridView willHovertemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
+- (void)gridView:(CNGridView *)gridView didClickItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
 {
+    CNLog(@"didClickItemAtIndex: %li", index);
+}
+
+- (void)gridView:(CNGridView *)gridView didDoubleClickItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    CNLog(@"didDoubleClickItemAtIndex: %li", index);
 }
 
 - (void)gridView:(CNGridView *)gridView rightMouseButtonClickedOnItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
 {
     CNLog(@"rightMouseButtonClickedOnItemAtIndex: %li", index);
+}
+
+- (void)gridView:(CNGridView *)gridView didSelectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    CNLog(@"didSelectItemAtIndex: %li", index);
+}
+
+- (void)gridView:(CNGridView *)gridView didDeselectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+{
+    CNLog(@"didDeselectItemAtIndex: %li", index);
 }
 
 @end

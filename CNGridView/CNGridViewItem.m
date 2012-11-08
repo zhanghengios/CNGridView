@@ -41,6 +41,11 @@
 static CGSize kDefaultItemSize;
 
 
+/// Notifications
+extern NSString *CNGridViewSelectAllItemsNotification;
+extern NSString *CNGridViewDeSelectAllItemsNotification;
+
+
 @interface CNGridViewItem ()
 @property (strong) NSImageView *itemImageView;
 @property (strong) CNGridViewItemLayout *currentLayout;
@@ -99,7 +104,7 @@ static CGSize kDefaultItemSize;
     /// Item Default Content
     _itemImage = nil;
     _itemTitle = @"";
-    _index = CNItemIndexNoIndex;
+    _index = CNItemIndexUndefined;
 
     /// Grid View Item Layout
     _standardLayout = [CNGridViewItemLayout defaultLayout];
@@ -109,9 +114,13 @@ static CGSize kDefaultItemSize;
     _useLayout = YES;
 
     /// Selection and Hovering
-    _isSelected = NO;
-    _isSelectable = YES;
-    _isHovered = NO;
+    _selected = NO;
+    _selectable = YES;
+    _hovered = NO;
+
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(selectAll:) name:CNGridViewSelectAllItemsNotification object:nil];
+    [nc addObserver:self selector:@selector(deSelectAll:) name:CNGridViewDeSelectAllItemsNotification object:nil];
 }
 
 - (BOOL)isFlipped
@@ -128,10 +137,10 @@ static CGSize kDefaultItemSize;
 {
     self.itemImage = nil;
     self.itemTitle = @"";
-    self.index = CNItemIndexNoIndex;
-    self.isSelected = NO;
-    self.isSelectable = YES;
-    self.isHovered = NO;
+    self.index = CNItemIndexUndefined;
+    self.selected = NO;
+    self.selectable = YES;
+    self.hovered = NO;
 }
 
 
@@ -157,7 +166,7 @@ static CGSize kDefaultItemSize;
     [contentRectPath fill];
 
     /// draw selection ring
-    if (self.isSelected) {
+    if (self.selected) {
         [self.currentLayout.selectionRingColor setStroke];
         [contentRectPath setLineWidth:self.currentLayout.selectionRingLineWidth];
         [contentRectPath stroke];
@@ -202,12 +211,22 @@ static CGSize kDefaultItemSize;
 
 - (void)clearHovering
 {
-    self.isHovered = NO;
+    [self setHovered:NO];
 }
 
 - (void)clearSelection
 {
-    self.isSelected = NO;
+    [self setSelected:NO];
+}
+
+- (void)selectAll:(NSNotification *)notification
+{
+    [self setSelected:YES];
+}
+
+- (void)deSelectAll:(NSNotification *)notification
+{
+    [self setSelected:NO];
 }
 
 
@@ -215,23 +234,23 @@ static CGSize kDefaultItemSize;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Accessors
 
-- (void)setIsHovered:(BOOL)isHovered
+- (void)setHovered:(BOOL)hovered
 {
-    _isHovered = isHovered;
-    _currentLayout = (isHovered ? _hoverLayout : (_isSelected ? _selectionLayout : _standardLayout));
+    _hovered = hovered;
+    _currentLayout = (_hovered ? _hoverLayout : (_selected ? _selectionLayout : _standardLayout));
     [self setNeedsDisplay:YES];
 }
 
-- (void)setIsSelected:(BOOL)isSelected
+- (void)setSelected:(BOOL)selected
 {
-    _isSelected = isSelected;
-    _currentLayout = (isSelected ? _selectionLayout : _standardLayout);
+    _selected = selected;
+    _currentLayout = (_selected ? _selectionLayout : _standardLayout);
     [self setNeedsDisplay:YES];
 }
 
 - (BOOL)isReuseable
 {
-    return (_isSelected ? NO : YES);
+    return (_selected ? NO : YES);
 }
 
 @end

@@ -67,15 +67,35 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
+	<option value="//api/name/deSelectItem:">&nbsp;&nbsp;&nbsp;&nbsp;- deSelectItem:</option>
+	
+	<option value="//api/name/deSelectItemAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- deSelectItemAtIndex:</option>
+	
 	<option value="//api/name/dequeueReusableItemWithIdentifier:">&nbsp;&nbsp;&nbsp;&nbsp;- dequeueReusableItemWithIdentifier:</option>
+	
+	<option value="//api/name/deselectAllItems">&nbsp;&nbsp;&nbsp;&nbsp;- deselectAllItems</option>
 	
 	<option value="//api/name/numberOfVisibleItems">&nbsp;&nbsp;&nbsp;&nbsp;- numberOfVisibleItems</option>
 	
 	<option value="//api/name/reloadData">&nbsp;&nbsp;&nbsp;&nbsp;- reloadData</option>
 	
+	<option value="//api/name/removeAllItems">&nbsp;&nbsp;&nbsp;&nbsp;- removeAllItems</option>
+	
+	<option value="//api/name/removeAllSelectedItems">&nbsp;&nbsp;&nbsp;&nbsp;- removeAllSelectedItems</option>
+	
+	<option value="//api/name/removeItem:">&nbsp;&nbsp;&nbsp;&nbsp;- removeItem:</option>
+	
+	<option value="//api/name/removeItemAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- removeItemAtIndex:</option>
+	
 	<option value="//api/name/scrollToGridViewItem:animated:">&nbsp;&nbsp;&nbsp;&nbsp;- scrollToGridViewItem:animated:</option>
 	
 	<option value="//api/name/scrollToGridViewItemAtIndexPath:animated:">&nbsp;&nbsp;&nbsp;&nbsp;- scrollToGridViewItemAtIndexPath:animated:</option>
+	
+	<option value="//api/name/selectAllItems">&nbsp;&nbsp;&nbsp;&nbsp;- selectAllItems</option>
+	
+	<option value="//api/name/selectItem:">&nbsp;&nbsp;&nbsp;&nbsp;- selectItem:</option>
+	
+	<option value="//api/name/selectItemAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- selectItemAtIndex:</option>
 	
 	
 	
@@ -100,6 +120,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Creating GridView Items">Creating GridView Items</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing Selections">Managing Selections</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing the Content">Managing the Content</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Reloading GridView Data">Reloading GridView Data</a></span></li>
 	
@@ -141,15 +163,35 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deSelectItem:">deSelectItem:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deSelectItemAtIndex:">deSelectItemAtIndex:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dequeueReusableItemWithIdentifier:">dequeueReusableItemWithIdentifier:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deselectAllItems">deselectAllItems</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/numberOfVisibleItems">numberOfVisibleItems</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reloadData">reloadData</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeAllItems">removeAllItems</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeAllSelectedItems">removeAllSelectedItems</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeItem:">removeItem:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeItemAtIndex:">removeItemAtIndex:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/scrollToGridViewItem:animated:">scrollToGridViewItem:animated:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/scrollToGridViewItemAtIndexPath:animated:">scrollToGridViewItemAtIndexPath:animated:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectAllItems">selectAllItems</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectItem:">selectItem:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectItemAtIndex:">selectItemAtIndex:</a></span></li>
 	
 </ul></li>
 
@@ -188,8 +230,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p><code>CNGridView</code> is an easy to use (wanna be) <code>NSCollectionView</code> replacement. It was completely written from the ground up.
-<code>CNGridView</code> is a (wanna be) replacement for NSCollectionView. It has full <a href="#//api/name/delegate">delegate</a> and <a href="#//api/name/dataSource">dataSource</a> support with method calls like known from NSTableView/UITableView.</p>
+						<p><code>CNGridView</code> is a (wanna be) replacement for NSCollectionView. It has full <a href="#//api/name/delegate">delegate</a> and <a href="#//api/name/dataSource">dataSource</a> support with method calls like known from NSTableView/UITableView.</p>
 
 <p>The use of <code>CNGridView</code> is just simple as possible.</p>
 					</div>
@@ -232,14 +273,14 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/gridViewTitle">&nbsp;&nbsp;gridViewTitle</a></code>
-		<span class="tooltip"><p>A title string for the grid view.</p></span>
+		<span class="tooltip"><p>Property for a title of the grid view.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/backgroundColor">&nbsp;&nbsp;backgroundColor</a></code>
-		
+		<span class="tooltip"><p>Property for the background color of the grid view.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -275,7 +316,7 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/dequeueReusableItemWithIdentifier:">&ndash;&nbsp;dequeueReusableItemWithIdentifier:</a></code>
-		
+		<span class="tooltip"><p>Returns a reusable grid view item object located by its identifier.</p></span>
 	</span>
 	
 	
@@ -297,7 +338,7 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/allowsMultipleSelection">&nbsp;&nbsp;allowsMultipleSelection</a></code>
-		
+		<span class="tooltip"><p>Property that indicates whether the grid view should allow multiple item selection or not.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -314,6 +355,84 @@
 		
 	</span>
 	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectAllItems">&ndash;&nbsp;selectAllItems</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deselectAllItems">&ndash;&nbsp;deselectAllItems</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectItem:">&ndash;&nbsp;selectItem:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deSelectItem:">&ndash;&nbsp;deSelectItem:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectItemAtIndex:">&ndash;&nbsp;selectItemAtIndex:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deSelectItemAtIndex:">&ndash;&nbsp;deSelectItemAtIndex:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Managing the Content" name="task_Managing the Content"></a>
+						<h3 class="subsubtitle task-title">Managing the Content</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeItem:">&ndash;&nbsp;removeItem:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeItemAtIndex:">&ndash;&nbsp;removeItemAtIndex:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeAllItems">&ndash;&nbsp;removeAllItems</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeAllSelectedItems">&ndash;&nbsp;removeAllSelectedItems</a></code>
+		
+	</span>
+	
 	
 </li>
 						</ul>
@@ -371,17 +490,41 @@
 	
 	
 	
+	<div class="method-subsection brief-description">
+		<p>Property that indicates whether the grid view should allow multiple item selection or not.</p>
+	</div>		
+	
     
 
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL allowsMultipleSelection</code></div>
 
     
 	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>YES</em></dt>
+			<dd><p>The grid view allows multiple item selection.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>NO</em></dt>
+			<dd><p>The grid view don&rsquo;t allow multiple item selection.</p></dd>
+		</dl>
+		
+	</div>
 	
 	
 	
 	
 	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If you have this property set to <code>YES</code> with actually many selected items, all these items will be unselect on setting <code>allowsMultipleSelection</code> to <code>NO</code>.</p>
+	</div>
 	
 	
 	
@@ -444,6 +587,10 @@
 	
 	
 	
+	<div class="method-subsection brief-description">
+		<p>Property for the background color of the grid view.</p>
+	</div>		
+	
     
 
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSColor *backgroundColor</code></div>
@@ -455,6 +602,15 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This color (or pattern image) will be assigned to the enclosing scroll view. In the phase of initializing <code>CNGridView</code> will
+send the enclosing scroll view a <code>setDrawsBackground</code> message with <code>YES</code> as parameter value. So it&rsquo;s guaranteed the background
+will be drawn even if you forgot to set this flag in interface builder.</p>
+
+<p>If you don&rsquo;t use this property, the default value is <code>[NSColor controlColor]</code>.</p>
+	</div>
 	
 	
 	
@@ -549,7 +705,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A title string for the grid view.</p>
+		<p>Property for a title of the grid view.</p>
 	</div>		
 	
     
@@ -605,6 +761,12 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>You can set this property programmatically to any value you want. On each change of this value <code>CNGridView</code> will automatically
+refresh the entire visible grid view with an animation effect.</p>
+	</div>
+	
 	
 	
 	
@@ -658,7 +820,7 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This property will be set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
+		<p>This property will set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
 The default value is <code>YES</code>.</p>
 	</div>
 	
@@ -751,14 +913,129 @@ The default value is <code>YES</code>.</p>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/dequeueReusableItemWithIdentifier:" title="dequeueReusableItemWithIdentifier:"></a>
-	<h3 class="subsubtitle method-title">dequeueReusableItemWithIdentifier:</h3>
+	<a name="//api/name/deSelectItem:" title="deSelectItem:"></a>
+	<h3 class="subsubtitle method-title">deSelectItem:</h3>
 	
 	
 	
     
 
+	<div class="method-subsection method-declaration"><code>- (void)deSelectItem:(CNGridViewItem *)<em>theItem</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deSelectItemAtIndex:" title="deSelectItemAtIndex:"></a>
+	<h3 class="subsubtitle method-title">deSelectItemAtIndex:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)deSelectItemAtIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dequeueReusableItemWithIdentifier:" title="dequeueReusableItemWithIdentifier:"></a>
+	<h3 class="subsubtitle method-title">dequeueReusableItemWithIdentifier:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a reusable grid view item object located by its identifier.</p>
+	</div>		
+	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)dequeueReusableItemWithIdentifier:(NSString *)<em>identifier</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>identifier</em></dt>
+			<dd><p>A string identifying the grid view item object to be reused. This parameter must not be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A <a href="../Classes/CNGridViewItem.html">CNGridViewItem</a> object with the associated identifier or nil if no such object exists in the reusable queue.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deselectAllItems" title="deselectAllItems"></a>
+	<h3 class="subsubtitle method-title">deselectAllItems</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)deselectAllItems</code></div>
 
     
 	
@@ -856,6 +1133,134 @@ The default value is <code>YES</code>.</p>
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/removeAllItems" title="removeAllItems"></a>
+	<h3 class="subsubtitle method-title">removeAllItems</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeAllItems</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeAllSelectedItems" title="removeAllSelectedItems"></a>
+	<h3 class="subsubtitle method-title">removeAllSelectedItems</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeAllSelectedItems</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeItem:" title="removeItem:"></a>
+	<h3 class="subsubtitle method-title">removeItem:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeItem:(CNGridViewItem *)<em>theItem</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeItemAtIndex:" title="removeItemAtIndex:"></a>
+	<h3 class="subsubtitle method-title">removeItemAtIndex:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeItemAtIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/scrollToGridViewItem:animated:" title="scrollToGridViewItem:animated:"></a>
 	<h3 class="subsubtitle method-title">scrollToGridViewItem:animated:</h3>
 	
@@ -919,6 +1324,102 @@ The default value is <code>YES</code>.</p>
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/selectAllItems" title="selectAllItems"></a>
+	<h3 class="subsubtitle method-title">selectAllItems</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)selectAllItems</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectItem:" title="selectItem:"></a>
+	<h3 class="subsubtitle method-title">selectItem:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)selectItem:(CNGridViewItem *)<em>theItem</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectItemAtIndex:" title="selectItemAtIndex:"></a>
+	<h3 class="subsubtitle method-title">selectItemAtIndex:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)selectItemAtIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -932,7 +1433,7 @@ The default value is <code>YES</code>.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 cocoa:naut. All rights reserved. (Last updated: 2012-10-19)</span><br />
+						<p><span class="copyright">&copy; 2012 cocoa:naut. All rights reserved. (Last updated: 2012-11-08)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
