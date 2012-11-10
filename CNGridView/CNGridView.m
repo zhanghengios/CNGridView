@@ -79,11 +79,10 @@ const int CNDoubleClick = 2;
 const int CNTrippleClick = 3;
 
 
-struct CNItemPoint {
+typedef struct CNItemPoint {
     NSUInteger column;
     NSUInteger row;
-};
-typedef struct CNItemPoint CNItemPoint;
+} CNItemPoint;
 
 CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     CNItemPoint point;
