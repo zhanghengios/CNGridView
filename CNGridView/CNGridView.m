@@ -29,9 +29,8 @@
  */
 
 #import <QuartzCore/QuartzCore.h>
-
 #import "NSColor+CNGridViewPalette.h"
-#import "NSView+Tools.h"
+#import "NSView+CNGridView.h"
 #import "CNGridView.h"
 #import "CNGridViewItem.h"
 
@@ -63,6 +62,14 @@ NSString *CNGridViewItemIndexKey = @"gridViewItemIndex";
 
 
 
+CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
+    CNItemPoint point;
+    point.column = aColumn;
+    point.row = aRow;
+    return point;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark CNSelectionFrameView
@@ -73,23 +80,6 @@ NSString *CNGridViewItemIndexKey = @"gridViewItemIndex";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark CNGridView
-
-const int CNSingleClick = 1;
-const int CNDoubleClick = 2;
-const int CNTrippleClick = 3;
-
-
-typedef struct CNItemPoint {
-    NSUInteger column;
-    NSUInteger row;
-} CNItemPoint;
-
-CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
-    CNItemPoint point;
-    point.column = aColumn;
-    point.row = aRow;
-    return point;
-}
 
 
 @interface CNGridView () {
@@ -219,7 +209,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)setItemSize:(NSSize)itemSize
 {
-    if (_itemSize != itemSize) {
+    if (!NSEqualSizes(_itemSize, itemSize)) {
         _itemSize = itemSize;
         [self refreshGridViewAnimated:YES];
     }

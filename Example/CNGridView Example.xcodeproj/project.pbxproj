@@ -29,7 +29,7 @@
 		AABF74B9164BA3ED0097D6F7 /* CNGridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B1164BA3ED0097D6F7 /* CNGridViewItem.m */; };
 		AABF74BA164BA3ED0097D6F7 /* CNGridViewItemLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B3164BA3ED0097D6F7 /* CNGridViewItemLayout.m */; };
 		AABF74BB164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B5164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m */; };
-		AABF74BC164BA3ED0097D6F7 /* NSView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B7164BA3ED0097D6F7 /* NSView+Tools.m */; };
+		AABF74BC164BA3ED0097D6F7 /* NSView+CNGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF74B7164BA3ED0097D6F7 /* NSView+CNGridView.m */; };
 		AADDA92A162839E10098DFBE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADDA929162839E00098DFBE /* Cocoa.framework */; };
 		AADDA934162839E10098DFBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADDA932162839E10098DFBE /* InfoPlist.strings */; };
 		AADDA936162839E10098DFBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AADDA935162839E10098DFBE /* main.m */; };
@@ -47,7 +47,6 @@
 		AAB08C551639D4E80007FAFA /* CNLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CNLog.h; sourceTree = "<group>"; };
 		AABF74AC164BA3ED0097D6F7 /* CNGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridView.h; sourceTree = "<group>"; };
 		AABF74AD164BA3ED0097D6F7 /* CNGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNGridView.m; sourceTree = "<group>"; };
-		AABF74AE164BA3ED0097D6F7 /* CNGridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewDataSource.h; sourceTree = "<group>"; };
 		AABF74AF164BA3ED0097D6F7 /* CNGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewDelegate.h; sourceTree = "<group>"; };
 		AABF74B0164BA3ED0097D6F7 /* CNGridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNGridViewItem.h; sourceTree = "<group>"; };
 		AABF74B1164BA3ED0097D6F7 /* CNGridViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNGridViewItem.m; sourceTree = "<group>"; };
@@ -55,8 +54,9 @@
 		AABF74B3164BA3ED0097D6F7 /* CNGridViewItemLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNGridViewItemLayout.m; sourceTree = "<group>"; };
 		AABF74B4164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+CNGridViewPalette.h"; sourceTree = "<group>"; };
 		AABF74B5164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+CNGridViewPalette.m"; sourceTree = "<group>"; };
-		AABF74B6164BA3ED0097D6F7 /* NSView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+Tools.h"; sourceTree = "<group>"; };
-		AABF74B7164BA3ED0097D6F7 /* NSView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Tools.m"; sourceTree = "<group>"; };
+		AABF74B6164BA3ED0097D6F7 /* NSView+CNGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+CNGridView.h"; sourceTree = "<group>"; };
+		AABF74B7164BA3ED0097D6F7 /* NSView+CNGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+CNGridView.m"; sourceTree = "<group>"; };
+		AAD524D4164EDFE500331211 /* CNGridViewDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CNGridViewDefinitions.h; sourceTree = "<group>"; };
 		AADDA925162839E00098DFBE /* CNGridView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNGridView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADDA929162839E00098DFBE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AADDA92C162839E10098DFBE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -99,7 +99,7 @@
 			children = (
 				AABF74AC164BA3ED0097D6F7 /* CNGridView.h */,
 				AABF74AD164BA3ED0097D6F7 /* CNGridView.m */,
-				AABF74AE164BA3ED0097D6F7 /* CNGridViewDataSource.h */,
+				AAD524D4164EDFE500331211 /* CNGridViewDefinitions.h */,
 				AABF74AF164BA3ED0097D6F7 /* CNGridViewDelegate.h */,
 				AABF74B0164BA3ED0097D6F7 /* CNGridViewItem.h */,
 				AABF74B1164BA3ED0097D6F7 /* CNGridViewItem.m */,
@@ -107,8 +107,8 @@
 				AABF74B3164BA3ED0097D6F7 /* CNGridViewItemLayout.m */,
 				AABF74B4164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.h */,
 				AABF74B5164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m */,
-				AABF74B6164BA3ED0097D6F7 /* NSView+Tools.h */,
-				AABF74B7164BA3ED0097D6F7 /* NSView+Tools.m */,
+				AABF74B6164BA3ED0097D6F7 /* NSView+CNGridView.h */,
+				AABF74B7164BA3ED0097D6F7 /* NSView+CNGridView.m */,
 			);
 			name = CNGridView;
 			path = ../../CNGridView;
@@ -274,7 +274,7 @@
 				AABF74B9164BA3ED0097D6F7 /* CNGridViewItem.m in Sources */,
 				AABF74BA164BA3ED0097D6F7 /* CNGridViewItemLayout.m in Sources */,
 				AABF74BB164BA3ED0097D6F7 /* NSColor+CNGridViewPalette.m in Sources */,
-				AABF74BC164BA3ED0097D6F7 /* NSView+Tools.m in Sources */,
+				AABF74BC164BA3ED0097D6F7 /* NSView+CNGridView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +411,7 @@
 				AA53380A164C4A2900562865 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AADDA91F162839E00098DFBE /* Build configuration list for PBXProject "CNGridView Example" */ = {
 			isa = XCConfigurationList;

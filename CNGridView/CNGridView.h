@@ -28,35 +28,10 @@
  THE SOFTWARE.
  */
 
-
-
 #import <Cocoa/Cocoa.h>
-
+#import "CNGridViewDefinitions.h"
 #import "CNGridViewDelegate.h"
-#import "CNGridViewDataSource.h"
 #import "CNGridViewItem.h"
-
-
-/// Notifications
-/// All notifications have the sender `CNGridView` as object parameter
-extern NSString *CNGridViewSelectAllItemsNotification;
-extern NSString *CNGridViewDeSelectAllItemsNotification;
-
-/// the userInfo dictionary of these notifications contains the item index
-/// wrapped in a NSNumber object with the key `CNGridViewItemIndexKey`
-extern NSString *CNGridViewWillHoverItemNotification;
-extern NSString *CNGridViewWillUnhoverItemNotification;
-extern NSString *CNGridViewWillSelectItemNotification;
-extern NSString *CNGridViewDidSelectItemNotification;
-extern NSString *CNGridViewWillDeselectItemNotification;
-extern NSString *CNGridViewDidDeselectItemNotification;
-extern NSString *CNGridViewDidClickItemNotification;
-extern NSString *CNGridViewDidDoubleClickItemNotification;
-extern NSString *CNGridViewRightMouseButtonClickedOnItemNotification;
-
-/// these keys are use for the notification userInfo dictionary (see above)
-extern NSString *CNGridViewItemKey;
-extern NSString *CNGridViewItemIndexKey;
 
 
 
