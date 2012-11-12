@@ -1,7 +1,7 @@
 ##Overview
 `CNGridView` is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls just like known from [NSTableView](https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSTableView_Class/Reference/Reference.html) and [UITableView](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableView_Class/Reference/Reference.html).
 
-The main inspiration to develop this control came fom @JustSid who wrote the [JUCollectionView](https://github.com/JustSid/JUCollectionView). But `CNGridView` was written from ground up, it uses ARC and has a bunch of properties to customize its layout and behavior.
+The main inspiration to develop this control came fom [@JustSid](https://github.com/JustSid) who wrote the [JUCollectionView](https://github.com/JustSid/JUCollectionView). But `CNGridView` was written from ground up, it uses ARC and has a bunch of properties to customize its layout and behavior.
 `CNGridView` was only testet on 10.7 Lion & 10.8 Mountain Lion.
 
 Here is a shot of the included example application:
