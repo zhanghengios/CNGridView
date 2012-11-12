@@ -104,13 +104,6 @@
  */
 @property (nonatomic, assign) NSSize itemSize;
 
-/**
- Returns the number of currently visible items of `CNGridView`.
- 
- The returned value of this method is subject to continous variation. It depends on the actual size of its view and will be calculated in realtime.
- */
-- (NSUInteger)numberOfVisibleItems;
-
 
 
 #pragma mark - Creating GridView Items
@@ -118,11 +111,23 @@
 
 /**
  Returns a reusable grid view item object located by its identifier.
- 
+
  @param identifier  A string identifying the grid view item object to be reused. This parameter must not be nil.
  @return A CNGridViewItem object with the associated identifier or nil if no such object exists in the reusable queue.
  */
 - (id)dequeueReusableItemWithIdentifier:(NSString *)identifier;
+
+
+
+#pragma mark - Managing the Content
+/** @name  Managing the Content */
+
+/**
+ Returns the number of currently visible items of `CNGridView`.
+ 
+ The returned value of this method is subject to continous variation. It depends on the actual size of its view and will be calculated in realtime.
+ */
+- (NSUInteger)numberOfVisibleItems;
 
 
 
@@ -179,37 +184,7 @@
 /**
  ...
  */
-- (void)selectItemAtIndex:(NSUInteger)index;
-
-/**
- ...
- */
-- (void)deSelectItemAtIndex:(NSUInteger)index;
-
-
-
-#pragma mark - Managing the Content
-/** @name  Managing the Content */
-
-/**
- ...
- */
-- (void)removeItem:(CNGridViewItem *)theItem;
-
-/**
- ...
- */
-- (void)removeItemAtIndex:(NSUInteger)index;
-
-/**
- ...
- */
-- (void)removeAllItems;
-
-/**
- ...
- */
-- (void)removeAllSelectedItems;
+- (NSArray *)selectedItems;
 
 
 
@@ -222,21 +197,7 @@
  */
 - (void)reloadData;
 
-
-
-#pragma mark - Scrolling to GridView Items
-/** @name  Scrolling to GridView Items */
-
-/**
- ...
- */
-
-- (void)scrollToGridViewItem:(CNGridViewItem *)gridViewItem animated:(BOOL)animated;
-
-/**
- ...
- */
-- (void)scrollToGridViewItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
+- (void)reloadDataAnimated:(BOOL)animated;
 
 
 @end

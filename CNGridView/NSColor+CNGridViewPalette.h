@@ -43,12 +43,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - GridView Item Colors
 
-/** @name GridView Colors */
-
-/** Returns the standard `CNGridViewItem` background color */
-+ (NSColor *)gridViewBackgroundColor;
-
-
 
 /** @name GridView Item Colors */
 

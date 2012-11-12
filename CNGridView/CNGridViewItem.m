@@ -90,7 +90,8 @@ extern NSString *CNGridViewDeSelectAllItemsNotification;
     self = [self init];
     if (self) {
         [self initProperties];
-        _standardLayout = layout;
+        _defaultLayout = layout;
+        _currentLayout = _defaultLayout;
         _reuseIdentifier = reuseIdentifier;
     }
     return self;
@@ -107,10 +108,10 @@ extern NSString *CNGridViewDeSelectAllItemsNotification;
     _index = CNItemIndexUndefined;
 
     /// Grid View Item Layout
-    _standardLayout = [CNGridViewItemLayout defaultLayout];
+    _defaultLayout = [CNGridViewItemLayout defaultLayout];
     _hoverLayout = [CNGridViewItemLayout defaultLayout];
     _selectionLayout = [CNGridViewItemLayout defaultLayout];
-    _currentLayout = _standardLayout;
+    _currentLayout = _defaultLayout;
     _useLayout = YES;
 
     /// Selection and Hovering
@@ -237,20 +238,26 @@ extern NSString *CNGridViewDeSelectAllItemsNotification;
 - (void)setHovered:(BOOL)hovered
 {
     _hovered = hovered;
-    _currentLayout = (_hovered ? _hoverLayout : (_selected ? _selectionLayout : _standardLayout));
+    _currentLayout = (_hovered ? _hoverLayout : (_selected ? _selectionLayout : _defaultLayout));
     [self setNeedsDisplay:YES];
 }
 
 - (void)setSelected:(BOOL)selected
 {
     _selected = selected;
-    _currentLayout = (_selected ? _selectionLayout : _standardLayout);
+    _currentLayout = (_selected ? _selectionLayout : _defaultLayout);
     [self setNeedsDisplay:YES];
 }
 
 - (BOOL)isReuseable
 {
     return (_selected ? NO : YES);
+}
+
+- (void)setDefaultLayout:(CNGridViewItemLayout *)defaultLayout
+{
+    _defaultLayout = defaultLayout;
+    self.currentLayout = _defaultLayout;
 }
 
 @end

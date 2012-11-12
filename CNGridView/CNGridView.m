@@ -32,7 +32,6 @@
 #import "NSColor+CNGridViewPalette.h"
 #import "NSView+CNGridView.h"
 #import "CNGridView.h"
-#import "CNGridViewItem.h"
 
 
 #if !__has_feature(objc_arc)
@@ -43,6 +42,10 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Notifications
+
+const int CNSingleClick = 1;
+const int CNDoubleClick = 2;
+const int CNTrippleClick = 3;
 
 NSString *CNGridViewSelectAllItemsNotification = @"CNGridViewSelectAllItems";
 NSString *CNGridViewDeSelectAllItemsNotification = @"CNGridViewDeSelectAllItems";
@@ -182,7 +185,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 
     /// properties
-    _backgroundColor = [NSColor gridViewBackgroundColor];
+    _backgroundColor = [NSColor controlColor];
     _itemSize = [CNGridViewItem defaultItemSize];
     _gridViewTitle = nil;
     _scrollElasticity = YES;
@@ -237,9 +240,8 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
 {
     _allowsMultipleSelection = allowsMultipleSelection;
-    if (selectedItems.count > 1 && !allowsMultipleSelection) {
-        [nc postNotificationName:CNGridViewDeSelectAllItemsNotification object:self];
-        [selectedItems removeAllObjects];
+    if (selectedItems.count > 0 && !allowsMultipleSelection) {
+        [self deselectAllItems];
     }
 }
 
@@ -431,37 +433,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - NSView Methods
-
-- (BOOL)isFlipped
-{
-    return YES;
-}
-
-- (void)setFrame:(NSRect)frameRect
-{
-    BOOL animated = (self.frame.size.width == frameRect.size.width ? NO: YES);
-    [super setFrame:frameRect];
-    [self refreshGridViewAnimated:animated];
-    [[self enclosingScrollView] setNeedsDisplay:YES];
-}
-
-- (void)updateTrackingAreas
-{
-    if (gridViewTrackingArea)
-        [self removeTrackingArea:gridViewTrackingArea];
-
-    gridViewTrackingArea = nil;
-    gridViewTrackingArea = [[NSTrackingArea alloc] initWithRect:self.frame
-                                                             options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow
-                                                               owner:self
-                                                            userInfo:nil];
-    [self addTrackingArea:gridViewTrackingArea];
-}
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Creating GridView Items
 
 - (id)dequeueReusableItemWithIdentifier:(NSString *)identifier
@@ -483,29 +454,24 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)reloadData
 {
+    [self reloadDataAnimated:NO];
+}
+
+- (void)reloadDataAnimated:(BOOL)animated
+{
     numberOfItems = [self gridView:self numberOfItemsInSection:0];
     [keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [(CNGridViewItem *)obj removeFromSuperview];
     }];
     [keyedVisibleItems removeAllObjects];
     [reuseableItems removeAllObjects];
-    [self refreshGridViewAnimated:YES];
+    [self refreshGridViewAnimated:animated];
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Selection Handling
-
-- (void)scrollToGridViewItem:(CNGridViewItem *)gridViewItem animated:(BOOL)animated
-{
-
-}
-
-- (void)scrollToGridViewItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated
-{
-
-}
 
 - (void)hoverItemAtIndex:(NSInteger)index
 {
@@ -535,7 +501,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
     if (lastSelectedItemIndex != NSNotFound && lastSelectedItemIndex != selectedItemIndex) {
         gridViewItem = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:lastSelectedItemIndex]];
-        [self deselectItem:gridViewItem];
+        [self deSelectItem:gridViewItem];
     }
 
     gridViewItem = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
@@ -545,14 +511,14 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
                 [self selectItem:gridViewItem];
             } else {
                 if (modifierFlags & NSCommandKeyMask) {
-                    [self deselectItem:gridViewItem];
+                    [self deSelectItem:gridViewItem];
                 }
             }
 
         } else {
             if (modifierFlags & NSCommandKeyMask) {
                 if (gridViewItem.selected) {
-                    [self deselectItem:gridViewItem];
+                    [self deSelectItem:gridViewItem];
                 } else {
                     [self selectItem:gridViewItem];
                 }
@@ -562,6 +528,17 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         }
         lastSelectedItemIndex = (self.allowsMultipleSelection ? NSNotFound : selectedItemIndex);
     }
+}
+
+- (void)selectAllItems
+{
+}
+
+- (void)deselectAllItems
+{
+    [[selectedItems allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [self deSelectItem:[selectedItems objectForKey:obj]];
+    }];
 }
 
 - (void)selectItem:(CNGridViewItem *)theItem
@@ -578,7 +555,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 }
 
-- (void)deselectItem:(CNGridViewItem *)theItem
+- (void)deSelectItem:(CNGridViewItem *)theItem
 {
     if ([selectedItems objectForKey:[NSNumber numberWithInteger:theItem.index]]) {
         /// inform the delegate
@@ -592,25 +569,9 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 }
 
-- (void)selectItemAtIndex:(NSUInteger)index
+- (NSArray *)selectedItems
 {
-
-}
-
-- (void)deselectItemAtIndex:(NSUInteger)index
-{
-
-}
-
-- (void)selectAllItems
-{
-}
-
-- (void)deselectAllItems
-{
-    [selectedItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [self deselectItem:(CNGridViewItem *)obj];
-    }];
+    return [selectedItems allValues];
 }
 
 - (void)handleClicks:(NSTimer *)theTimer
@@ -780,30 +741,38 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     return [keyedVisibleItems count];
 }
 
-- (void)removeItem:(CNGridViewItem *)theItem
-{
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSView
+
+- (BOOL)isFlipped { return YES; }
+
+- (void)setFrame:(NSRect)frameRect
+{
+    BOOL animated = (self.frame.size.width == frameRect.size.width ? NO: YES);
+    [super setFrame:frameRect];
+    [self refreshGridViewAnimated:animated];
+    [[self enclosingScrollView] setNeedsDisplay:YES];
 }
 
-- (void)removeItemAtIndex:(NSUInteger)index
+- (void)updateTrackingAreas
 {
+    if (gridViewTrackingArea)
+        [self removeTrackingArea:gridViewTrackingArea];
 
-}
-
-- (void)removeAllItems
-{
-
-}
-
-- (void)removeAllSelectedItems
-{
-
+    gridViewTrackingArea = nil;
+    gridViewTrackingArea = [[NSTrackingArea alloc] initWithRect:self.frame
+                                                        options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow
+                                                          owner:self
+                                                       userInfo:nil];
+    [self addTrackingArea:gridViewTrackingArea];
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - NSResponder Methods
+#pragma mark - NSResponder
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
@@ -865,7 +834,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
             if ([(CNGridViewItem *)obj selected] == YES) {
                 [self selectItem:obj];
             } else {
-                [self deselectItem:obj];
+                [self deSelectItem:obj];
             }
         }];
         [selectedItemsBySelectionFrame removeAllObjects];
@@ -1063,7 +1032,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     NSRect dirtyRect = NSMakeRect(0.5, 0.5, floorf(NSWidth(self.bounds))-1, floorf(NSHeight(self.bounds))-1);
     NSBezierPath *selectionFrame = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
 
-    [[[NSColor lightGrayColor] colorWithAlphaComponent:0.42] setFill];
+    [[[NSColor blackColor] colorWithAlphaComponent:0.15] setFill];
     [selectionFrame fill];
 
     [[NSColor whiteColor] set];

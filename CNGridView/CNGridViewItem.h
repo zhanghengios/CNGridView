@@ -102,7 +102,7 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
 /**
  ...
  */
-@property (nonatomic, strong) CNGridViewItemLayout *standardLayout;
+@property (nonatomic, strong) CNGridViewItemLayout *defaultLayout;
 
 /**
  ...

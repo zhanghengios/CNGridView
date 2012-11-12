@@ -14,6 +14,7 @@
 static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKey;
 
 @interface CNAppDelegate ()
+@property (strong) CNGridViewItemLayout *defaultLayout;
 @property (strong) CNGridViewItemLayout *hoverLayout;
 @property (strong) CNGridViewItemLayout *selectionLayout;
 @end
@@ -32,6 +33,7 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     self = [super init];
     if (self) {
         _items = [[NSMutableArray alloc] init];
+        _defaultLayout = [CNGridViewItemLayout defaultLayout];
         _hoverLayout = [CNGridViewItemLayout defaultLayout];
         _selectionLayout = [CNGridViewItemLayout defaultLayout];
     }
@@ -40,6 +42,7 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.defaultLayout.backgroundColor = [[NSColor greenColor] colorWithAlphaComponent:0.2];
     self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
     self.selectionLayout.backgroundColor = [NSColor colorWithCalibratedRed:0.542 green:0.699 blue:0.807 alpha:0.420];
 
@@ -128,7 +131,7 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     
     CNGridViewItem *item = [gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
     if (item == nil) {
-        item = [[CNGridViewItem alloc] initWithLayout:[CNGridViewItemLayout defaultLayout] reuseIdentifier:reuseIdentifier];
+        item = [[CNGridViewItem alloc] initWithLayout:self.defaultLayout reuseIdentifier:reuseIdentifier];
     }
     item.hoverLayout = self.hoverLayout;
     item.selectionLayout = self.selectionLayout;

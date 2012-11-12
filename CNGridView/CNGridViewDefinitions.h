@@ -35,10 +35,9 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const int CNSingleClick = 1;
-const int CNDoubleClick = 2;
-const int CNTrippleClick = 3;
-
+extern const int CNSingleClick;
+extern const int CNDoubleClick;
+extern const int CNTrippleClick;
 
 typedef struct CNItemPoint {
     NSUInteger column;
