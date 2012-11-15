@@ -56,12 +56,15 @@ NSString *CNGridViewWillSelectItemNotification = @"CNGridViewWillSelectItem";
 NSString *CNGridViewDidSelectItemNotification = @"CNGridViewDidSelectItem";
 NSString *CNGridViewWillDeselectItemNotification = @"CNGridViewWillDeselectItem";
 NSString *CNGridViewDidDeselectItemNotification = @"CNGridViewDidDeselectItem";
+NSString *CNGridViewWillDeselectAllItemsNotification = @"CNGridViewWillDeselectAllItems";
+NSString *CNGridViewDidDeselectAllItemsNotification = @"CNGridViewDidDeselectAllItems";
 NSString *CNGridViewDidClickItemNotification = @"CNGridViewDidClickItem";
 NSString *CNGridViewDidDoubleClickItemNotification = @"CNGridViewDidDoubleClickItem";
 NSString *CNGridViewRightMouseButtonClickedOnItemNotification = @"CNGridViewRightMouseButtonClickedOnItem";
 
 NSString *CNGridViewItemKey = @"gridViewItem";
 NSString *CNGridViewItemIndexKey = @"gridViewItemIndex";
+NSString *CNGridViewSelectedItemsKey = @"CNGridViewSelectedItems";
 
 
 
@@ -241,7 +244,8 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 {
     _allowsMultipleSelection = allowsMultipleSelection;
     if (selectedItems.count > 0 && !allowsMultipleSelection) {
-        [self deselectAllItems];
+        [nc postNotificationName:CNGridViewDeSelectAllItemsNotification object:self];
+        [selectedItems removeAllObjects];
     }
 }
 
@@ -532,13 +536,28 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)selectAllItems
 {
+    NSUInteger number = [self gridView:self numberOfItemsInSection:0];
+    for (NSUInteger idx = 0; idx < number; idx++) {
+        CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];
+        item.selected = YES;
+        item.index = idx;
+        [item setNeedsDisplay:YES];
+        [selectedItems setObject:item forKey:[NSNumber numberWithInteger:item.index]];
+    };
 }
 
 - (void)deselectAllItems
 {
-    [[selectedItems allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [self deSelectItem:[selectedItems objectForKey:obj]];
-    }];
+    if (selectedItems.count > 0 && !self.allowsMultipleSelection) {
+        /// inform the delegate
+        [self gridView:self willDeselectAllItems:[self selectedItems]];
+
+        [nc postNotificationName:CNGridViewDeSelectAllItemsNotification object:self];
+        [selectedItems removeAllObjects];
+
+        /// inform the delegate
+        [self gridViewDidDeselectAllItems:self];
+}
 }
 
 - (void)selectItem:(CNGridViewItem *)theItem
@@ -753,7 +772,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     BOOL animated = (self.frame.size.width == frameRect.size.width ? NO: YES);
     [super setFrame:frameRect];
     [self refreshGridViewAnimated:animated];
-    [[self enclosingScrollView] setNeedsDisplay:YES];
 }
 
 - (void)updateTrackingAreas
@@ -937,6 +955,24 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
                     userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInteger:index] forKey:CNGridViewItemIndexKey]];
     if ([self.delegate respondsToSelector:_cmd]) {
         [self.delegate gridView:gridView didDeselectItemAtIndex:index inSection:section];
+    }
+}
+
+- (void)gridView:(CNGridView *)gridView willDeselectAllItems:(NSArray *)theSelectedItems
+{
+    [nc postNotificationName:CNGridViewWillDeselectAllItemsNotification
+                      object:gridView
+                    userInfo:[NSDictionary dictionaryWithObject:theSelectedItems forKey:CNGridViewSelectedItemsKey]];
+    if ([self.delegate respondsToSelector:_cmd]) {
+        [self.delegate gridView:gridView willDeselectAllItems:theSelectedItems];
+    }
+}
+
+- (void)gridViewDidDeselectAllItems:(CNGridView *)gridView
+{
+    [nc postNotificationName:CNGridViewDidDeselectAllItemsNotification object:gridView userInfo:nil];
+    if ([self.delegate respondsToSelector:_cmd]) {
+        [self.delegate gridViewDidDeselectAllItems:gridView];
     }
 }
 

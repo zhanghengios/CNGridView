@@ -20,4 +20,5 @@
 - (IBAction)itemSizeSliderAction:(id)sender;
 - (IBAction)allowMultipleSelectionCheckboxAction:(id)sender;
 - (IBAction)deleteButtonAction:(id)sender;
+- (IBAction)selectAllItemsButtonAction:(id)sender;
 @end

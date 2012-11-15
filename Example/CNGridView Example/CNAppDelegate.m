@@ -42,7 +42,6 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.defaultLayout.backgroundColor = [[NSColor greenColor] colorWithAlphaComponent:0.2];
     self.hoverLayout.backgroundColor = [[NSColor grayColor] colorWithAlphaComponent:0.42];
     self.selectionLayout.backgroundColor = [NSColor colorWithCalibratedRed:0.542 green:0.699 blue:0.807 alpha:0.420];
 
@@ -58,7 +57,7 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     [nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewRightMouseButtonClickedOnItemNotification object:nil];
 
     /// insert some content
-    for (int i=0; i<50; i++) {
+    for (int i=0; i<500; i++) {
         [self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
                                NSImageNameComputer, kContentTitleKey,
@@ -112,7 +111,12 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 
 - (IBAction)deleteButtonAction:(id)sender
 {
-    
+
+}
+
+- (IBAction)selectAllItemsButtonAction:(id)sender
+{
+    [self.gridView selectAllItems];
 }
 
 

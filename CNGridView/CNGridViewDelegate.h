@@ -63,12 +63,22 @@
 /**
  ...
  */
-- (void)gridView:(CNGridView *)gridView willDeselectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;;
+- (void)gridView:(CNGridView *)gridView willDeselectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 
 /**
  ...
  */
 - (void)gridView:(CNGridView *)gridView didDeselectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
+
+/**
+ ...
+ */
+- (void)gridView:(CNGridView *)gridView willDeselectAllItems:(NSArray *)theSelectedItems;
+
+/**
+ ...
+ */
+- (void)gridViewDidDeselectAllItems:(CNGridView *)gridView;
 
 /**
  ...
