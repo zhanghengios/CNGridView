@@ -792,6 +792,15 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSResponder
 
+- (BOOL)canBecomeKeyView
+{
+    return  YES;
+}
+- (BOOL)acceptsFirstResponder
+{
+    return  YES;
+}
+
 - (void)mouseExited:(NSEvent *)theEvent
 {
     lastHoveredIndex = NSNotFound;
