@@ -698,6 +698,11 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     NSUInteger topLeftItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMinX(selectionFrame), NSMinY(selectionFrame)) toView:nil]];
     NSUInteger bottomRightItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMaxX(selectionFrame), NSMaxY(selectionFrame)) toView:nil]];
 
+    /// handle selecting area in scroll bar area when auto-hide of scroll bars is on 
+    /// in general system preferences
+    if ((topLeftItemIndex == NSNotFound) || (bottomRightItemIndex == NSNotFound))
+        return;
+    
     CNItemPoint topLeftItemPoint = [self locationForItemAtIndex:topLeftItemIndex];
     CNItemPoint bottomRightItemPoint = [self locationForItemAtIndex:bottomRightItemIndex];
 
