@@ -258,7 +258,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd ../\n`which appledoc` .\n./bin/deployDoc.sh\nexit 0";
+			shellScript = "cd ../\n`which appledoc` .\nDEPLOY=\"./bin/deployDoc.sh\"\nif [ -f \"${DEPLOY}\" ]; then\n    ${DEPLOY}\nfi\nexit 0";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

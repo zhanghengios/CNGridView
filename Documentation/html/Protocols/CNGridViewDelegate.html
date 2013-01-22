@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 840)" />
+		<meta name="generator" content="appledoc 2.1 (build 858)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -52,6 +52,8 @@
 	
 	<option value="//api/name/gridView:rightMouseButtonClickedOnItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:rightMouseButtonClickedOnItemAtIndex:inSection:</option>
 	
+	<option value="//api/name/gridView:willDeselectAllItems:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willDeselectAllItems:</option>
+	
 	<option value="//api/name/gridView:willDeselectItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willDeselectItemAtIndex:inSection:</option>
 	
 	<option value="//api/name/gridView:willHoverItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willHoverItemAtIndex:inSection:</option>
@@ -59,6 +61,8 @@
 	<option value="//api/name/gridView:willSelectItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willSelectItemAtIndex:inSection:</option>
 	
 	<option value="//api/name/gridView:willUnhoverItemAtIndex:inSection:">&nbsp;&nbsp;&nbsp;&nbsp;- gridView:willUnhoverItemAtIndex:inSection:</option>
+	
+	<option value="//api/name/gridViewDidDeselectAllItems:">&nbsp;&nbsp;&nbsp;&nbsp;- gridViewDidDeselectAllItems:</option>
 	
 	
 	
@@ -73,8 +77,6 @@
 
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing selection">Managing selection</a></span></li>
 	
 </ul></li>
 
@@ -98,6 +100,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:rightMouseButtonClickedOnItemAtIndex:inSection:">gridView:rightMouseButtonClickedOnItemAtIndex:inSection:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willDeselectAllItems:">gridView:willDeselectAllItems:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willDeselectItemAtIndex:inSection:">gridView:willDeselectItemAtIndex:inSection:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willHoverItemAtIndex:inSection:">gridView:willHoverItemAtIndex:inSection:</a></span></li>
@@ -105,6 +109,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willSelectItemAtIndex:inSection:">gridView:willSelectItemAtIndex:inSection:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridView:willUnhoverItemAtIndex:inSection:">gridView:willUnhoverItemAtIndex:inSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/gridViewDidDeselectAllItems:">gridViewDidDeselectAllItems:</a></span></li>
 	
 </ul></li>
 
@@ -147,9 +153,9 @@
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
 						
-						<a title="Managing selection" name="task_Managing selection"></a>
 						
-<h3 class="subsubtitle task-title">Managing selection</h3>
+						
+
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
@@ -189,6 +195,20 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/gridView:didDeselectItemAtIndex:inSection:">&ndash;&nbsp;gridView:didDeselectItemAtIndex:inSection:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridView:willDeselectAllItems:">&ndash;&nbsp;gridView:willDeselectAllItems:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/gridViewDidDeselectAllItems:">&ndash;&nbsp;gridViewDidDeselectAllItems:</a></code>
 		
 	</span>
 	
@@ -392,6 +412,38 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/gridView:willDeselectAllItems:" title="gridView:willDeselectAllItems:"></a>
+	<h3 class="subsubtitle method-title">gridView:willDeselectAllItems:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridView:(CNGridView *)<em>gridView</em> willDeselectAllItems:(NSArray *)<em>theSelectedItems</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/gridView:willDeselectItemAtIndex:inSection:" title="gridView:willDeselectItemAtIndex:inSection:"></a>
 	<h3 class="subsubtitle method-title">gridView:willDeselectItemAtIndex:inSection:</h3>
 	
@@ -519,6 +571,38 @@
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/gridViewDidDeselectAllItems:" title="gridViewDidDeselectAllItems:"></a>
+	<h3 class="subsubtitle method-title">gridViewDidDeselectAllItems:</h3>
+	
+	
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)gridViewDidDeselectAllItems:(CNGridView *)<em>gridView</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">CNGridViewDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -532,9 +616,9 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 cocoa:naut. All rights reserved. (Last updated: 2012-11-09)</span><br />
+						<p><span class="copyright">&copy; 2013 cocoa:naut. All rights reserved. (Last updated: 2013-01-11)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						
 					</div>
 				</div>
