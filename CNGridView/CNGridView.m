@@ -884,7 +884,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    CNLog(@"keyDown");
     switch ([theEvent keyCode]) {
         case 53: {  // escape
             abortSelection = YES;
