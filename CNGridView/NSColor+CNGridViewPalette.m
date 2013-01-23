@@ -79,4 +79,29 @@
 }
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Generic Stuff
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 1070
+/** found at: https://gist.github.com/707921 */
+- (CGColorRef)CGColor
+{
+    const NSInteger numberOfComponents = [self numberOfComponents];
+    CGFloat components[numberOfComponents];
+    CGColorSpaceRef colorSpace = [[self colorSpace] CGColorSpace];
+
+    [self getComponents:(CGFloat *)&components];
+
+    return (__bridge CGColorRef)(__bridge id)CGColorCreate(colorSpace, components);
+}
+
+/** found at: https://gist.github.com/707921 */
++ (NSColor *)colorWithCGColor:(CGColorRef)CGColor
+{
+    if (CGColor == NULL) return nil;
+    return [NSColor colorWithCIColor:[CIColor colorWithCGColor:CGColor]];
+}
+#endif
+
 @end
