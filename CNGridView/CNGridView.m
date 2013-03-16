@@ -662,6 +662,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     [self gridView:self didDoubleClickItemAtIndex:selectedItemIndex inSection:0];
 }
 
+
 - (void)drawSelectionFrameForMousePointerAtLocation:(NSPoint)location
 {
     if (!selectionFrameView) {
@@ -693,11 +694,27 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 }
 
+- (NSUInteger)boundIndexForItemAtLocation:(NSPoint)location
+{
+    NSPoint point = [self convertPoint:location fromView:nil];
+    NSUInteger indexForItemAtLocation;
+    CGFloat currentWidth = (self.itemSize.width * [self columnsInGridView]);
+    
+    if (point.x > currentWidth)
+        point.x = currentWidth;
+    
+    NSUInteger currentColumn = floor(point.x / self.itemSize.width);
+    NSUInteger currentRow = floor(point.y / self.itemSize.height);
+    indexForItemAtLocation = currentRow * [self columnsInGridView] + currentColumn;
+    
+    return indexForItemAtLocation;
+}
+
 - (void)selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame usingModifierFlags:(NSUInteger)modifierFlags
 {
-    NSUInteger topLeftItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMinX(selectionFrame), NSMinY(selectionFrame)) toView:nil]];
-    NSUInteger bottomRightItemIndex = [self indexForItemAtLocation:[self convertPoint:NSMakePoint(NSMaxX(selectionFrame), NSMaxY(selectionFrame)) toView:nil]];
-
+    NSUInteger topLeftItemIndex = [self boundIndexForItemAtLocation:[self convertPoint:NSMakePoint(NSMinX(selectionFrame), NSMinY(selectionFrame)) toView:nil]];
+    NSUInteger bottomRightItemIndex = [self boundIndexForItemAtLocation:[self convertPoint:NSMakePoint(NSMaxX(selectionFrame), NSMaxY(selectionFrame)) toView:nil]];
+    
     CNItemPoint topLeftItemPoint = [self locationForItemAtIndex:topLeftItemIndex];
     CNItemPoint bottomRightItemPoint = [self locationForItemAtIndex:bottomRightItemIndex];
 
@@ -733,18 +750,30 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         }
     }];
 
-    /// update all items that needs to be selected
+    // Verify selection frame was inside gridded area
+    BOOL validSelectionFrame = (NSWidth(selectionFrame) > 0) && (NSHeight(selectionFrame) > 0);
+    
     NSUInteger columnsInGridView = [self columnsInGridView];
+    NSUInteger allOverRows = ceilf((float)numberOfItems / columnsInGridView);
+    
+    topLeftItemPoint.row = MIN(topLeftItemPoint.row, allOverRows);
+    topLeftItemPoint.column = MIN(topLeftItemPoint.column, columnsInGridView);
+    bottomRightItemPoint.row = MIN(bottomRightItemPoint.row, allOverRows);
+    bottomRightItemPoint.column = MIN(bottomRightItemPoint.column, columnsInGridView);
+
+    /// update all items that needs to be selected
     for (NSUInteger row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
         for (NSUInteger col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
             NSUInteger itemIndex = ((row -1) * columnsInGridView + col) -1;
             CNGridViewItem *selectedItem = [selectedItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
             CNGridViewItem *itemToSelect = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
-            [selectedItemsBySelectionFrame setObject:itemToSelect forKey:[NSNumber numberWithInteger:itemToSelect.index]];
-            if (modifierFlags & NSCommandKeyMask) {
-                itemToSelect.selected = ([itemToSelect isEqual:selectedItem] ? NO : YES);
-            } else {
-                itemToSelect.selected = YES;
+            if (itemToSelect && validSelectionFrame) {
+                [selectedItemsBySelectionFrame setObject:itemToSelect forKey:[NSNumber numberWithInteger:itemToSelect.index]];
+                if (modifierFlags & NSCommandKeyMask) {
+                    itemToSelect.selected = ([itemToSelect isEqual:selectedItem] ? NO : YES);
+                } else {
+                    itemToSelect.selected = YES;
+                }
             }
         }
     }
@@ -791,6 +820,15 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSResponder
+
+- (BOOL)canBecomeKeyView
+{
+    return  YES;
+}
+- (BOOL)acceptsFirstResponder
+{
+    return  YES;
+}
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
