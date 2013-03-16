@@ -132,6 +132,9 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 @end
 
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
+
 @implementation CNGridView
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1116,3 +1119,5 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (BOOL)isFlipped { return YES; }
 
 @end
+#pragma clang diagnostic pop
+
