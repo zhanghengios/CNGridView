@@ -110,7 +110,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)updateVisibleRect;
 - (void)refreshGridViewAnimated:(BOOL)animated;
 - (void)updateReuseableItems;
-- (void)updateVisibleItems;
 - (NSIndexSet *)indexesForVisibleItems;
 - (void)arrangeGridViewItemsAnimated:(BOOL)animated;
 - (NSRange)visibleItemRange;
@@ -258,6 +257,21 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
 
+- (void)redrawItemAtIndex:(NSInteger)index
+{
+    CNGridViewItem *item = [self gridView:self itemAtIndex:index inSection:0];
+    if (item) {
+        item.index = index;
+        if (isInitialCall) {
+            [item setAlphaValue:0.0];
+            [item setFrame:[self rectForItemAtIndex:index]];
+        }
+        [keyedVisibleItems setObject:item forKey:[NSNumber numberWithUnsignedInteger:item.index]];
+        [self addSubview:item];
+    }
+    [self arrangeGridViewItemsAnimated:NO];
+}
+
 - (void)updateVisibleRect
 {
     [self updateReuseableItems];
@@ -300,10 +314,11 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)updateVisibleItems
 {
     NSRange visibleItemRange = [self visibleItemRange];
+    
     NSMutableIndexSet *visibleItemIndexes = [NSMutableIndexSet indexSetWithIndexesInRange:visibleItemRange];
 
     [visibleItemIndexes removeIndexes:[self indexesForVisibleItems]];
-
+    
     /// update all visible items
     [visibleItemIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];

@@ -200,5 +200,7 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
 
 - (void)reloadDataAnimated:(BOOL)animated;
 
+- (void)redrawItemAtIndex:(NSInteger)item;
+
 
 @end

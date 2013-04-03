@@ -59,7 +59,7 @@ extern NSString *CNGridViewDeSelectAllItemsNotification;
 + (void)initialize
 {
     kCNDefaultItemIdentifier = @"CNGridViewItem";
-    kDefaultItemSize         = NSMakeSize(96, 96);
+    kDefaultItemSize         = NSMakeSize(310, 225);
 }
 
 + (CGSize)defaultItemSize
