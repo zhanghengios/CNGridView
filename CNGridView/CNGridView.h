@@ -54,12 +54,12 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
 /**
  Property for the receiver's delegate.
  */
-@property (nonatomic, strong) IBOutlet id<CNGridViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<CNGridViewDelegate> delegate;
 
 /**
  Property for the receiver's data source.
  */
-@property (nonatomic, strong) IBOutlet id<CNGridViewDataSource> dataSource;
+@property (nonatomic, weak) IBOutlet id<CNGridViewDataSource> dataSource;
 
 
 
