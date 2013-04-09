@@ -95,11 +95,6 @@
  */
 - (void)gridView:(CNGridView *)gridView rightMouseButtonClickedOnItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
 
-/**
- ...
- */
-- (NSMenu*)gridView:(CNGridView *)gridView contextMenuForRightClickAtIndex:(NSUInteger)index inSection:(NSUInteger)section;
-
 @end
 
 

@@ -939,10 +939,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     
     [self gridView:self rightMouseButtonClickedOnItemAtIndex:index inSection:0];
     
-    NSMenu *menu = [self gridView:self contextMenuForRightClickAtIndex:index inSection:0];
-    
-    
-    if (menu)
+    if (_rightClickContextMenu)
     {
         NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
                                                      location:location
@@ -954,12 +951,12 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
                                                    clickCount:0
                                                      pressure:0];
         
-        for (NSMenuItem *menuItem in menu.itemArray)
+        for (NSMenuItem *menuItem in _rightClickContextMenu.itemArray)
         {
             [menuItem setRepresentedObject:[NSNumber numberWithUnsignedInteger:index]];
         }
         
-        [NSMenu popUpContextMenu:menu withEvent:fakeMouseEvent forView:self];
+        [NSMenu popUpContextMenu:_rightClickContextMenu withEvent:fakeMouseEvent forView:self];
     }
 }
 
@@ -1084,14 +1081,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     if ([self.delegate respondsToSelector:_cmd]) {
         [self.delegate gridView:gridView rightMouseButtonClickedOnItemAtIndex:index inSection:section];
     }
-}
-
-- (NSMenu*)gridView:(CNGridView *)gridView contextMenuForRightClickAtIndex:(NSUInteger)index inSection:(NSUInteger)section
-{
-    if ([self.delegate respondsToSelector:_cmd]) {
-        return [self.delegate gridView:gridView contextMenuForRightClickAtIndex:index inSection:section];
-    }
-    return nil;
 }
 
 

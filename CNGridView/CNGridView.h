@@ -161,6 +161,8 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  */
 @property (nonatomic, assign) BOOL useHover;
 
+@property (nonatomic, weak) IBOutlet NSMenu *rightClickContextMenu;
+
 /**
 
  */
