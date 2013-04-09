@@ -187,9 +187,6 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  */
 - (NSArray *)selectedItems;
 
-
-
-
 #pragma mark - Reloading GridView Data
 /** @name  Reloading GridView Data */
 
