@@ -161,6 +161,8 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  */
 @property (nonatomic, assign) BOOL useHover;
 
+@property (nonatomic, weak) IBOutlet NSMenu *rightClickContextMenu;
+
 /**
 
  */
@@ -186,9 +188,6 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  ...
  */
 - (NSArray *)selectedItems;
-
-
-
 
 #pragma mark - Reloading GridView Data
 /** @name  Reloading GridView Data */
