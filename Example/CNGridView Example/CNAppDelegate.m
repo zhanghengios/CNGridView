@@ -98,6 +98,13 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     [self.gridView reloadData];
 }
 
+- (IBAction)testContextMenuItemAction:(id)sender
+{
+    NSMenuItem *item = sender;
+    NSNumber *index = item.representedObject;
+    NSLog(@"Clicked 'test' menu item in item context menu for item at index %u", index.unsignedIntValue);
+}
+
 - (IBAction)itemSizeSliderAction:(id)sender
 {
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);

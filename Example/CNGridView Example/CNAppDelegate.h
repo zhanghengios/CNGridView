@@ -17,8 +17,10 @@
 @property (strong) IBOutlet NSButton *allowMultipleSelectionCheckbox;
 @property (strong) NSMutableArray *items;
 
+- (IBAction)testContextMenuItemAction:(id)sender;
 - (IBAction)itemSizeSliderAction:(id)sender;
 - (IBAction)allowMultipleSelectionCheckboxAction:(id)sender;
 - (IBAction)deleteButtonAction:(id)sender;
 - (IBAction)selectAllItemsButtonAction:(id)sender;
+
 @end
