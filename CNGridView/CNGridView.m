@@ -939,7 +939,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     
     [self gridView:self rightMouseButtonClickedOnItemAtIndex:index inSection:0];
     
-    if (_rightClickContextMenu)
+    if (_itemContextMenu)
     {
         NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
                                                      location:location
@@ -951,12 +951,12 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
                                                    clickCount:0
                                                      pressure:0];
         
-        for (NSMenuItem *menuItem in _rightClickContextMenu.itemArray)
+        for (NSMenuItem *menuItem in _itemContextMenu.itemArray)
         {
             [menuItem setRepresentedObject:[NSNumber numberWithUnsignedInteger:index]];
         }
         
-        [NSMenu popUpContextMenu:_rightClickContextMenu withEvent:fakeMouseEvent forView:self];
+        [NSMenu popUpContextMenu:_itemContextMenu withEvent:fakeMouseEvent forView:self];
     }
 }
 
