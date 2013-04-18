@@ -65,7 +65,7 @@ NSString *CNGridViewRightMouseButtonClickedOnItemNotification = @"CNGridViewRigh
 NSString *CNGridViewItemKey = @"gridViewItem";
 NSString *CNGridViewItemIndexKey = @"gridViewItemIndex";
 NSString *CNGridViewSelectedItemsKey = @"CNGridViewSelectedItems";
-
+NSString *CNGridViewItemsIndexSetKey = @"CNGridViewItemsIndexSetKey";
 
 
 CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
@@ -611,6 +611,16 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     return [selectedItems allValues];
 }
 
+- (NSIndexSet*)selectedIndexes
+{
+    NSMutableIndexSet *mutableIndex = [NSMutableIndexSet indexSet];
+    for (CNGridViewItem *gridItem in [self selectedItems])
+    {
+        [mutableIndex addIndex:gridItem.index];
+    }
+    return mutableIndex;
+}
+
 - (void)handleClicks:(NSTimer *)theTimer
 {
     switch ([clickEvents count]) {
@@ -937,11 +947,18 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     /// inform the delegate
     NSUInteger index = [self indexForItemAtLocation:location];
     
-    [self gridView:self rightMouseButtonClickedOnItemAtIndex:index inSection:0];
+    NSIndexSet *indexSet = [self selectedIndexes];
+    BOOL isClickInSelection = [indexSet containsIndex:index];
+    
+    if (!isClickInSelection)
+    {
+        indexSet = [NSIndexSet indexSetWithIndex:index];
+    }
+    
+    [self gridView:self contextMenuClickedWithIndex:indexSet inSection:0];
     
     if (_itemContextMenu)
     {
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
         NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
                                                      location:location
                                                 modifierFlags:0
@@ -1074,13 +1091,13 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 }
 
-- (void)gridView:(CNGridView *)gridView rightMouseButtonClickedOnItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+- (void)gridView:(CNGridView *)gridView contextMenuClickedWithIndex:(NSIndexSet*)indexSet inSection:(NSUInteger)section
 {
     [nc postNotificationName:CNGridViewRightMouseButtonClickedOnItemNotification
                       object:gridView
-                    userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInteger:index] forKey:CNGridViewItemIndexKey]];
+                    userInfo:[NSDictionary dictionaryWithObject:indexSet forKey:CNGridViewItemsIndexSetKey]];
     if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate gridView:gridView rightMouseButtonClickedOnItemAtIndex:index inSection:section];
+        [self.delegate gridView:gridView contextMenuClickedWithIndex:indexSet inSection:section];
     }
 }
 
