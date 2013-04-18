@@ -956,34 +956,37 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     /// inform the delegate
     NSUInteger index = [self indexForItemAtLocation:location];
     
-    NSIndexSet *indexSet = [self selectedIndexes];
-    BOOL isClickInSelection = [indexSet containsIndex:index];
-    
-    if (!isClickInSelection)
+    if (index != NSNotFound)
     {
-        indexSet = [NSIndexSet indexSetWithIndex:index];
-    }
-    
-    [self gridView:self contextMenuClickedWithIndex:indexSet inSection:0];
-    
-    if (_itemContextMenu)
-    {
-        NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
-                                                     location:location
-                                                modifierFlags:0
-                                                    timestamp:0
-                                                 windowNumber:[self.window windowNumber]
-                                                      context:nil
-                                                  eventNumber:0
-                                                   clickCount:0
-                                                     pressure:0];
+        NSIndexSet *indexSet = [self selectedIndexes];
+        BOOL isClickInSelection = [indexSet containsIndex:index];
         
-        for (NSMenuItem *menuItem in _itemContextMenu.itemArray)
+        if (!isClickInSelection)
         {
-            [menuItem setRepresentedObject:indexSet];
+            indexSet = [NSIndexSet indexSetWithIndex:index];
         }
         
-        [NSMenu popUpContextMenu:_itemContextMenu withEvent:fakeMouseEvent forView:self];
+        [self gridView:self contextMenuClickedWithIndex:indexSet inSection:0];
+        
+        if (_itemContextMenu)
+        {
+            NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
+                                                         location:location
+                                                    modifierFlags:0
+                                                        timestamp:0
+                                                     windowNumber:[self.window windowNumber]
+                                                          context:nil
+                                                      eventNumber:0
+                                                       clickCount:0
+                                                         pressure:0];
+            
+            for (NSMenuItem *menuItem in _itemContextMenu.itemArray)
+            {
+                [menuItem setRepresentedObject:indexSet];
+            }
+            
+            [NSMenu popUpContextMenu:_itemContextMenu withEvent:fakeMouseEvent forView:self];
+        }
     }
 }
 
