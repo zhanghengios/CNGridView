@@ -938,7 +938,16 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         return;
 
     NSPoint location = [theEvent locationInWindow];
-    [self selectItemAtIndex:[self indexForItemAtLocation:location] usingModifierFlags:theEvent.modifierFlags];
+    NSUInteger index = [self indexForItemAtLocation:location];
+    
+    if (index != NSNotFound)
+    {
+        [self selectItemAtIndex:index usingModifierFlags:theEvent.modifierFlags];
+    }
+    else
+    {
+        [self deselectAllItems];
+    }
 }
 
 - (void)rightMouseDown:(NSEvent *)theEvent
