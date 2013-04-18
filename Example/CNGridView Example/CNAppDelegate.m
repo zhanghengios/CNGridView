@@ -101,8 +101,8 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 - (IBAction)testContextMenuItemAction:(id)sender
 {
     NSMenuItem *item = sender;
-    NSNumber *index = item.representedObject;
-    NSLog(@"Clicked 'test' menu item in item context menu for item at index %u", index.unsignedIntValue);
+    NSIndexSet *index = item.representedObject;
+    NSLog(@"Clicked 'test' menu item in item context menu for item at index %lu", (unsigned long)index.firstIndex);
 }
 
 - (IBAction)itemSizeSliderAction:(id)sender
