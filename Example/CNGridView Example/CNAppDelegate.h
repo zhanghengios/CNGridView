@@ -15,11 +15,13 @@
 @property (strong) IBOutlet CNGridView *gridView;
 @property (strong) IBOutlet NSSlider *itemSizeSlider;
 @property (strong) IBOutlet NSButton *allowMultipleSelectionCheckbox;
+@property (strong) IBOutlet NSButton *allowMultipleSelectionWithDragCheckbox;
 @property (strong) NSMutableArray *items;
 
 - (IBAction)testContextMenuItemAction:(id)sender;
 - (IBAction)itemSizeSliderAction:(id)sender;
 - (IBAction)allowMultipleSelectionCheckboxAction:(id)sender;
+- (IBAction)allowMultipleSelectionCheckboxWithDragAction:(id)sender;
 - (IBAction)deleteButtonAction:(id)sender;
 - (IBAction)selectAllItemsButtonAction:(id)sender;
 

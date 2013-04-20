@@ -196,6 +196,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     _scrollElasticity = YES;
     _allowsSelection = YES;
     _allowsMultipleSelection = NO;
+    _allowsMultipleSelectionWithDrag = NO;
     _useSelectionRing = YES;
     _useHover = YES;
 
@@ -257,7 +258,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
 
-- (void)redrawItemAtIndex:(NSInteger)index
+- (void)redrawItemAtIndex:(NSUInteger)index
 {
     CNGridViewItem *item = [self gridView:self itemAtIndex:index inSection:0];
     if (item) {
@@ -527,24 +528,90 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 
     gridViewItem = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
-    if (gridViewItem) {
-        if (self.allowsMultipleSelection) {
-            if (!gridViewItem.selected) {
+    if (gridViewItem)
+    {
+        if (self.allowsMultipleSelection)
+        {
+            if (!gridViewItem.selected && !(modifierFlags & NSShiftKeyMask) && !(modifierFlags & NSCommandKeyMask))
+            {
+                //Select a single item and deselect all other items when the shift or command keys are NOT pressed.
+                [self deselectAllItems];
                 [self selectItem:gridViewItem];
-            } else {
-                if (modifierFlags & NSCommandKeyMask) {
-                    [self deSelectItem:gridViewItem];
-                }
             }
-
-        } else {
-            if (modifierFlags & NSCommandKeyMask) {
-                if (gridViewItem.selected) {
-                    [self deSelectItem:gridViewItem];
-                } else {
+            else if (gridViewItem.selected && modifierFlags & NSCommandKeyMask)
+            {
+                //If the item clicked is already selected and the command key is down, remove it from the selection.
+                NSLog(@"foo");
+                [self deSelectItem:gridViewItem];
+            }
+            else if (!gridViewItem.selected && modifierFlags & NSCommandKeyMask)
+            {
+                //If the item clicked is NOT selected and the command key is down, add it to the selection
+                
+                [self selectItem:gridViewItem];
+            }
+            else if (modifierFlags & NSShiftKeyMask)
+            {
+                //Select a range of items between the current selection and the item that was clicked when the shift key is down.
+                
+                NSUInteger lastIndex = [[self selectedIndexes] lastIndex];
+                
+                //If there were no previous items selected then 
+                if (lastIndex == NSNotFound)
+                {
                     [self selectItem:gridViewItem];
                 }
-            } else {
+                else
+                {
+                    //Find range to select
+                    NSUInteger high;
+                    NSUInteger low;
+                    
+                    if (((NSInteger)lastIndex - (NSInteger)selectedItemIndex) < 0)
+                    {
+                        high = selectedItemIndex;
+                        low = lastIndex;
+                    }
+                    else
+                    {
+                        high = lastIndex;
+                        low = selectedItemIndex;
+                    }
+                    
+                    high++; //Avoid off by one
+                    
+                    
+                    //Select all the items that are not already selected
+                    for (NSUInteger i = low; i < high; i++)
+                    {
+                        gridViewItem = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:i]];
+                        if (gridViewItem && !gridViewItem.selected)
+                        {
+                            [self selectItem:gridViewItem];
+                        }
+                    }
+                }
+            }
+            else if (gridViewItem.selected)
+            {
+                [self deselectAllItems];
+                [self selectItem:gridViewItem];
+            }
+        }
+        else
+        {
+            if (modifierFlags & NSCommandKeyMask)
+            {
+                if (gridViewItem.selected)
+                {
+                    [self deSelectItem:gridViewItem];
+                } else
+                {
+                    [self selectItem:gridViewItem];
+                }
+            }
+            else
+            {
                 [self selectItem:gridViewItem];
             }
         }
@@ -559,14 +626,14 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         CNGridViewItem *item = [self gridView:self itemAtIndex:idx inSection:0];
         item.selected = YES;
         item.index = idx;
-//        [item setNeedsDisplay:YES];
         [selectedItems setObject:item forKey:[NSNumber numberWithInteger:item.index]];
     };
 }
 
 - (void)deselectAllItems
 {
-    if (selectedItems.count > 0 && !self.allowsMultipleSelection) {
+    if (selectedItems.count > 0)
+    {
         /// inform the delegate
         [self gridView:self willDeselectAllItems:[self selectedItems]];
 
@@ -575,7 +642,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
         /// inform the delegate
         [self gridViewDidDeselectAllItems:self];
-}
+    }
 }
 
 - (void)selectItem:(CNGridViewItem *)theItem
@@ -884,7 +951,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-    if (!self.allowsMultipleSelection)
+    if (!self.allowsMultipleSelection || !self.allowsMultipleSelectionWithDrag)
         return;
 
     mouseHasDragged = YES;
@@ -905,7 +972,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
     /// this happens just if we have multiselection ON and dragged the
     /// mouse over items. In this case we have to handle this selection.
-    if (mouseHasDragged) {
+    if (self.allowsMultipleSelectionWithDrag && mouseHasDragged) {
         mouseHasDragged = NO;
 
         /// remove selection frame

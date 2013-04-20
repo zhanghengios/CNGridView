@@ -114,6 +114,20 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 - (IBAction)allowMultipleSelectionCheckboxAction:(id)sender
 {
     self.gridView.allowsMultipleSelection = (self.allowMultipleSelectionCheckbox.state == NSOnState ? YES : NO);
+    
+    if (self.gridView.allowsMultipleSelection)
+    {
+        [_allowMultipleSelectionWithDragCheckbox setEnabled:YES];
+    }
+    else
+    {
+        [_allowMultipleSelectionWithDragCheckbox setEnabled:NO];
+    }
+}
+
+-(void)allowMultipleSelectionCheckboxWithDragAction:(id)sender
+{
+    self.gridView.allowsMultipleSelectionWithDrag = (self.allowMultipleSelectionWithDragCheckbox.state == NSOnState ? YES : NO);
 }
 
 - (IBAction)deleteButtonAction:(id)sender

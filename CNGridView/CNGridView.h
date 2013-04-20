@@ -152,6 +152,16 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
 
 /**
+ Property indicates if the mouse drag operation can be used to select multiple items.
+ 
+ If you have this property set to `YES` you must also set `allowsMultipleSelection`
+ 
+ @param YES The grid view allows multiple item selection with mouse drag.
+ @param NO  The grid view don't allow multiple item selection with mouse drag.
+ */
+@property (nonatomic, assign) BOOL allowsMultipleSelectionWithDrag;
+
+/**
  ...
  */
 @property (nonatomic, assign) BOOL useSelectionRing;
@@ -161,47 +171,60 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  */
 @property (nonatomic, assign) BOOL useHover;
 
+/**
+ `NSMenu` to use when an item or the selected items are right clicked
+ */
 @property (nonatomic, weak) IBOutlet NSMenu *itemContextMenu;
 
 /**
-
+ Selects all the items in the grid
  */
 - (void)selectAllItems;
 
 /**
- ...
+ Deselects all the selected items in the grid
  */
 - (void)deselectAllItems;
 
 /**
- ...
+ Selects the specified item
  */
 - (void)selectItem:(CNGridViewItem *)theItem;
+
+/**
+ Selects all the items in the grid and passes each item to the specified block
+ */
 - (void)selectItemsWithBlock:(CNGridViewSelectItem)blockSelector;
 
 /**
- ...
+ Removes selection for the specified item
  */
 - (void)deSelectItem:(CNGridViewItem *)theItem;
 
 /**
- ...
+ Returns an array of the selected `CNGridViewSelectItem` items.
  */
 - (NSArray *)selectedItems;
 
+/**
+ Returns an index set of the selected items
+ */
 - (NSIndexSet*)selectedIndexes;
 
 #pragma mark - Reloading GridView Data
 /** @name  Reloading GridView Data */
 
 /**
- ...
+ Reloads all the items on the grid from the data source
  */
 - (void)reloadData;
 
 - (void)reloadDataAnimated:(BOOL)animated;
 
-- (void)redrawItemAtIndex:(NSInteger)item;
+/**
+ Forces a redraw of the item at the specified index
+ */
+- (void)redrawItemAtIndex:(NSUInteger)index;
 
 
 @end
