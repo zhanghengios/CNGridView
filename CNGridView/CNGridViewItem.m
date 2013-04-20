@@ -129,7 +129,12 @@ extern NSString *CNGridViewDeSelectAllItemsNotification;
     return YES;
 }
 
-
+-(void)dealloc
+{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:CNGridViewSelectAllItemsNotification object:nil];
+    [nc removeObserver:self name:CNGridViewDeSelectAllItemsNotification object:nil];
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Reusing Grid View Items
