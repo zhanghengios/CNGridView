@@ -1036,6 +1036,9 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         if (!isClickInSelection)
         {
             indexSet = [NSIndexSet indexSetWithIndex:index];
+            [self deselectAllItems];
+            CNGridViewItem *item = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:index]];
+            [self selectItem:item];
         }
         
         [self gridView:self contextMenuClickedWithIndex:indexSet inSection:0];
@@ -1059,6 +1062,10 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
             
             [NSMenu popUpContextMenu:_itemContextMenu withEvent:fakeMouseEvent forView:self];
         }
+    }
+    else
+    {
+        [self deselectAllItems];
     }
 }
 
