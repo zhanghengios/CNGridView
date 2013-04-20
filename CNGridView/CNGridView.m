@@ -688,6 +688,11 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     return mutableIndex;
 }
 
+- (NSIndexSet *)visibleIndexes
+{
+    return [NSIndexSet indexSetWithIndexesInRange:[self visibleItemRange]];
+}
+
 - (void)handleClicks:(NSTimer *)theTimer
 {
     switch ([clickEvents count]) {

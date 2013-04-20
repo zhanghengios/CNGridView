@@ -211,6 +211,11 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  */
 - (NSIndexSet*)selectedIndexes;
 
+/**
+ Indexes of all the visible items
+ */
+- (NSIndexSet*)visibleIndexes;
+
 #pragma mark - Reloading GridView Data
 /** @name  Reloading GridView Data */
 
