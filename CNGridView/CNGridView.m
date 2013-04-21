@@ -535,7 +535,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
             else if (gridViewItem.selected && modifierFlags & NSCommandKeyMask)
             {
                 //If the item clicked is already selected and the command key is down, remove it from the selection.
-                NSLog(@"foo");
                 [self deSelectItem:gridViewItem];
             }
             else if (!gridViewItem.selected && modifierFlags & NSCommandKeyMask)
