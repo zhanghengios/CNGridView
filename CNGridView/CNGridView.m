@@ -459,6 +459,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         reusableItem = [reuseQueue anyObject];
         [reuseQueue removeObject:reusableItem];
         [reuseableItems setObject:reuseQueue forKey:identifier];
+        reusableItem.representedObject = nil;
     }
     return reusableItem;
 }
