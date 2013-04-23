@@ -226,10 +226,4 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
 
 - (void)reloadDataAnimated:(BOOL)animated;
 
-/**
- Forces a redraw of the item at the specified index
- */
-- (void)redrawItemAtIndex:(NSUInteger)index;
-
-
 @end

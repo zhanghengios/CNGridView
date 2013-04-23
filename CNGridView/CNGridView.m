@@ -258,21 +258,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
 
-- (void)redrawItemAtIndex:(NSUInteger)index
-{
-    CNGridViewItem *item = [self gridView:self itemAtIndex:index inSection:0];
-    if (item) {
-        item.index = index;
-        if (isInitialCall) {
-            [item setAlphaValue:0.0];
-            [item setFrame:[self rectForItemAtIndex:index]];
-        }
-        [keyedVisibleItems setObject:item forKey:[NSNumber numberWithUnsignedInteger:item.index]];
-        [self addSubview:item];
-    }
-    [self arrangeGridViewItemsAnimated:NO];
-}
-
 - (void)updateVisibleRect
 {
     [self updateReuseableItems];
