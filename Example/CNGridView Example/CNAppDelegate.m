@@ -98,6 +98,13 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     [self.gridView reloadData];
 }
 
+- (IBAction)testContextMenuItemAction:(id)sender
+{
+    NSMenuItem *item = sender;
+    NSIndexSet *index = item.representedObject;
+    NSLog(@"Clicked 'test' menu item in item context menu for item at index '%@'", index);
+}
+
 - (IBAction)itemSizeSliderAction:(id)sender
 {
     self.gridView.itemSize = NSMakeSize(self.itemSizeSlider.integerValue, self.itemSizeSlider.integerValue);
@@ -107,6 +114,20 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 - (IBAction)allowMultipleSelectionCheckboxAction:(id)sender
 {
     self.gridView.allowsMultipleSelection = (self.allowMultipleSelectionCheckbox.state == NSOnState ? YES : NO);
+    
+    if (self.gridView.allowsMultipleSelection)
+    {
+        [_allowMultipleSelectionWithDragCheckbox setEnabled:YES];
+    }
+    else
+    {
+        [_allowMultipleSelectionWithDragCheckbox setEnabled:NO];
+    }
+}
+
+-(void)allowMultipleSelectionCheckboxWithDragAction:(id)sender
+{
+    self.gridView.allowsMultipleSelectionWithDrag = (self.allowMultipleSelectionWithDragCheckbox.state == NSOnState ? YES : NO);
 }
 
 - (IBAction)deleteButtonAction:(id)sender
@@ -174,9 +195,9 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
     CNLog(@"didDoubleClickItemAtIndex: %li", index);
 }
 
-- (void)gridView:(CNGridView *)gridView rightMouseButtonClickedOnItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section
+- (void)gridView:(CNGridView *)gridView contextMenuClickedWithIndex:(NSIndexSet*)indexSet inSection:(NSUInteger)section
 {
-    CNLog(@"rightMouseButtonClickedOnItemAtIndex: %li", index);
+    CNLog(@"rightMouseButtonClickedOnItemAtIndex: %@", indexSet);
 }
 
 - (void)gridView:(CNGridView *)gridView didSelectItemAtIndex:(NSUInteger)index inSection:(NSUInteger)section

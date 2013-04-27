@@ -90,6 +90,11 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
 @property (assign) NSInteger index;
 
 /**
+ The object that the receiving item view represents 
+ */
+@property (assign) id representedObject;
+
+/**
  ...
  */
 + (CGSize)defaultItemSize;
@@ -104,7 +109,7 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
  */
 @property (nonatomic, strong) CNGridViewItemLayout *defaultLayout;
 
-/**
+/** 
  ...
  */
 @property (nonatomic, strong) CNGridViewItemLayout *hoverLayout;

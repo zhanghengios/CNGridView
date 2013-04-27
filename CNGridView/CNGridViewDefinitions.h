@@ -76,6 +76,7 @@ extern NSString *CNGridViewRightMouseButtonClickedOnItemNotification;
 /// these keys are use for the notification userInfo dictionary (see above)
 extern NSString *CNGridViewItemKey;
 extern NSString *CNGridViewItemIndexKey;
+extern NSString *CNGridViewItemsIndexSetKey;
 
 
 #endif
