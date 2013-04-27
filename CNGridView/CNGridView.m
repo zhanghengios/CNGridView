@@ -514,89 +514,72 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 
     gridViewItem = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:selectedItemIndex]];
-    if (gridViewItem)
-    {
-        if (self.allowsMultipleSelection)
-        {
-            if (!gridViewItem.selected && !(modifierFlags & NSShiftKeyMask) && !(modifierFlags & NSCommandKeyMask))
-            {
+    if (gridViewItem) {
+        if (self.allowsMultipleSelection) {
+            if (!gridViewItem.selected && !(modifierFlags & NSShiftKeyMask) && !(modifierFlags & NSCommandKeyMask)) {
                 //Select a single item and deselect all other items when the shift or command keys are NOT pressed.
                 [self deselectAllItems];
                 [self selectItem:gridViewItem];
             }
-            else if (gridViewItem.selected && modifierFlags & NSCommandKeyMask)
-            {
+
+            else if (gridViewItem.selected && modifierFlags & NSCommandKeyMask) {
                 //If the item clicked is already selected and the command key is down, remove it from the selection.
                 [self deSelectItem:gridViewItem];
             }
-            else if (!gridViewItem.selected && modifierFlags & NSCommandKeyMask)
-            {
+
+            else if (!gridViewItem.selected && modifierFlags & NSCommandKeyMask) {
                 //If the item clicked is NOT selected and the command key is down, add it to the selection
-                
                 [self selectItem:gridViewItem];
             }
-            else if (modifierFlags & NSShiftKeyMask)
-            {
+
+            else if (modifierFlags & NSShiftKeyMask) {
                 //Select a range of items between the current selection and the item that was clicked when the shift key is down.
-                
                 NSUInteger lastIndex = [[self selectedIndexes] lastIndex];
-                
-                //If there were no previous items selected then 
-                if (lastIndex == NSNotFound)
-                {
+
+                //If there were no previous items selected then
+                if (lastIndex == NSNotFound) {
                     [self selectItem:gridViewItem];
-                }
-                else
-                {
+
+                } else {
                     //Find range to select
                     NSUInteger high;
                     NSUInteger low;
-                    
-                    if (((NSInteger)lastIndex - (NSInteger)selectedItemIndex) < 0)
-                    {
+
+                    if (((NSInteger)lastIndex - (NSInteger)selectedItemIndex) < 0) {
                         high = selectedItemIndex;
                         low = lastIndex;
-                    }
-                    else
-                    {
+
+                    } else {
                         high = lastIndex;
                         low = selectedItemIndex;
                     }
-                    
                     high++; //Avoid off by one
-                    
-                    
+
                     //Select all the items that are not already selected
-                    for (NSUInteger i = low; i < high; i++)
-                    {
+                    for (NSUInteger i = low; i < high; i++) {
                         gridViewItem = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:i]];
-                        if (gridViewItem && !gridViewItem.selected)
-                        {
+                        if (gridViewItem && !gridViewItem.selected) {
                             [self selectItem:gridViewItem];
                         }
                     }
                 }
             }
-            else if (gridViewItem.selected)
-            {
+
+            else if (gridViewItem.selected) {
                 [self deselectAllItems];
                 [self selectItem:gridViewItem];
             }
         }
-        else
-        {
-            if (modifierFlags & NSCommandKeyMask)
-            {
-                if (gridViewItem.selected)
-                {
+
+        else {
+            if (modifierFlags & NSCommandKeyMask) {
+                if (gridViewItem.selected) {
                     [self deSelectItem:gridViewItem];
-                } else
-                {
+                } else {
                     [self selectItem:gridViewItem];
                 }
             }
-            else
-            {
+            else {
                 [self selectItem:gridViewItem];
             }
         }
@@ -617,8 +600,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)deselectAllItems
 {
-    if (selectedItems.count > 0)
-    {
+    if (selectedItems.count > 0) {
         /// inform the delegate
         [self gridView:self willDeselectAllItems:[self selectedItems]];
 
@@ -666,8 +648,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (NSIndexSet*)selectedIndexes
 {
     NSMutableIndexSet *mutableIndex = [NSMutableIndexSet indexSet];
-    for (CNGridViewItem *gridItem in [self selectedItems])
-    {
+    for (CNGridViewItem *gridItem in [self selectedItems]) {
         [mutableIndex addIndex:gridItem.index];
     }
     return mutableIndex;
@@ -997,12 +978,10 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     NSPoint location = [theEvent locationInWindow];
     NSUInteger index = [self indexForItemAtLocation:location];
     
-    if (index != NSNotFound)
-    {
+    if (index != NSNotFound) {
         [self selectItemAtIndex:index usingModifierFlags:theEvent.modifierFlags];
-    }
-    else
-    {
+
+    } else {
         [self deselectAllItems];
     }
 }
@@ -1013,13 +992,11 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     /// inform the delegate
     NSUInteger index = [self indexForItemAtLocation:location];
     
-    if (index != NSNotFound)
-    {
+    if (index != NSNotFound) {
         NSIndexSet *indexSet = [self selectedIndexes];
         BOOL isClickInSelection = [indexSet containsIndex:index];
         
-        if (!isClickInSelection)
-        {
+        if (!isClickInSelection) {
             indexSet = [NSIndexSet indexSetWithIndex:index];
             [self deselectAllItems];
             CNGridViewItem *item = [keyedVisibleItems objectForKey:[NSNumber numberWithInteger:index]];
@@ -1028,8 +1005,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
         
         [self gridView:self contextMenuClickedWithIndex:indexSet inSection:0];
         
-        if (_itemContextMenu)
-        {
+        if (_itemContextMenu) {
             NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
                                                          location:location
                                                     modifierFlags:0
@@ -1040,11 +1016,9 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
                                                        clickCount:0
                                                          pressure:0];
             
-            for (NSMenuItem *menuItem in _itemContextMenu.itemArray)
-            {
+            for (NSMenuItem *menuItem in _itemContextMenu.itemArray) {
                 [menuItem setRepresentedObject:indexSet];
             }
-            
             [NSMenu popUpContextMenu:_itemContextMenu withEvent:fakeMouseEvent forView:self];
         }
     }
