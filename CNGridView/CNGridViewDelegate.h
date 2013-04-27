@@ -93,7 +93,7 @@
 /**
  ...
  */
-- (void)gridView:(CNGridView *)gridView contextMenuClickedWithIndex:(NSIndexSet*)indexSet inSection:(NSUInteger)section;
+- (void)gridView:(CNGridView *)gridView didActivateContextMenuWithIndexes:(NSIndexSet*)indexSet inSection:(NSUInteger)section;
 
 @end
 
