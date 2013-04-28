@@ -1147,7 +1147,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
                       object:gridView
                     userInfo:[NSDictionary dictionaryWithObject:indexSet forKey:CNGridViewItemsIndexSetKey]];
     if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate gridView:gridView contextMenuClickedWithIndex:indexSet inSection:section];
+        [self.delegate gridView:gridView didActivateContextMenuWithIndexes:indexSet inSection:section];
     }
 }
 
