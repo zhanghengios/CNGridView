@@ -989,7 +989,6 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
     NSPoint location = [theEvent locationInWindow];
-    /// inform the delegate
     NSUInteger index = [self indexForItemAtLocation:location];
     
     if (index != NSNotFound) {
@@ -1003,7 +1002,8 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
             [self selectItem:item];
         }
         
-        [self gridView:self contextMenuClickedWithIndex:indexSet inSection:0];
+        /// inform the delegate
+        [self gridView:self didActivateContextMenuWithIndexes:indexSet inSection:0];
         
         if (_itemContextMenu) {
             NSEvent *fakeMouseEvent = [NSEvent mouseEventWithType:NSRightMouseDown
@@ -1141,7 +1141,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
     }
 }
 
-- (void)gridView:(CNGridView *)gridView contextMenuClickedWithIndex:(NSIndexSet*)indexSet inSection:(NSUInteger)section
+- (void)gridView:(CNGridView *)gridView didActivateContextMenuWithIndexes:(NSIndexSet*)indexSet inSection:(NSUInteger)section
 {
     [nc postNotificationName:CNGridViewRightMouseButtonClickedOnItemNotification
                       object:gridView
