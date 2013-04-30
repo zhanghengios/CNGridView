@@ -280,8 +280,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)updateReuseableItems
 {
     //Do not mark items as reusable unless there are no selected items in the grid as recycling items when doing range multiselect
-    if (self.selectedIndexes.count == 0)
-    {
+    if (self.selectedIndexes.count == 0) {
         NSRange visibleItemRange = [self visibleItemRange];
         
         [[keyedVisibleItems allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
