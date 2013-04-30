@@ -279,22 +279,26 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 
 - (void)updateReuseableItems
 {
-    NSRange visibleItemRange = [self visibleItemRange];
+    //Do not mark items as reusable unless there are no selected items in the grid as recycling items when doing range multiselect
+    if (self.selectedIndexes.count == 0)
+    {
+        NSRange visibleItemRange = [self visibleItemRange];
+        
+        [[keyedVisibleItems allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            CNGridViewItem *item = (CNGridViewItem *)obj;
+            if (!NSLocationInRange(item.index, visibleItemRange) && [item isReuseable]) {
+                [keyedVisibleItems removeObjectForKey:[NSNumber numberWithUnsignedInteger:item.index]];
+                [item removeFromSuperview];
+                [item prepareForReuse];
 
-    [[keyedVisibleItems allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        CNGridViewItem *item = (CNGridViewItem *)obj;
-        if (!NSLocationInRange(item.index, visibleItemRange) && [item isReuseable]) {
-            [keyedVisibleItems removeObjectForKey:[NSNumber numberWithUnsignedInteger:item.index]];
-            [item removeFromSuperview];
-            [item prepareForReuse];
-
-            NSMutableSet *reuseQueue = [reuseableItems objectForKey:item.reuseIdentifier];
-            if (reuseQueue == nil)
-                reuseQueue = [NSMutableSet set];
-            [reuseQueue addObject:item];
-            [reuseableItems setObject:reuseQueue forKey:item.reuseIdentifier];
-        }
-    }];
+                NSMutableSet *reuseQueue = [reuseableItems objectForKey:item.reuseIdentifier];
+                if (reuseQueue == nil)
+                    reuseQueue = [NSMutableSet set];
+                [reuseQueue addObject:item];
+                [reuseableItems setObject:reuseQueue forKey:item.reuseIdentifier];
+            }
+        }];
+    }
 }
 
 - (void)updateVisibleItems
