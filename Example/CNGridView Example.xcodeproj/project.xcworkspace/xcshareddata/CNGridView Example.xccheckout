@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>03AFFFA1-87C1-449F-9100-8DAEF60EEC0D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CNGridView Example</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5EA7C424-FCE8-45D9-BFCF-5FF22CCEDBB9</key>
+		<string>ssh://github.com/phranck/CNGridView.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Example/CNGridView Example.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5EA7C424-FCE8-45D9-BFCF-5FF22CCEDBB9</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/phranck/CNGridView.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5EA7C424-FCE8-45D9-BFCF-5FF22CCEDBB9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5EA7C424-FCE8-45D9-BFCF-5FF22CCEDBB9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CNGridView</string>
+		</dict>
+	</array>
+</dict>
+</plist>
