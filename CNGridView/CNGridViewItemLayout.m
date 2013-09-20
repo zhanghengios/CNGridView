@@ -44,47 +44,42 @@ static CGFloat kDefaultItemBorderRadius;
 
 @implementation CNGridViewItemLayout
 
-+ (void)initialize
-{
-    kDefaultSelectionRingLineWidth = 3.0f;
-    kDefaultContentInset = 3.0f;
-    kDefaultItemBorderRadius = 5.0f;
++ (void)initialize {
+	kDefaultSelectionRingLineWidth = 3.0f;
+	kDefaultContentInset = 3.0f;
+	kDefaultItemBorderRadius = 5.0f;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _backgroundColor        = [NSColor itemBackgroundColor];
-        _selectionRingColor     = [NSColor itemSelectionRingColor];
-        _selectionRingLineWidth = kDefaultSelectionRingLineWidth;
-        _contentInset           = kDefaultContentInset;
-        _itemBorderRadius       = kDefaultItemBorderRadius;
-        _visibleContentMask     = (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle);
+- (id)init {
+	self = [super init];
+	if (self) {
+		_backgroundColor        = [NSColor itemBackgroundColor];
+		_selectionRingColor     = [NSColor itemSelectionRingColor];
+		_selectionRingLineWidth = kDefaultSelectionRingLineWidth;
+		_contentInset           = kDefaultContentInset;
+		_itemBorderRadius       = kDefaultItemBorderRadius;
+		_visibleContentMask     = (CNGridViewItemVisibleContentImage | CNGridViewItemVisibleContentTitle);
 
-        /// title text font attributes
-        NSColor *textColor      = [NSColor itemTitleColor];
-        NSShadow *textShadow    = [[NSShadow alloc] init];
-        [textShadow setShadowColor: [NSColor itemTitleShadowColor]];
-        [textShadow setShadowOffset: NSMakeSize(0, -1)];
+		/// title text font attributes
+		NSColor *textColor      = [NSColor itemTitleColor];
+		NSShadow *textShadow    = [NSShadow new];
+		[textShadow setShadowColor:[NSColor itemTitleShadowColor]];
+		[textShadow setShadowOffset:NSMakeSize(0, -1)];
 
-        NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-        [textStyle setAlignment: NSCenterTextAlignment];
+		NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+		[textStyle setAlignment:NSCenterTextAlignment];
 
-        _itemTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSFont fontWithName:@"Helvetica" size:12], NSFontAttributeName,
-                                    textShadow,                                 NSShadowAttributeName,
-                                    textColor,                                  NSForegroundColorAttributeName,
-                                    textStyle,                                  NSParagraphStyleAttributeName,
-                                    nil];
-    }
-    return self;
+        _itemTitleTextAttributes = @{NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size:12],
+                                     NSShadowAttributeName: textShadow,
+                                     NSForegroundColorAttributeName: textColor,
+                                     NSParagraphStyleAttributeName: textStyle};
+	}
+	return self;
 }
 
-+ (CNGridViewItemLayout *)defaultLayout
-{
-    CNGridViewItemLayout *defaultLayout = [[[self class] alloc] init];
-    return defaultLayout;
++ (CNGridViewItemLayout *)defaultLayout {
+	CNGridViewItemLayout *defaultLayout = [[[self class] alloc] init];
+	return defaultLayout;
 }
 
 @end

@@ -38,28 +38,26 @@
 
 @implementation NSView (CNGridView)
 
-- (BOOL)isSubviewOfView:(NSView *)theView
-{
-    __block BOOL isSubView = NO;
-    [[theView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([self isEqualTo:(NSView *)obj]) {
-            isSubView = YES;
-            *stop = YES;
-        }
-    }];
-    return isSubView;
+- (BOOL)isSubviewOfView:(NSView *)theView {
+	__block BOOL isSubView = NO;
+	[[theView subviews] enumerateObjectsUsingBlock: ^(NSView *aView, NSUInteger idx, BOOL *stop) {
+	    if ([self isEqualTo:aView]) {
+	        isSubView = YES;
+	        *stop = YES;
+		}
+	}];
+	return isSubView;
 }
 
-- (BOOL)containsSubView:(NSView *)subview
-{
-    __block BOOL containsSubView = NO;
-    [[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([subview isEqualTo:(NSView *)obj]) {
-            containsSubView = YES;
-            *stop = YES;
-        }
-    }];
-    return containsSubView;
+- (BOOL)containsSubView:(NSView *)subview {
+	__block BOOL containsSubView = NO;
+	[[self subviews] enumerateObjectsUsingBlock: ^(NSView *aView, NSUInteger idx, BOOL *stop) {
+	    if ([subview isEqualTo:aView]) {
+	        containsSubView = YES;
+	        *stop = YES;
+		}
+	}];
+	return containsSubView;
 }
 
 @end

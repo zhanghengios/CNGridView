@@ -40,7 +40,6 @@
 @interface NSColor (CNGridViewPalette)
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - GridView Item Colors
 
 
@@ -48,20 +47,14 @@
 
 /** Returns the standard `CNGridViewItem` background color */
 + (NSColor *)itemBackgroundColor;
-
 /** Returns the standard `CNGridViewItem` background color when the item is in mouse over state (property must be enabled) */
 + (NSColor *)itemBackgroundHoverColor;
-
 /** Returns the standard `CNGridViewItem` background color when the item is selected */
 + (NSColor *)itemBackgroundSelectionColor;
-
 /** Returns the standard `CNGridViewItem` selection ring color when the item is selected */
 + (NSColor *)itemSelectionRingColor;
-
 + (NSColor *)itemTitleColor;
-
 + (NSColor *)itemTitleShadowColor;
-
 + (NSColor *)selectionFrameColor;
 
 
