@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/CNGridView.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/CNGridView</TokenIdentifier>
+			<Abstract type="html">CNGridView is a (wanna be) replacement for NSCollectionView. It has full delegate and dataSource support with method calls like known from NSTableView/UITableView.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+            
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setDelegate:</TokenIdentifier>
+			<Abstract type="html">Property for the receiver&apos;s delegate.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet id&lt;CNGridViewDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/delegate</TokenIdentifier>
+			<Abstract type="html">Property for the receiver&apos;s delegate.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet id&lt;CNGridViewDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/delegate</TokenIdentifier>
+			<Abstract type="html">Property for the receiver&apos;s delegate.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet id&lt;CNGridViewDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setDataSource:</TokenIdentifier>
+			<Abstract type="html">Property for the receiver&apos;s data source.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet id&lt;CNGridViewDataSource&gt; dataSource</Declaration>
+			
+			
+			<Anchor>//api/name/dataSource</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/dataSource</TokenIdentifier>
+			<Abstract type="html">Property for the receiver&apos;s data source.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet id&lt;CNGridViewDataSource&gt; dataSource</Declaration>
+			
+			
+			<Anchor>//api/name/dataSource</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/dataSource</TokenIdentifier>
+			<Abstract type="html">Property for the receiver&apos;s data source.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet id&lt;CNGridViewDataSource&gt; dataSource</Declaration>
+			
+			
+			<Anchor>//api/name/dataSource</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setGridViewTitle:</TokenIdentifier>
+			<Abstract type="html">Property for a title of the grid view.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSString *gridViewTitle</Declaration>
+			
+			
+			<Anchor>//api/name/gridViewTitle</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/gridViewTitle</TokenIdentifier>
+			<Abstract type="html">Property for a title of the grid view.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSString *gridViewTitle</Declaration>
+			
+			
+			<Anchor>//api/name/gridViewTitle</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/gridViewTitle</TokenIdentifier>
+			<Abstract type="html">Property for a title of the grid view.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSString *gridViewTitle</Declaration>
+			
+			
+			<Anchor>//api/name/gridViewTitle</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setBackgroundColor:</TokenIdentifier>
+			<Abstract type="html">Property for the background color of the grid view.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/backgroundColor</TokenIdentifier>
+			<Abstract type="html">Property for the background color of the grid view.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/backgroundColor</TokenIdentifier>
+			<Abstract type="html">Property for the background color of the grid view.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setScrollElasticity:</TokenIdentifier>
+			<Abstract type="html">Property for setting the elasticity of the enclosing NSScrollView.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL scrollElasticity</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">Elasticity is on.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">Elasticity is off.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/scrollElasticity</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/scrollElasticity</TokenIdentifier>
+			<Abstract type="html">Property for setting the elasticity of the enclosing NSScrollView.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL scrollElasticity</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">Elasticity is on.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">Elasticity is off.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/scrollElasticity</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/scrollElasticity</TokenIdentifier>
+			<Abstract type="html">Property for setting the elasticity of the enclosing NSScrollView.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL scrollElasticity</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">Elasticity is on.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">Elasticity is off.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/scrollElasticity</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setItemSize:</TokenIdentifier>
+			<Abstract type="html">Property for setting the grid view item size.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSSize itemSize</Declaration>
+			
+			
+			<Anchor>//api/name/itemSize</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/itemSize</TokenIdentifier>
+			<Abstract type="html">Property for setting the grid view item size.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSSize itemSize</Declaration>
+			
+			
+			<Anchor>//api/name/itemSize</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/itemSize</TokenIdentifier>
+			<Abstract type="html">Property for setting the grid view item size.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSSize itemSize</Declaration>
+			
+			
+			<Anchor>//api/name/itemSize</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/dequeueReusableItemWithIdentifier:</TokenIdentifier>
+			<Abstract type="html">Returns a reusable grid view item object located by its identifier.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (id)dequeueReusableItemWithIdentifier:(NSString *)identifier</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>identifier</Name>
+					<Abstract type="html">A string identifying the grid view item object to be reused. This parameter must not be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">A CNGridViewItem object with the associated identifier or nil if no such object exists in the reusable queue.</Abstract></ReturnValue>
+			<Anchor>//api/name/dequeueReusableItemWithIdentifier:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/numberOfVisibleItems</TokenIdentifier>
+			<Abstract type="html">Returns the number of currently visible items of CNGridView.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (NSUInteger)numberOfVisibleItems</Declaration>
+			
+			
+			<Anchor>//api/name/numberOfVisibleItems</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setAllowsSelection:</TokenIdentifier>
+			<Abstract type="html">Property for setting whether the grid view allows item selection or not.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsSelection</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/allowsSelection</TokenIdentifier>
+			<Abstract type="html">Property for setting whether the grid view allows item selection or not.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsSelection</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/allowsSelection</TokenIdentifier>
+			<Abstract type="html">Property for setting whether the grid view allows item selection or not.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsSelection</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setAllowsMultipleSelection:</TokenIdentifier>
+			<Abstract type="html">Property that indicates whether the grid view should allow multiple item selection or not.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelection</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">The grid view allows multiple item selection.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">The grid view don&apos;t allow multiple item selection.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/allowsMultipleSelection</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/allowsMultipleSelection</TokenIdentifier>
+			<Abstract type="html">Property that indicates whether the grid view should allow multiple item selection or not.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelection</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">The grid view allows multiple item selection.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">The grid view don&apos;t allow multiple item selection.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/allowsMultipleSelection</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/allowsMultipleSelection</TokenIdentifier>
+			<Abstract type="html">Property that indicates whether the grid view should allow multiple item selection or not.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelection</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">The grid view allows multiple item selection.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">The grid view don&apos;t allow multiple item selection.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/allowsMultipleSelection</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setAllowsMultipleSelectionWithDrag:</TokenIdentifier>
+			<Abstract type="html">Property indicates if the mouse drag operation can be used to select multiple items.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelectionWithDrag</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">The grid view allows multiple item selection with mouse drag.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">The grid view don&apos;t allow multiple item selection with mouse drag.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/allowsMultipleSelectionWithDrag</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/allowsMultipleSelectionWithDrag</TokenIdentifier>
+			<Abstract type="html">Property indicates if the mouse drag operation can be used to select multiple items.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelectionWithDrag</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">The grid view allows multiple item selection with mouse drag.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">The grid view don&apos;t allow multiple item selection with mouse drag.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/allowsMultipleSelectionWithDrag</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/allowsMultipleSelectionWithDrag</TokenIdentifier>
+			<Abstract type="html">Property indicates if the mouse drag operation can be used to select multiple items.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelectionWithDrag</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>YES</Name>
+					<Abstract type="html">The grid view allows multiple item selection with mouse drag.</Abstract>
+				</Parameter><Parameter>
+					<Name>NO</Name>
+					<Abstract type="html">The grid view don&apos;t allow multiple item selection with mouse drag.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/allowsMultipleSelectionWithDrag</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setUseSelectionRing:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useSelectionRing</Declaration>
+			
+			
+			<Anchor>//api/name/useSelectionRing</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/useSelectionRing</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useSelectionRing</Declaration>
+			
+			
+			<Anchor>//api/name/useSelectionRing</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/useSelectionRing</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useSelectionRing</Declaration>
+			
+			
+			<Anchor>//api/name/useSelectionRing</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setUseHover:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useHover</Declaration>
+			
+			
+			<Anchor>//api/name/useHover</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/useHover</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useHover</Declaration>
+			
+			
+			<Anchor>//api/name/useHover</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/useHover</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useHover</Declaration>
+			
+			
+			<Anchor>//api/name/useHover</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/setItemContextMenu:</TokenIdentifier>
+			<Abstract type="html">NSMenu to use when an item or the selected items are right clicked</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet NSMenu *itemContextMenu</Declaration>
+			
+			
+			<Anchor>//api/name/itemContextMenu</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/itemContextMenu</TokenIdentifier>
+			<Abstract type="html">NSMenu to use when an item or the selected items are right clicked</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet NSMenu *itemContextMenu</Declaration>
+			
+			
+			<Anchor>//api/name/itemContextMenu</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridView/itemContextMenu</TokenIdentifier>
+			<Abstract type="html">NSMenu to use when an item or the selected items are right clicked</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) IBOutlet NSMenu *itemContextMenu</Declaration>
+			
+			
+			<Anchor>//api/name/itemContextMenu</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/selectAllItems</TokenIdentifier>
+			<Abstract type="html">Selects all the items in the grid</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (void)selectAllItems</Declaration>
+			
+			
+			<Anchor>//api/name/selectAllItems</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/deselectAllItems</TokenIdentifier>
+			<Abstract type="html">Deselects all the selected items in the grid</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (void)deselectAllItems</Declaration>
+			
+			
+			<Anchor>//api/name/deselectAllItems</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/selectItem:</TokenIdentifier>
+			<Abstract type="html">Selects the specified item</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (void)selectItem:(CNGridViewItem *)theItem</Declaration>
+			
+			
+			<Anchor>//api/name/selectItem:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/selectItemsWithBlock:</TokenIdentifier>
+			<Abstract type="html">Selects all the items in the grid and passes each item to the specified block</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (void)selectItemsWithBlock:(CNGridViewSelectItem)blockSelector</Declaration>
+			
+			
+			<Anchor>//api/name/selectItemsWithBlock:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/deSelectItem:</TokenIdentifier>
+			<Abstract type="html">Removes selection for the specified item</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (void)deSelectItem:(CNGridViewItem *)theItem</Declaration>
+			
+			
+			<Anchor>//api/name/deSelectItem:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/selectedItems</TokenIdentifier>
+			<Abstract type="html">Returns an array of the selected CNGridViewSelectItem items.</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (NSArray *)selectedItems</Declaration>
+			
+			
+			<Anchor>//api/name/selectedItems</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/selectedIndexes</TokenIdentifier>
+			<Abstract type="html">Returns an index set of the selected items</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (NSIndexSet *)selectedIndexes</Declaration>
+			
+			
+			<Anchor>//api/name/selectedIndexes</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/visibleIndexes</TokenIdentifier>
+			<Abstract type="html">Indexes of all the visible items</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (NSIndexSet *)visibleIndexes</Declaration>
+			
+			
+			<Anchor>//api/name/visibleIndexes</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridView/reloadData</TokenIdentifier>
+			<Abstract type="html">Reloads all the items on the grid from the data source</Abstract>
+			<DeclaredIn>CNGridView.h</DeclaredIn>
+			
+			<Declaration>- (void)reloadData</Declaration>
+			
+			
+			<Anchor>//api/name/reloadData</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+        
+	</File>
+</Tokens>

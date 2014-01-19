@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/CNGridViewItemLayout.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/CNGridViewItemLayout</TokenIdentifier>
+			<Abstract type="html">CNGridViewLayout is a wrapper class containing all neccessary layout properties a CNGridView can adopt.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+            
+			
+			<NodeRef refid="3"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setBackgroundColor:</TokenIdentifier>
+			<Abstract type="html">The background color of the CNGridViewItem.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/backgroundColor</TokenIdentifier>
+			<Abstract type="html">The background color of the CNGridViewItem.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/backgroundColor</TokenIdentifier>
+			<Abstract type="html">The background color of the CNGridViewItem.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setSelectionRingColor:</TokenIdentifier>
+			<Abstract type="html">The color of the selection ring.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *selectionRingColor</Declaration>
+			
+			
+			<Anchor>//api/name/selectionRingColor</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/selectionRingColor</TokenIdentifier>
+			<Abstract type="html">The color of the selection ring.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *selectionRingColor</Declaration>
+			
+			
+			<Anchor>//api/name/selectionRingColor</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/selectionRingColor</TokenIdentifier>
+			<Abstract type="html">The color of the selection ring.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSColor *selectionRingColor</Declaration>
+			
+			
+			<Anchor>//api/name/selectionRingColor</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setSelectionRingLineWidth:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) CGFloat selectionRingLineWidth</Declaration>
+			
+			
+			<Anchor>//api/name/selectionRingLineWidth</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/selectionRingLineWidth</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) CGFloat selectionRingLineWidth</Declaration>
+			
+			
+			<Anchor>//api/name/selectionRingLineWidth</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/selectionRingLineWidth</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) CGFloat selectionRingLineWidth</Declaration>
+			
+			
+			<Anchor>//api/name/selectionRingLineWidth</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setContentInset:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger contentInset</Declaration>
+			
+			
+			<Anchor>//api/name/contentInset</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/contentInset</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger contentInset</Declaration>
+			
+			
+			<Anchor>//api/name/contentInset</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/contentInset</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger contentInset</Declaration>
+			
+			
+			<Anchor>//api/name/contentInset</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setItemBorderRadius:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger itemBorderRadius</Declaration>
+			
+			
+			<Anchor>//api/name/itemBorderRadius</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/itemBorderRadius</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger itemBorderRadius</Declaration>
+			
+			
+			<Anchor>//api/name/itemBorderRadius</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/itemBorderRadius</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger itemBorderRadius</Declaration>
+			
+			
+			<Anchor>//api/name/itemBorderRadius</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setItemTitleTextAttributes:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (strong) NSDictionary *itemTitleTextAttributes</Declaration>
+			
+			
+			<Anchor>//api/name/itemTitleTextAttributes</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/itemTitleTextAttributes</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (strong) NSDictionary *itemTitleTextAttributes</Declaration>
+			
+			
+			<Anchor>//api/name/itemTitleTextAttributes</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/itemTitleTextAttributes</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (strong) NSDictionary *itemTitleTextAttributes</Declaration>
+			
+			
+			<Anchor>//api/name/itemTitleTextAttributes</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/setVisibleContentMask:</TokenIdentifier>
+			<Abstract type="html">A bit mask that defines the content a CNGridViewItem should show.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) CNGridViewItemVisibleContent visibleContentMask</Declaration>
+			
+			
+			<Anchor>//api/name/visibleContentMask</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItemLayout/visibleContentMask</TokenIdentifier>
+			<Abstract type="html">A bit mask that defines the content a CNGridViewItem should show.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) CNGridViewItemVisibleContent visibleContentMask</Declaration>
+			
+			
+			<Anchor>//api/name/visibleContentMask</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItemLayout/visibleContentMask</TokenIdentifier>
+			<Abstract type="html">A bit mask that defines the content a CNGridViewItem should show.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) CNGridViewItemVisibleContent visibleContentMask</Declaration>
+			
+			
+			<Anchor>//api/name/visibleContentMask</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/CNGridViewItemLayout/defaultLayout</TokenIdentifier>
+			<Abstract type="html">Creates and returns an CNGridViewItemLayout object with default values.</Abstract>
+			<DeclaredIn>CNGridViewItemLayout.h</DeclaredIn>
+			
+			<Declaration>+ (CNGridViewItemLayout *)defaultLayout</Declaration>
+			
+			
+			<Anchor>//api/name/defaultLayout</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+        
+	</File>
+</Tokens>

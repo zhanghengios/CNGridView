@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/CNGridViewItem.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/CNGridViewItem</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+            
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/initWithLayout:reuseIdentifier:</TokenIdentifier>
+			<Abstract type="html">Creates and returns an initialized  This is the designated initializer.</Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>- (id)initWithLayout:(CNGridViewItemLayout *)layout reuseIdentifier:(NSString *)reuseIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/initWithLayout:reuseIdentifier:</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setReuseIdentifier:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) NSString *reuseIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/reuseIdentifier</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/reuseIdentifier</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) NSString *reuseIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/reuseIdentifier</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/reuseIdentifier</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) NSString *reuseIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/reuseIdentifier</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setIsReuseable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (readonly, nonatomic) BOOL isReuseable</Declaration>
+			
+			
+			<Anchor>//api/name/isReuseable</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/isReuseable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (readonly, nonatomic) BOOL isReuseable</Declaration>
+			
+			
+			<Anchor>//api/name/isReuseable</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/isReuseable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (readonly, nonatomic) BOOL isReuseable</Declaration>
+			
+			
+			<Anchor>//api/name/isReuseable</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/prepareForReuse</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>- (void)prepareForReuse</Declaration>
+			
+			
+			<Anchor>//api/name/prepareForReuse</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setItemImage:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) IBOutlet NSImage *itemImage</Declaration>
+			
+			
+			<Anchor>//api/name/itemImage</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/itemImage</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) IBOutlet NSImage *itemImage</Declaration>
+			
+			
+			<Anchor>//api/name/itemImage</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/itemImage</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) IBOutlet NSImage *itemImage</Declaration>
+			
+			
+			<Anchor>//api/name/itemImage</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setItemTitle:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) IBOutlet NSString *itemTitle</Declaration>
+			
+			
+			<Anchor>//api/name/itemTitle</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/itemTitle</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) IBOutlet NSString *itemTitle</Declaration>
+			
+			
+			<Anchor>//api/name/itemTitle</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/itemTitle</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (strong) IBOutlet NSString *itemTitle</Declaration>
+			
+			
+			<Anchor>//api/name/itemTitle</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setIndex:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (assign) NSInteger index</Declaration>
+			
+			
+			<Anchor>//api/name/index</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/index</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (assign) NSInteger index</Declaration>
+			
+			
+			<Anchor>//api/name/index</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/index</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (assign) NSInteger index</Declaration>
+			
+			
+			<Anchor>//api/name/index</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setRepresentedObject:</TokenIdentifier>
+			<Abstract type="html">The object that the receiving item view represents</Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (assign) id representedObject</Declaration>
+			
+			
+			<Anchor>//api/name/representedObject</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/representedObject</TokenIdentifier>
+			<Abstract type="html">The object that the receiving item view represents</Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (assign) id representedObject</Declaration>
+			
+			
+			<Anchor>//api/name/representedObject</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/representedObject</TokenIdentifier>
+			<Abstract type="html">The object that the receiving item view represents</Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (assign) id representedObject</Declaration>
+			
+			
+			<Anchor>//api/name/representedObject</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/CNGridViewItem/defaultItemSize</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>+ (CGSize)defaultItemSize</Declaration>
+			
+			
+			<Anchor>//api/name/defaultItemSize</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setDefaultLayout:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *defaultLayout</Declaration>
+			
+			
+			<Anchor>//api/name/defaultLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/defaultLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *defaultLayout</Declaration>
+			
+			
+			<Anchor>//api/name/defaultLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/defaultLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *defaultLayout</Declaration>
+			
+			
+			<Anchor>//api/name/defaultLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setHoverLayout:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *hoverLayout</Declaration>
+			
+			
+			<Anchor>//api/name/hoverLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/hoverLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *hoverLayout</Declaration>
+			
+			
+			<Anchor>//api/name/hoverLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/hoverLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *hoverLayout</Declaration>
+			
+			
+			<Anchor>//api/name/hoverLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setSelectionLayout:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *selectionLayout</Declaration>
+			
+			
+			<Anchor>//api/name/selectionLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/selectionLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *selectionLayout</Declaration>
+			
+			
+			<Anchor>//api/name/selectionLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/selectionLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) CNGridViewItemLayout *selectionLayout</Declaration>
+			
+			
+			<Anchor>//api/name/selectionLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setUseLayout:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useLayout</Declaration>
+			
+			
+			<Anchor>//api/name/useLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/useLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useLayout</Declaration>
+			
+			
+			<Anchor>//api/name/useLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/useLayout</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL useLayout</Declaration>
+			
+			
+			<Anchor>//api/name/useLayout</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setSelected:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL selected</Declaration>
+			
+			
+			<Anchor>//api/name/selected</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/selected</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL selected</Declaration>
+			
+			
+			<Anchor>//api/name/selected</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/selected</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL selected</Declaration>
+			
+			
+			<Anchor>//api/name/selected</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setSelectable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL selectable</Declaration>
+			
+			
+			<Anchor>//api/name/selectable</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/selectable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL selectable</Declaration>
+			
+			
+			<Anchor>//api/name/selectable</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/selectable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL selectable</Declaration>
+			
+			
+			<Anchor>//api/name/selectable</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/setHovered:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL hovered</Declaration>
+			
+			
+			<Anchor>//api/name/hovered</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/CNGridViewItem/hovered</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL hovered</Declaration>
+			
+			
+			<Anchor>//api/name/hovered</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/CNGridViewItem/hovered</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>CNGridViewItem.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL hovered</Declaration>
+			
+			
+			<Anchor>//api/name/hovered</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+        
+	</File>
+</Tokens>
