@@ -39,3 +39,10 @@ You can find the complete reference [here](http://CNGridView.cocoanaut.com/docum
 
 ###License
 This software is published under the [MIT License](http://cocoanaut.mit-license.org).
+
+
+###Software that uses CNGridView
+If you like this component and if you're using it in your own software so please let me know. I'll give you a mention and a link to your website (or the Mac App Store, if it exists).
+
+`CNGridView` is used by this software:
+* **[Unbound](http://unboundformac.com)** - Unbound is a faster, simpler photo manager.

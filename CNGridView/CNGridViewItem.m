@@ -42,8 +42,8 @@ static CGSize kDefaultItemSize;
 
 
 /// Notifications
-extern NSString *CNGridViewSelectAllItemsNotification;
-extern NSString *CNGridViewDeSelectAllItemsNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewSelectAllItemsNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewDeSelectAllItemsNotification;
 
 
 @interface CNGridViewItem ()

@@ -50,27 +50,27 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow);
 
 /// Notifications
 /// All notifications have the sender `CNGridView` as object parameter
-extern NSString *CNGridViewSelectAllItemsNotification;
-extern NSString *CNGridViewDeSelectAllItemsNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewSelectAllItemsNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewDeSelectAllItemsNotification;
 
 
 /// the userInfo dictionary of these notifications contains the item index
 /// wrapped in a NSNumber object with the key `CNGridViewItemIndexKey`
-extern NSString *CNGridViewWillHoverItemNotification;
-extern NSString *CNGridViewWillUnhoverItemNotification;
-extern NSString *CNGridViewWillSelectItemNotification;
-extern NSString *CNGridViewDidSelectItemNotification;
-extern NSString *CNGridViewWillDeselectItemNotification;
-extern NSString *CNGridViewDidDeselectItemNotification;
-extern NSString *CNGridViewDidClickItemNotification;
-extern NSString *CNGridViewDidDoubleClickItemNotification;
-extern NSString *CNGridViewRightMouseButtonClickedOnItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewWillHoverItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewWillUnhoverItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewWillSelectItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewDidSelectItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewWillDeselectItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewDidDeselectItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewDidClickItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewDidDoubleClickItemNotification;
+FOUNDATION_EXPORT NSString *const CNGridViewRightMouseButtonClickedOnItemNotification;
 
 
 /// these keys are use for the notification userInfo dictionary (see above)
-extern NSString *CNGridViewItemKey;
-extern NSString *CNGridViewItemIndexKey;
-extern NSString *CNGridViewItemsIndexSetKey;
+FOUNDATION_EXPORT NSString *const CNGridViewItemKey;
+FOUNDATION_EXPORT NSString *const CNGridViewItemIndexKey;
+FOUNDATION_EXPORT NSString *const CNGridViewItemsIndexSetKey;
 
 
 #endif
