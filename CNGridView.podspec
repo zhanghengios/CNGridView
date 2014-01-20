@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author                = { 'Frank Gregor' => 'phranck@cocoanaut.com' }
   s.source                = { :git => 'https://github.com/phranck/CNGridView.git', :tag => s.version.to_s }
   s.platform              = :osx
-  s.osx.deployment_target = '10.7'
+  s.osx.deployment_target = '10.8'
   s.requires_arc          = true
   s.source_files          = 'CNGridView/*.{h,m}'
   s.license               = { :type => 'MIT', :file => 'ReadMe.md' }
