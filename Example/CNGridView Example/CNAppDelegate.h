@@ -25,4 +25,7 @@
 - (IBAction)deleteButtonAction:(id)sender;
 - (IBAction)selectAllItemsButtonAction:(id)sender;
 
+- (IBAction)testAddItem:(id)sender;
+- (IBAction)testAddItems:(id)sender;
+
 @end

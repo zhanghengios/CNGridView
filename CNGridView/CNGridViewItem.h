@@ -32,23 +32,13 @@
 
 @class CNGridViewItemLayout;
 
-
-__unused static NSString *kCNDefaultItemIdentifier;
-__unused static NSInteger CNItemIndexUndefined = -1;
-__unused static NSString *kCNGridViewItemClearHoveringNotification;
-__unused static NSString *kCNGridViewItemClearSelectionNotification;
+APPKIT_EXTERN NSString* const kCNDefaultItemIdentifier;
+#define CNItemIndexUndefined NSNotFound
 
 
-@interface CNGridViewItem : NSView
 
-#pragma mark - Initialization
-/** @name Initialization */
-
-/**
- Creates and returns an initialized  This is the designated initializer.
- */
-- (id)initWithLayout:(CNGridViewItemLayout *)layout reuseIdentifier:(NSString *)reuseIdentifier;
-
+#pragma mark - CNGridViewItemBase
+@interface CNGridViewItemBase : NSView
 
 
 #pragma mark - Reusing Grid View Items
@@ -69,6 +59,58 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
  */
 - (void)prepareForReuse;
 
+/**
+ ...
+ */
+@property (assign) NSInteger index;
+
+/**
+ The object that the receiving item view represents 
+ */
+@property (assign) id representedObject;
+
+
+
+#pragma mark - Selection and Hovering
+/** @name Selection and Hovering */
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL selected;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL selectable;
+
+/**
+ ...
+ */
+@property (nonatomic, assign) BOOL hovered;
+
+/**
+ ...
+ */
++ (CGSize)defaultItemSize;
+
+@end
+
+
+
+
+#pragma mark - CNGridViewItem
+@interface CNGridViewItem : CNGridViewItemBase
+
+#pragma mark - Initialization
+/** @name Initialization */
+
+/**
+ Creates and returns an initialized  This is the designated initializer.
+ */
+- (id)initWithLayout:(CNGridViewItemLayout *)layout reuseIdentifier:(NSString *)reuseIdentifier;
+
+
 
 
 #pragma mark - Item Default Content
@@ -83,21 +125,6 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
  ...
  */
 @property (strong) IBOutlet NSString *itemTitle;
-
-/**
- ...
- */
-@property (assign) NSInteger index;
-
-/**
- The object that the receiving item view represents 
- */
-@property (assign) id representedObject;
-
-/**
- ...
- */
-+ (CGSize)defaultItemSize;
 
 
 
@@ -125,23 +152,5 @@ __unused static NSString *kCNGridViewItemClearSelectionNotification;
 @property (nonatomic, assign) BOOL useLayout;
 
 
-
-#pragma mark - Selection and Hovering
-/** @name Selection and Hovering */
-
-/**
- ...
- */
-@property (nonatomic, assign) BOOL selected;
-
-/**
- ...
- */
-@property (nonatomic, assign) BOOL selectable;
-
-/**
- ...
- */
-@property (nonatomic, assign) BOOL hovered;
 
 @end

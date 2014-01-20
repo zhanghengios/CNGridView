@@ -104,6 +104,21 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
  */
 @property (nonatomic, assign) NSSize itemSize;
 
+/**
+ ...
+ */
+@property(nonatomic,strong) IBOutlet NSView* headerView;
+
+/**
+ ...
+ */
+@property(nonatomic,assign) BOOL useCenterAlignment;
+
+/**
+ ...
+ */
+- (NSRect)rectForItemAtIndex:(NSUInteger)index;
+
 
 
 #pragma mark - Creating GridView Items
@@ -225,5 +240,18 @@ typedef BOOL (^CNGridViewSelectItem)(CNGridViewItem *item);
 - (void)reloadData;
 
 - (void)reloadDataAnimated:(BOOL)animated;
+
+
+
+#pragma mark - Animating KVO Changes
+/** @name Animating KVO Changes */
+
+- (void)insertItemAtIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)insertItemsAtIndexes:(NSIndexSet*)indexes animated:(BOOL)animated;
+- (void)reloadItemsAtIndexes:(NSIndexSet*)indexes animated:(BOOL)animated;
+- (void)removeItemsAtIndexes:(NSIndexSet*)indexes animated:(BOOL)animated;
+
+- (void)beginUpdates;
+- (void)endUpdates;
 
 @end
