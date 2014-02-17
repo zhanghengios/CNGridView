@@ -1209,6 +1209,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 			break;
 		}
 	}
+    [super keyDown:theEvent];
 }
 
 #pragma mark - CNGridView Delegate Calls
