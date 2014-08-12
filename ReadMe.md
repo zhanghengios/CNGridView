@@ -46,3 +46,4 @@ If you like this component and if you're using it in your own software so please
 
 `CNGridView` is used by this software:
 * **[Unbound](http://unboundformac.com)** - Unbound is a faster, simpler photo manager.
+* **[TunesBar+](https://itunes.apple.com/us/app/tunesbar+/id702817673?mt=12)** - TunesBar+ simply sits in your menubar and tells you what track is currently playing in iTunes.
