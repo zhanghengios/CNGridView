@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		AA533807164C4A2900562865 /* Documentation */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = AA533808164C4A2900562865 /* Build configuration list for PBXAggregateTarget "Documentation" */;
-			buildPhases = (
-				AA53380B164C4A2D00562865 /* Generate Appledoc Documentation */,
-			);
-			dependencies = (
-			);
-			name = Documentation;
-			productName = Documentation;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		AA00C53C1628A65A0007DE99 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA00C53B1628A65A0007DE99 /* QuartzCore.framework */; };
 		AA4720981631721000C1C460 /* BackgroundDust.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4720951631721000C1C460 /* BackgroundDust.png */; };
@@ -215,7 +201,6 @@
 			projectRoot = "";
 			targets = (
 				AADDA924162839E00098DFBE /* CNGridView Example */,
-				AA533807164C4A2900562865 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -236,24 +221,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		AA53380B164C4A2D00562865 /* Generate Appledoc Documentation */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Appledoc Documentation";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "cd ../\n`which appledoc` .\nDEPLOY=\"./bin/deployDoc.sh\"\nif [ -f \"${DEPLOY}\" ]; then\n    ${DEPLOY}\nfi\nexit 0";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AADDA921162839E00098DFBE /* Sources */ = {
@@ -300,22 +267,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		AA533809164C4A2900562865 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		AA53380A164C4A2900562865 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		AADDA941162839E10098DFBE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,15 +349,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA533808164C4A2900562865 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA533809164C4A2900562865 /* Debug */,
-				AA53380A164C4A2900562865 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		AADDA91F162839E00098DFBE /* Build configuration list for PBXProject "CNGridView Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

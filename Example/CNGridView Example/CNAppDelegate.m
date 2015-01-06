@@ -54,7 +54,7 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 	[nc addObserver:self selector:@selector(detectedNotification:) name:CNGridViewRightMouseButtonClickedOnItemNotification object:nil];
 
 	/// insert some content
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 200; i++) {
 		[self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 		                       [NSImage imageNamed:NSImageNameComputer], kContentImageKey,
 		                       NSImageNameComputer, kContentTitleKey,
@@ -64,8 +64,8 @@ static NSString *kContentTitleKey, *kContentImageKey, *kItemSizeSliderPositionKe
 		                       NSImageNameNetwork, kContentTitleKey,
 		                       nil]];
 		[self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		                       [NSImage imageNamed:NSImageNameDotMac], kContentImageKey,
-		                       NSImageNameDotMac, kContentTitleKey,
+		                       [NSImage imageNamed:NSImageNameFolder], kContentImageKey,
+		                       NSImageNameFolder, kContentTitleKey,
 		                       nil]];
 		[self.items addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 		                       [NSImage imageNamed:NSImageNameFolderSmart], kContentImageKey,
