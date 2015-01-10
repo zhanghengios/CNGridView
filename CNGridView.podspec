@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'CNGridView'
-  s.version               = '1.1.4'
+  s.version               = '1.1.5'
   s.summary               = 'CNGridView is a (wanna be) replacement for NSCollectionView.'
   s.description           = 'It has full delegate and dataSource support with method calls like known from NSTableView/UITableView.'
   s.homepage              = 'https://github.com/phranck/CNGridView'
