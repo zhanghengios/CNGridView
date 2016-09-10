@@ -423,10 +423,18 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 - (void)reloadDataAnimated:(BOOL)animated {
 	numberOfItems = [self gridView:self numberOfItemsInSection:0];
 	[keyedVisibleItems enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
-	    [(CNGridViewItemBase *)obj removeFromSuperview];
+        CNGridViewItemBase *item = obj;
+        [item removeFromSuperview];
+        [item prepareForReuse];
+        
+        NSMutableSet *reuseQueue = reuseableItems[item.reuseIdentifier];
+        if (reuseQueue == nil) {
+            reuseQueue = [NSMutableSet set];
+        }
+        [reuseQueue addObject:item];
+        reuseableItems[item.reuseIdentifier] = reuseQueue;
 	}];
 	[keyedVisibleItems removeAllObjects];
-	[reuseableItems removeAllObjects];
 	[self refreshGridViewAnimated:animated initialCall:YES];
 }
 
