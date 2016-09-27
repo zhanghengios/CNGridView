@@ -421,6 +421,7 @@ CNItemPoint CNMakeItemPoint(NSUInteger aColumn, NSUInteger aRow) {
 }
 
 - (void)reloadDataAnimated:(BOOL)animated {
+    [self deselectAllItems];
 	numberOfItems = [self gridView:self numberOfItemsInSection:0];
 	[keyedVisibleItems enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         CNGridViewItemBase *item = obj;
